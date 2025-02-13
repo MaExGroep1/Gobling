@@ -1,6 +1,6 @@
 namespace Enums
 {
-    internal enum ItemType 
+    public enum ItemType 
     {
         Normal,
         Sabotaged
