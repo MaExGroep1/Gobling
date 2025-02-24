@@ -6,7 +6,7 @@ namespace DayLoop
 {
     public class DayLoopEvents : Singleton<DayLoopEvents>
     {
-        public Action StartDay;
-        public Action EndDay;
+        public Action StartDay; // Action to invoke when the day starts
+        public Action EndDay; // Action to invoke when the day ends
     }
 }
