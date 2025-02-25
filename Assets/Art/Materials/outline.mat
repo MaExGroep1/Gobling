@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: toon
-  m_Shader: {fileID: -6465566751694194690, guid: dd609f779a76761468326eb767b6a12c,
+  m_Name: outline
+  m_Shader: {fileID: -6465566751694194690, guid: 771de7426d7f4774883fbe06854e7853,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,10 +21,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Texture2DAsset_3f37d7ca84de4c3591a6a2225320d13f_Out_0:
-        m_Texture: {fileID: 2800000, guid: 2ccf4ebddb71e194c9e931a0fe919e87, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -39,11 +35,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Float: 0.029
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &4932517533942008919
+--- !u!114 &2920170017525865889
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
