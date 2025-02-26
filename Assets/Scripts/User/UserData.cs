@@ -7,11 +7,10 @@ namespace User
 {
     public class UserData : Singleton<UserData>
     {
-        private static int netWorth; // The amount of currency the player has
-        public int NetWorth => netWorth;
-
-        private List<Items> _inventory; // A list of Items that the player has
-        public List<Items> Inventory => _inventory;
+        private static int netWorth;                // The amount of currency the player has
+        private List<Items> _inventory;             // A list of Items that the player has
+        public int NetWorth => netWorth;            // Reference of the network
+        public List<Items> Inventory => _inventory; // Reference of the inventory
         
         /// <summary>
         /// Changes the current net worth by adding "change" to it

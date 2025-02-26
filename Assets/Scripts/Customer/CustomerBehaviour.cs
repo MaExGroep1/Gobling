@@ -8,18 +8,18 @@ namespace Customer
 {
     public class CustomerBehaviour : MonoBehaviour
     {
-        public Action OnExitShop;
+        public Action OnExitShop;                           // Event to invoke when exiting the shop
 
-        [SerializeField] private Items itemPrefab;
-        private LootTable _lootTable; // table of loot the customer can buy outside the shop
+        [SerializeField] private Items itemPrefab;          // Item template to instantiate
+        private LootTable _lootTable;                       // Table of loot the customer can buy outside the shop
         
-        private float _greediness; // high value will raise the goblins sell prices and lower buy prices
-        private float _satisfaction =  0.5f; // how satisfied the customer is with the user
-        private float _trustworthiness; // the percentage of bad items in this customer's lootTable
+        private float _greediness;                          // High value will raise the goblins sell prices and lower buy prices
+        private float _satisfaction =  0.5f;                // How satisfied the customer is with the user
+        private float _trustworthiness;                     // The percentage of bad items in this customer's lootTable
         
-        private int _netWorth; // how much currency the customer has in total
-        private int _income; // the amount of currency the customer earns every day 
-        private readonly List<Items> _inventory = new(); // all the items the customer has
+        private int _netWorth;                              // How much currency the customer has in total
+        private int _income;                                // The amount of currency the customer earns every day 
+        private readonly List<Items> _inventory = new();    // All the items the customer has
         
         /// <summary>
         /// Transfer all data from the customer data scriptable object to this script
@@ -58,6 +58,7 @@ namespace Customer
             // TODO: check if customer agrees on price
             // TODO: sell or deny
         }
+        
         /// <summary>
         /// Enter the shop to barter with the player
         /// </summary>
@@ -71,6 +72,7 @@ namespace Customer
             var distance = Vector3.Distance(transform.position, customerTradePoint.position);
             LeanTween.move(gameObject, customerTradePoint, distance * speed).setEase(LeanTweenType.easeOutQuad);
         }
+        
         /// <summary>
         /// Leave the shop after bartering
         /// </summary>
@@ -81,6 +83,7 @@ namespace Customer
             var distance = Vector3.Distance(transform.position, customerExitPoint.position);
             LeanTween.move(gameObject, customerExitPoint, distance * speed).setEase(LeanTweenType.easeInQuad).setOnComplete(OnShopExited);
         }
+        
         /// <summary>
         /// Gets called when the customer leaves the shop. Makes the customer inactive
         /// </summary>
@@ -89,6 +92,7 @@ namespace Customer
             OnExitShop?.Invoke();
             gameObject.SetActive(false);
         }
+        
         /// <summary>
         /// Instantiate new item on the customer
         /// </summary>
@@ -99,6 +103,5 @@ namespace Customer
             item.Initialize(itemData);
             _inventory.Add(item);
         }
-
     }
 }

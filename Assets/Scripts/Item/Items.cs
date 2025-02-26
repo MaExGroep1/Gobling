@@ -6,11 +6,10 @@ namespace Item
 {
     public class Items : MonoBehaviour
     {
-        private GameObject _prefab; // visuals of the item and extra scripts
-        private int _value = 10; // the base value of the item
-        private ItemType _itemType = ItemType.Normal; // the type of item
-        
-        private MinMax<int> _valuePercentage; // Minimum and Maximum value Percentage
+        private GameObject _prefab;                     // visuals of the item and extra scripts
+        private int _value = 10;                        // The base value of the item
+        private ItemType _itemType = ItemType.Normal;   // The type of item
+        private MinMax<int> _valuePercentage;           // Minimum and Maximum value Percentage
         
         /// <summary>
         /// Set all item data from scriptable object
@@ -27,7 +26,7 @@ namespace Item
         /// <summary>
         /// Calculates min and max percentage values based on `_value`.
         /// </summary>
-        /// <returns>Returns a `MinMax<int>` with calculated values.</returns>
+        /// <returns>returns MinMax(int) with calculated values.</returns>
         public MinMax<int> CalculateValuePercent() => new MinMax<int>(_value / _valuePercentage.min, _value / _valuePercentage.max);
     }
 }

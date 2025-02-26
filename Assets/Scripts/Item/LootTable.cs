@@ -8,7 +8,7 @@ namespace Item
     [CreateAssetMenu(fileName = "LootTable", menuName = "ScriptableObjects/LootTable", order = 2)]
     public class LootTable : ScriptableObject
     {
-        [SerializeField] private ItemData[] items; // all items in the loot table
+        [SerializeField] private ItemData[] items;  // all items in the loot table
         
         /// <summary>
         /// Get a random piece of loot from the loot table
@@ -28,6 +28,5 @@ namespace Item
             // ReSharper disable once PossibleLossOfFraction
             return 1 - badItemCount / itemCount;
         }
-
     }
 }

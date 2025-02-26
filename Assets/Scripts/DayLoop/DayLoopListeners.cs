@@ -12,6 +12,7 @@ namespace DayLoop
             DayLoopEvents.Instance.StartDay += StartDay;
             DayLoopEvents.Instance.EndDay += EndDay;
         }
+        
         /// <summary>
         /// Remove the start and end events to the StartDay() and EndDay()
         /// </summary>
@@ -20,10 +21,12 @@ namespace DayLoop
             DayLoopEvents.Instance.StartDay -= StartDay;
             DayLoopEvents.Instance.EndDay -= EndDay;
         }
+        
         /// <summary>
         /// Event that gets called at the start of the day
         /// </summary>
         protected abstract void StartDay();
+        
         /// <summary>
         /// Event that gets called at the end of the day
         /// </summary>

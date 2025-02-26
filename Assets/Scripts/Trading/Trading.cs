@@ -6,12 +6,12 @@ using Util;
 
 public class Trading : MonoBehaviour
 {
-    [SerializeField] private Button confirmButton; // The Confirm bid button
-    [SerializeField] private TMP_Text bidAmount; // The bid amount TextMeshPro Text
+    [SerializeField] private Button confirmButton;  // The Confirm bid button
+    [SerializeField] private TMP_Text bidAmount;    // The bid amount TextMeshPro Text
     [SerializeField] private Slider bidSlider;
 
-    private int _itemValue; // The Value of the item
-    private MinMax<int> _itemValueRange; // The range of the value the player can buy/sell the item for
+    private int _itemValue;                         // The Value of the item
+    private MinMax<int> _itemValueRange;            // The range of the value the player can buy/sell the item for
 
     
     /// <summary>

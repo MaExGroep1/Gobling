@@ -12,12 +12,17 @@ namespace Customer
 {
     public class CustomerManager : DayLoopListeners
     {
-        private readonly List<CustomerBehaviour> _customers = new(); // List of all customers
-        private CustomerBehaviour _lastCustomer; // Last customer to visit the shop
+        private readonly List<CustomerBehaviour> _customers = new();    // List of all customers
+        private CustomerBehaviour _lastCustomer;                        // Last customer to visit the shop
 
-        [SerializeField] private CustomerBehaviour customerTemplate; // Template to instantiate when spawning in the customers
-        [SerializeField] private Transform customerSpawnPoint,customerEntryPoint, customerTradePoint, customerExitPoint; // The poi's of the customers
-        [SerializeField] private float speed; // Speed the customers travel
+        [SerializeField] private CustomerBehaviour customerTemplate;    // Template to instantiate when spawning in the customers
+        [SerializeField] private Transform 
+            customerSpawnPoint,                                         // The spawn point of the customers
+            customerEntryPoint,                                         // The entrance point of the customers
+            customerTradePoint,                                         // The trade point of the customers
+            customerExitPoint;                                          // The exit point of the customers
+        [SerializeField] private float speed;                           // Speed the customers travel
+        
         /// <summary>
         /// Get all customers and 
         /// </summary>
@@ -34,6 +39,7 @@ namespace Customer
         {
             DayLoopEvents.Instance.StartDay?.Invoke();
         }
+        
         /// <summary>
         /// Makes the current customer leave the store
         /// </summary>
@@ -41,6 +47,7 @@ namespace Customer
         {
             _lastCustomer.ExitShop(customerExitPoint, speed);
         }
+        
         /// <summary>
         /// Instantiates all customers and saves them on a list
         /// </summary>
@@ -55,6 +62,7 @@ namespace Customer
                 newCustomer.gameObject.SetActive(false);
             }
         }
+        
         /// <summary>
         /// Select a random customer to serve
         /// </summary>
@@ -70,6 +78,7 @@ namespace Customer
         {
             RemoveCustomer();
         }
+        
         /// <summary>
         /// Select a random customer to serve that isn't the last customer and waits for the next customer to leave
         /// </summary>
@@ -83,6 +92,7 @@ namespace Customer
             _lastCustomer = customer;
             customer.OnExitShop += OnCustomerExitShop;
         }
+        
         /// <summary>
         /// Stop waiting for the current customer to leave and get the next customer
         /// </summary>
