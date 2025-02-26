@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Item;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Customer
 {
@@ -16,8 +17,14 @@ namespace Customer
         
         private int _netWorth; // how much currency the customer has in total
         private int _income; // the amount of currency the customer earns every day 
-        private List<Items> _inventory; // all the items the customer has
+        private readonly List<Items> _inventory = new(); // all the items the customer has
 
+        public Action OnExitShop;
+        
+        /// <summary>
+        /// Transfer all data from the customer data scriptable object to this script
+        /// </summary>
+        /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
             _lootTable = customerData.lootTable;
@@ -60,6 +67,37 @@ namespace Customer
             // TODO: await user price
             // TODO: check if customer agrees on price
             // TODO: sell or deny
+        }
+        /// <summary>
+        /// Enter the shop to barter with the player
+        /// </summary>
+        /// <param name="customerEntryPoint">The position where the customer starts</param>
+        /// <param name="customerTradePoint">The target position of the customer</param>
+        /// <param name="speed">The speed at which the customer moves</param>
+        public void EnterShop(Transform customerEntryPoint,Transform customerTradePoint, float speed)
+        {
+            transform.position = customerEntryPoint.position;
+            gameObject.SetActive(true);
+            var distance = Vector3.Distance(transform.position, customerTradePoint.position);
+            LeanTween.move(gameObject, customerTradePoint, distance * speed).setEase(LeanTweenType.easeOutQuad);
+        }
+        /// <summary>
+        /// Leave the shop after bartering
+        /// </summary>
+        /// <param name="customerExitPoint">The position to move to to exit the shop</param>
+        /// <param name="speed">The speed at which the customer moves</param>
+        public void ExitShop(Transform customerExitPoint, float speed)
+        {
+            var distance = Vector3.Distance(transform.position, customerExitPoint.position);
+            LeanTween.move(gameObject, customerExitPoint, distance * speed).setEase(LeanTweenType.easeInQuad).setOnComplete(OnShopExited);
+        }
+        /// <summary>
+        /// Gets called when the customer leaves the shop. Makes the customer inactive
+        /// </summary>
+        private void OnShopExited()
+        {
+            OnExitShop?.Invoke();
+            gameObject.SetActive(false);
         }
     }
 }
