@@ -9,9 +9,9 @@ namespace Item
         [SerializeField] private GameObject visuals;        //the parent object of all visuals
         [SerializeField] private float activationSpeed;     //the speed at which the item activates
         [SerializeField] private float deactivationSpeed;   //the speed at which the item deactivates
-        [SerializeField] private float jumpXSpeed;          
-        [SerializeField] private float jumpYSpeed;
-        [SerializeField] private float jumpHeight;
+        [SerializeField] private float jumpXSpeed;          //x axis move speed for JumpToPosition()
+        [SerializeField] private float jumpYSpeed;          //y axis move speed for JumpToPosition()
+        [SerializeField] private float jumpHeight;          //jump height for JumpToPosition()
         
         private GameObject _prefab;                         // visuals of the item and extra scripts
         private int _value = 10;                            // the base value of the item
@@ -37,16 +37,27 @@ namespace Item
         /// <returns>Returns a `MinMax<int>` with calculated values.</returns>
         public MinMax<int> CalculateValuePercent() => new MinMax<int>(_value / _valuePercentage.min, _value / _valuePercentage.max);
 
+        
+        /// <summary>
+        /// activates the visuals of the item, and scales it from 0 to 1 using a tween
+        /// </summary>
         public void Activate()
         {
             visuals.SetActive(true);
-            LeanTween.scale(visuals.gameObject, Vector3.one, 0.75f).setEase(LeanTweenType.easeOutElastic);
+            LeanTween.scale(visuals.gameObject, Vector3.one, activationSpeed).setEase(LeanTweenType.easeOutElastic);
         }
+        
+        /// <summary>
+        /// scales the item to 0 using a tween, and deactivates the visuals
+        /// </summary>
         public void Deactivate()
         {
-            LeanTween.scale(visuals.gameObject, Vector3.zero, 0.50f).setEase(LeanTweenType.easeInElastic).setOnComplete(()=>visuals.SetActive(false));
+            LeanTween.scale(visuals.gameObject, Vector3.zero, deactivationSpeed).setEase(LeanTweenType.easeInElastic).setOnComplete(()=>visuals.SetActive(false));
         }
 
+        /// <summary>
+        /// moves the item to a position using two tweens to make it look like it jumps
+        /// </summary>
         public void JumpToPosition(Vector3 endPosition)
         {
             var distance = Vector3.Distance(transform.position, endPosition);
@@ -56,7 +67,5 @@ namespace Item
             LeanTween.move(gameObject, endPosition, xDuration).setEase(LeanTweenType.easeOutQuint);
             LeanTween.moveLocalY(visuals.gameObject, jumpHeight, yDuration).setEase(LeanTweenType.easeOutQuint).setLoopPingPong(1);
         }
-
-        
     }
 }
