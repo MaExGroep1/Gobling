@@ -68,7 +68,12 @@ namespace Customer
             // TODO: check if customer agrees on price
             // TODO: sell or deny
         }
-
+        /// <summary>
+        /// Enter the shop to barter with the player
+        /// </summary>
+        /// <param name="customerEntryPoint">The position where the customer starts</param>
+        /// <param name="customerTradePoint">The target position of the customer</param>
+        /// <param name="speed">The speed at which the customer moves</param>
         public void EnterShop(Transform customerEntryPoint,Transform customerTradePoint, float speed)
         {
             transform.position = customerEntryPoint.position;
@@ -76,13 +81,19 @@ namespace Customer
             var distance = Vector3.Distance(transform.position, customerTradePoint.position);
             LeanTween.move(gameObject, customerTradePoint, distance * speed).setEase(LeanTweenType.easeOutQuad);
         }
-
+        /// <summary>
+        /// Leave the shop after bartering
+        /// </summary>
+        /// <param name="customerExitPoint">The position to move to to exit the shop</param>
+        /// <param name="speed">The speed at which the customer moves</param>
         public void ExitShop(Transform customerExitPoint, float speed)
         {
             var distance = Vector3.Distance(transform.position, customerExitPoint.position);
             LeanTween.move(gameObject, customerExitPoint, distance * speed).setEase(LeanTweenType.easeInQuad).setOnComplete(OnShopExited);
         }
-
+        /// <summary>
+        /// Gets called when the customer leaves the shop. Makes the customer inactive
+        /// </summary>
         private void OnShopExited()
         {
             OnExitShop?.Invoke();
