@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Item;
 using UnityEngine;
@@ -12,12 +13,18 @@ namespace User
 
         private List<Items> _inventory; // A list of Items that the player has
         public List<Items> Inventory => _inventory;
+
+        public Action<int> OnCurrencyChanged;
         
         /// <summary>
         /// Changes the current net worth by adding "change" to it
         /// </summary>
         /// <param name="change"> Amount to add to netWorth</param>
-        public void ChangeNetWorth(int change) => netWorth += change;
+        public void ChangeNetWorth(int change)
+        {
+            netWorth += change;
+            OnCurrencyChanged?.Invoke(netWorth);
+        }
         
         /// <summary>
         /// Add "item" to Inventory

@@ -643,8 +643,9 @@ GameObject:
   - component: {fileID: 1342484869}
   - component: {fileID: 1342484871}
   - component: {fileID: 1342484870}
+  - component: {fileID: 1342484872}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CurrencyDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -767,6 +768,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342484868}
   m_CullTransparentMesh: 1
+--- !u!114 &1342484872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342484868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9082166e68cd60498f50379d7a18e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currencyText: {fileID: 1342484870}
 --- !u!1001 &1539935114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1316,7 +1330,7 @@ GameObject:
   - component: {fileID: 1888742160}
   - component: {fileID: 1888742159}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: CashRegister
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
