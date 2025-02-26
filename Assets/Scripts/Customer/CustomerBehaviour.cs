@@ -79,7 +79,7 @@ namespace Customer
             transform.position = customerEntryPoint.position;
             gameObject.SetActive(true);
             var distance = Vector3.Distance(transform.position, customerTradePoint.position);
-            LeanTween.move(gameObject, customerTradePoint, distance * speed).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.move(gameObject, customerTradePoint, distance / speed).setEase(LeanTweenType.easeOutQuad);
         }
         /// <summary>
         /// Leave the shop after bartering
@@ -89,7 +89,7 @@ namespace Customer
         public void ExitShop(Transform customerExitPoint, float speed)
         {
             var distance = Vector3.Distance(transform.position, customerExitPoint.position);
-            LeanTween.move(gameObject, customerExitPoint, distance * speed).setEase(LeanTweenType.easeInQuad).setOnComplete(OnShopExited);
+            LeanTween.move(gameObject, customerExitPoint, distance / speed).setEase(LeanTweenType.easeInQuad).setOnComplete(OnShopExited);
         }
         /// <summary>
         /// Gets called when the customer leaves the shop. Makes the customer inactive
