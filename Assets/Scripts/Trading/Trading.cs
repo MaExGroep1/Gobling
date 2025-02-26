@@ -1,3 +1,5 @@
+using System;
+using Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -6,10 +8,11 @@ using Util;
 
 public class Trading : MonoBehaviour
 {
-    [SerializeField] private Button confirmButton; // The Confirm bid button
     [SerializeField] private TMP_Text bidAmount; // The bid amount TextMeshPro Text
     [SerializeField] private Slider bidSlider;
 
+    [SerializeField] private ItemData itemData;
+    
     private int _itemValue; // The Value of the item
     private MinMax<int> _itemValueRange; // The range of the value the player can buy/sell the item for
 
@@ -24,4 +27,13 @@ public class Trading : MonoBehaviour
         _itemValue = itemValueOverride;
         _itemValueRange = minMaxValueOverride;
     }
+
+    private void Update() => bidAmount.text = Mathf.Ceil(bidSlider.value).ToString();
+
+    public void OnSellItem(Items item)
+    {
+        var barValue = item.CalculateValuePercent();
+        bidSlider.minValue = barValue.min;
+        bidSlider.maxValue = barValue.max;
+    }    
 }
