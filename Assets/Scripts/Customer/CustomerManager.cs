@@ -24,16 +24,14 @@ namespace Customer
         private void Awake()
         {
             SaveAllCustomers();
-            StartCoroutine(TemporaryWait());
         }
         
         /// <summary>
         /// TODO: Remove this function to animation
         /// </summary>
         /// <returns></returns>
-        private IEnumerator TemporaryWait()
+        public void TemporaryWait()
         {
-            yield return new WaitForSeconds(1);
             DayLoopEvents.Instance.StartDay?.Invoke();
         }
         /// <summary>
