@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Materials/PlatformBabyMat.mat.meta
 guid: ad5c6549d33cbf74d88611e4e34898fe
+========
+guid: 0e8a03fffe6f78b4a9d9e1d7f521ed69
+>>>>>>>> main:Assets/Art/Materials/OutlineShader.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
