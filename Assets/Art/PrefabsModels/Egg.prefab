@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2407158355193752505}
   - component: {fileID: 469225988257947507}
   m_Layer: 0
-  m_Name: Shiny egg
+  m_Name: Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
