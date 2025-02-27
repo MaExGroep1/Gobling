@@ -27,6 +27,7 @@ namespace Customer
         /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
+            Instantiate(customerData.prefab, transform);
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness=
             _trustworthiness = customerData.trustworthiness;
