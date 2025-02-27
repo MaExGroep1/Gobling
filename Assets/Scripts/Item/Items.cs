@@ -28,6 +28,7 @@ namespace Item
         /// Calculates min and max percentage values based on `_value`.
         /// </summary>
         /// <returns>Returns a `MinMax<int>` with calculated values.</returns>
-        public MinMax<int> CalculateValuePercent() => new MinMax<int>(_value / _valuePercentage.min, _value / _valuePercentage.max);
+        public MinMax<int> CalculateValuePercent() => 
+            new MinMax<int>(_value / _valuePercentage.min, _value / _valuePercentage.max);
     }
 }
