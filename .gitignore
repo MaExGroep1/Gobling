@@ -71,12 +71,3 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-.idea/.idea.ProefProeveGroep1/.idea/vcs.xml
-Assets/Resources/ComponentFilter.cs
-Assets/Resources/ComponentFilter.cs.meta
-Assets/Resources/ComponentInvoker.cs
-Assets/Resources/ComponentInvoker.cs.meta
-Assets/Resources/InvokerExtentions.cs
-Assets/Resources/InvokerExtentions.cs.meta
-Assets/Resources/InvokerService.cs
-Assets/Resources/InvokerService.cs.meta
