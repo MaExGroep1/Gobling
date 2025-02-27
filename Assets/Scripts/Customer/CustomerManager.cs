@@ -51,7 +51,7 @@ namespace Customer
             var allCustomers = Resources.LoadAll<CustomerData>( "ScriptableObjects/Customers");
             foreach (var customer in allCustomers)
             {
-                var newCustomer = Instantiate(customerTemplate, customerSpawnPoint);
+                var newCustomer = Instantiate(customerTemplate, transform);
                 newCustomer.Initialize(customer);
                 _customers.Add(newCustomer);
                 newCustomer.gameObject.SetActive(false);
