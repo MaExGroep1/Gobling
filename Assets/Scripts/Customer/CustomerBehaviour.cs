@@ -8,8 +8,6 @@ namespace Customer
 {
     public class CustomerBehaviour : MonoBehaviour
     {
-        public Action OnExitShop;
-
         [SerializeField] private Items itemPrefab;
         private LootTable _lootTable; // table of loot the customer can buy outside the shop
         
@@ -20,6 +18,8 @@ namespace Customer
         private int _netWorth; // how much currency the customer has in total
         private int _income; // the amount of currency the customer earns every day 
         private readonly List<Items> _inventory = new(); // all the items the customer has
+
+        public Action OnExitShop;
         
         /// <summary>
         /// Transfer all data from the customer data scriptable object to this script
@@ -34,6 +34,16 @@ namespace Customer
             _income = customerData.income;
             for (var i = 0; i < customerData.startInventorySize; i++)
                 OnGetNewItem(_lootTable.GetRandomLoot());
+        }
+        /// <summary>
+        /// Instantiate new item on the customer
+        /// </summary>
+        /// <param name="itemData">The item to instantiate</param>
+        private void OnGetNewItem(ItemData itemData)
+        {
+            var item = Instantiate(itemPrefab, transform, true);
+            item.Initialize(itemData);
+            _inventory.Add(item);
         }
         
         /// <summary>
@@ -69,7 +79,7 @@ namespace Customer
             transform.position = customerEntryPoint.position;
             gameObject.SetActive(true);
             var distance = Vector3.Distance(transform.position, customerTradePoint.position);
-            LeanTween.move(gameObject, customerTradePoint, distance * speed).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.move(gameObject, customerTradePoint, distance / speed).setEase(LeanTweenType.easeOutQuad);
         }
         /// <summary>
         /// Leave the shop after bartering
@@ -79,7 +89,7 @@ namespace Customer
         public void ExitShop(Transform customerExitPoint, float speed)
         {
             var distance = Vector3.Distance(transform.position, customerExitPoint.position);
-            LeanTween.move(gameObject, customerExitPoint, distance * speed).setEase(LeanTweenType.easeInQuad).setOnComplete(OnShopExited);
+            LeanTween.move(gameObject, customerExitPoint, distance / speed).setEase(LeanTweenType.easeInQuad).setOnComplete(OnShopExited);
         }
         /// <summary>
         /// Gets called when the customer leaves the shop. Makes the customer inactive
@@ -89,16 +99,5 @@ namespace Customer
             OnExitShop?.Invoke();
             gameObject.SetActive(false);
         }
-        /// <summary>
-        /// Instantiate new item on the customer
-        /// </summary>
-        /// <param name="itemData">The item to instantiate</param>
-        private void OnGetNewItem(ItemData itemData)
-        {
-            var item = Instantiate(itemPrefab, transform, true);
-            item.Initialize(itemData);
-            _inventory.Add(item);
-        }
-
     }
 }
