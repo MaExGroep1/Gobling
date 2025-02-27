@@ -6,11 +6,11 @@ namespace Item
 {
     public class Items : MonoBehaviour
     {
-        [SerializeField] private GameObject visuals;        //the parent object of all visuals
+        [SerializeField] private GameObject visuals;        //the parent GameObject of all visuals
         [SerializeField] private float activationSpeed;     //the speed at which the item activates
         [SerializeField] private float deactivationSpeed;   //the speed at which the item deactivates
-        [SerializeField] private float jumpXSpeed;          //x axis move speed for JumpToPosition()
-        [SerializeField] private float jumpYSpeed;          //y axis move speed for JumpToPosition()
+        [SerializeField] private float jumpXSpeed;          //x-axis move speed for JumpToPosition()
+        [SerializeField] private float jumpYSpeed;          //y-axis move speed for JumpToPosition()
         [SerializeField] private float jumpHeight;          //jump height for JumpToPosition()
         
         private GameObject _prefab;                         // visuals of the item and extra scripts
