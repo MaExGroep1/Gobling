@@ -8,7 +8,6 @@ namespace Customer
 {
     public class CustomerBehaviour : MonoBehaviour
     {
-        [SerializeField] private Items itemPrefab;
         private LootTable _lootTable; // table of loot the customer can buy outside the shop
         
         private float _greediness; // high value will raise the goblins sell prices and lower buy prices
@@ -20,7 +19,7 @@ namespace Customer
         private readonly List<Items> _inventory = new(); // all the items the customer has
 
         public Action OnExitShop;
-        
+
         /// <summary>
         /// Transfer all data from the customer data scriptable object to this script
         /// </summary>
@@ -28,6 +27,7 @@ namespace Customer
         public void Initialize(CustomerData customerData)
         {
             Instantiate(customerData.prefab, transform);
+            gameObject.name = customerData.name;
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness=
             _trustworthiness = customerData.trustworthiness;
@@ -42,8 +42,7 @@ namespace Customer
         /// <param name="itemData">The item to instantiate</param>
         private void OnGetNewItem(ItemData itemData)
         {
-            var item = Instantiate(itemPrefab, transform, true);
-            item.Initialize(itemData);
+            var item = ItemManager.Instance.InstantiateItem(itemData,$"{gameObject.name}.{itemData.name}");
             _inventory.Add(item);
         }
         
