@@ -18,13 +18,15 @@ namespace Item
         private ItemType _itemType = ItemType.Normal;       // the type of item
         
         private MinMax<int> _valuePercentage;               // Minimum and Maximum value Percentage
-        
+
         /// <summary>
         /// Set all item data from scriptable object
         /// </summary>
         /// <param name="itemData">Data to duplicate</param>
-        public void Initialize(ItemData itemData)
+        /// <param name="itemName">The name of the Item</param>
+        public void Initialize(ItemData itemData, string itemName)
         {
+            gameObject.name = itemName;
             _prefab = itemData.prefab;
             _value = itemData.value;
             _itemType = itemData.itemType;
