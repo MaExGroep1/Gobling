@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522f703c7f679da40b1bf64bfc4cb036, type: 3}
   m_Name: GenericItem
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  value: 10
+  itemType: 0
+  valuePercentage:
+    min: 20
+    max: 200

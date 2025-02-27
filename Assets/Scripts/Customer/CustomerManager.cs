@@ -24,14 +24,16 @@ namespace Customer
         private void Awake()
         {
             SaveAllCustomers();
+            StartCoroutine(TemporaryWait());
         }
         
         /// <summary>
         /// TODO: Remove this function to animation
         /// </summary>
         /// <returns></returns>
-        public void TemporaryWait()
+        private IEnumerator TemporaryWait()
         {
+            yield return new WaitForSeconds(1);
             DayLoopEvents.Instance.StartDay?.Invoke();
         }
         /// <summary>
@@ -49,7 +51,7 @@ namespace Customer
             var allCustomers = Resources.LoadAll<CustomerData>( "ScriptableObjects/Customers");
             foreach (var customer in allCustomers)
             {
-                var newCustomer = Instantiate(customerTemplate, customerSpawnPoint);
+                var newCustomer = Instantiate(customerTemplate, transform);
                 newCustomer.Initialize(customer);
                 _customers.Add(newCustomer);
                 newCustomer.gameObject.SetActive(false);
