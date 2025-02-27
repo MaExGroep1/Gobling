@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using Item;
 using UnityEngine;
 using Util;
+using Random = UnityEngine.Random;
 
 namespace User
 {
     public class UserData : Singleton<UserData>
     {
-        private static int netWorth; // The amount of currency the player has
-        public int NetWorth => netWorth;
+        private static int thisNetWorth; // the amount of currency the player has
 
-        private List<Items> _inventory; // A list of Items that the player has
-        public List<Items> Inventory => _inventory;
-
-        public Action<int> OnCurrencyChanged;
+        private List<Items> _inventory; // a list of Items that the player has
+        public Items randomItem => _inventory[Random.Range(0, _inventory.Count)]; // returns a random item from the user
+        public int inventoryCount => _inventory.Count; // the amount of items the player has
+        public int netWorth => thisNetWorth; // the amount of currency the player has
+        
+        public Action<int> OnCurrencyChanged; // gets called when the player spends or earns currency
         
         /// <summary>
         /// Changes the current net worth by adding "change" to it
@@ -22,8 +24,8 @@ namespace User
         /// <param name="change"> Amount to add to netWorth</param>
         public void ChangeNetWorth(int change)
         {
-            netWorth += change;
-            OnCurrencyChanged?.Invoke(netWorth);
+            thisNetWorth += change;
+            OnCurrencyChanged?.Invoke(thisNetWorth);
         }
         
         /// <summary>

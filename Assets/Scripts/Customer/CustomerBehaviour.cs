@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Item;
+using Trading;
 using UnityEngine;
+using User;
 using Random = UnityEngine.Random;
 
 namespace Customer
@@ -49,9 +51,13 @@ namespace Customer
         /// <summary>
         /// The customer tries to sell an item to the user
         /// </summary>
-        public async void OnOfferItem()
+        private void OnOfferItem()
         {
             var item = _inventory[Random.Range(0, _inventory.Count)];
+            var offer = item.value / _greediness;
+            offer *= _satisfaction;
+            
+            PawningManager.Instance.OfferUserItem(item,(int)Math.Round(offer),this);
             // TODO: offer item
             // TODO: await user price
             // TODO: check if customer agrees on price
@@ -61,13 +67,15 @@ namespace Customer
         /// <summary>
         /// The Customer Tries to buy an item from the user
         /// </summary>
-        public async void OnTryBuyItem()
+        private void OnTryBuyItem()
         {
+            var item = PawningManager.Instance.RequestUserItem(this);
             // TODO: get random item form user and offer price
             // TODO: await user price
             // TODO: check if customer agrees on price
             // TODO: sell or deny
         }
+        
         /// <summary>
         /// Enter the shop to barter with the player
         /// </summary>
@@ -79,7 +87,7 @@ namespace Customer
             transform.position = customerEntryPoint.position;
             gameObject.SetActive(true);
             var distance = Vector3.Distance(transform.position, customerTradePoint.position);
-            LeanTween.move(gameObject, customerTradePoint, distance / speed).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.move(gameObject, customerTradePoint, distance / speed).setEase(LeanTweenType.easeOutQuad).setOnComplete(OnAtCounter);
         }
         /// <summary>
         /// Leave the shop after bartering
@@ -98,6 +106,15 @@ namespace Customer
         {
             OnExitShop?.Invoke();
             gameObject.SetActive(false);
+        }
+        
+        private void OnAtCounter()
+        {
+            var validItems = _inventory.Count + UserData.Instance.inventoryCount;
+            if (_inventory.Count > Random.Range(0, validItems))
+                OnTryBuyItem();
+            else
+                OnOfferItem();
         }
     }
 }
