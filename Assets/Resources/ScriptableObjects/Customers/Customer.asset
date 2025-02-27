@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8d82b1e77dddd94a8e103e57bd3c7cb, type: 3}
-  m_Name: LootTable
+  m_Script: {fileID: 11500000, guid: be841096285695d4cb3be822e5049e95, type: 3}
+  m_Name: Customer
   m_EditorClassIdentifier: 
-  items: []
+  prefab: {fileID: 0}
+  lootTable: {fileID: 11400000, guid: 2f6ae9f4f3d37c446a89d1a75c80639a, type: 2}
+  greediness: 2
+  netWorth: 100
+  income: 10
+  startInventorySize: 5
