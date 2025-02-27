@@ -17,8 +17,7 @@ namespace Item
         public int value { get; private set; } = 10;        //the base value of the item
         private ItemType _itemType = ItemType.Normal;       //the type of item
         
-        private MinMax<int> _valuePercentage;               //minimum and Maximum value Percentage
-        
+        private MinMax<int> _valuePercentage;               // Minimum and Maximum value Percentage
 
         /// <summary>
         /// Set all item data from scriptable object

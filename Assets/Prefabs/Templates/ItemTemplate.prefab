@@ -81,4 +81,4 @@ MonoBehaviour:
   deactivationSpeed: 0.5
   jumpXSpeed: 0.5
   jumpYSpeed: 3
-  jumpHeight: 2
+  jumpHeight: 0.5
