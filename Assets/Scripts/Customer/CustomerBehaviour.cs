@@ -18,6 +18,8 @@ namespace Customer
         private int _income; // the amount of currency the customer earns every day 
         private readonly List<Items> _inventory = new(); // all the items the customer has
 
+        public CustomerRoam CustomerRoam => GetComponent<CustomerRoam>();
+
         public Action OnExitShop;
 
         /// <summary>

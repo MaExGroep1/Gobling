@@ -18,6 +18,11 @@ namespace Customer
         [SerializeField] private CustomerBehaviour customerTemplate; // Template to instantiate when spawning in the customers
         [SerializeField] private Transform customerSpawnPoint,customerEntryPoint, customerTradePoint, customerExitPoint; // The poi's of the customers
         [SerializeField] private float speed; // Speed the customers travel
+        
+        public Action<CustomerBehaviour> OnCustomerEntersShop;
+        
+        public Action<CustomerBehaviour> OnCustomerExitsShop;
+        
         /// <summary>
         /// Get all customers and 
         /// </summary>
