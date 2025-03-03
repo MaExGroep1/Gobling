@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Item;
 using UnityEngine;
@@ -13,13 +14,14 @@ namespace Customer
         private float _greediness; // high value will raise the goblins sell prices and lower buy prices
         private float _satisfaction =  0.5f; // how satisfied the customer is with the user
         private float _trustworthiness; // the percentage of bad items in this customer's lootTable
+        private float _speed; // the speed at which the customer moves
+        private float _turnSpeed; // the speed at which the customer turns
+
         
         private int _netWorth; // how much currency the customer has in total
         private int _income; // the amount of currency the customer earns every day 
         private readonly List<Items> _inventory = new(); // all the items the customer has
-
-        public Action OnExitShop;
-
+        
         /// <summary>
         /// Transfer all data from the customer data scriptable object to this script
         /// </summary>
@@ -33,6 +35,8 @@ namespace Customer
             _trustworthiness = customerData.trustworthiness;
             _netWorth = customerData.netWorth;
             _income = customerData.income;
+            _speed = customerData.speed;
+            _turnSpeed = customerData.turnSpeed;
             for (var i = 0; i < customerData.startInventorySize; i++)
                 OnGetNewItem(_lootTable.GetRandomLoot());
         }
@@ -68,36 +72,50 @@ namespace Customer
             // TODO: check if customer agrees on price
             // TODO: sell or deny
         }
+
         /// <summary>
         /// Enter the shop to barter with the player
         /// </summary>
-        /// <param name="customerEntryPoint">The position where the customer starts</param>
-        /// <param name="customerTradePoint">The target position of the customer</param>
-        /// <param name="speed">The speed at which the customer moves</param>
-        public void EnterShop(Transform customerEntryPoint,Transform customerTradePoint, float speed)
+        /// <param name="path"></param>
+        /// <param name="onComplete"></param>
+        public void EnterShop(Transform[] path, Action onComplete)
         {
-            transform.position = customerEntryPoint.position;
+            transform.position = path[0].position;
             gameObject.SetActive(true);
-            var distance = Vector3.Distance(transform.position, customerTradePoint.position);
-            LeanTween.move(gameObject, customerTradePoint, distance / speed).setEase(LeanTweenType.easeOutQuad);
+            StartCoroutine(MoveCustomer(path,onComplete));
         }
+
+        /// <summary>
+        /// Enter the shop to barter with the player
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="onComplete"></param>
+        public void ExitShop(Transform[] path, Action onComplete)
+        {
+            transform.position = path[0].position;
+            gameObject.SetActive(true);
+            StartCoroutine(MoveCustomer(path,onComplete));
+        }
+
         /// <summary>
         /// Leave the shop after bartering
         /// </summary>
-        /// <param name="customerExitPoint">The position to move to to exit the shop</param>
-        /// <param name="speed">The speed at which the customer moves</param>
-        public void ExitShop(Transform customerExitPoint, float speed)
+        /// <param name="path"></param>
+        /// <param name="recall"></param>
+        private IEnumerator MoveCustomer(Transform[] path, Action recall)
         {
-            var distance = Vector3.Distance(transform.position, customerExitPoint.position);
-            LeanTween.move(gameObject, customerExitPoint, distance / speed).setEase(LeanTweenType.easeInQuad).setOnComplete(OnShopExited);
-        }
-        /// <summary>
-        /// Gets called when the customer leaves the shop. Makes the customer inactive
-        /// </summary>
-        private void OnShopExited()
-        {
-            OnExitShop?.Invoke();
-            gameObject.SetActive(false);
+            for (var index = 1; index < path.Length; index++)
+            {
+                var point = path[index];
+                var distance = Vector3.Distance(transform.position, point.position);
+                var direction = point.position - transform.position;
+                var rotation = Quaternion.LookRotation(direction).eulerAngles;
+                //LeanTween.rotateY(gameObject,rotation.y,_turnSpeed).setEase(LeanTweenType.easeInQuad);
+                LeanTween.move(gameObject, point, distance / _speed).setEase(LeanTweenType.easeInQuad);
+                yield return new WaitWhile(() => LeanTween.isTweening(gameObject));
+            }
+
+            recall?.Invoke();
         }
     }
 }

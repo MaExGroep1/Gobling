@@ -16,8 +16,28 @@ namespace Customer
         private CustomerBehaviour _lastCustomer; // Last customer to visit the shop
 
         [SerializeField] private CustomerBehaviour customerTemplate; // Template to instantiate when spawning in the customers
-        [SerializeField] private Transform customerSpawnPoint,customerEntryPoint, customerTradePoint, customerExitPoint; // The poi's of the customers
-        [SerializeField] private float speed; // Speed the customers travel
+        [SerializeField] private Transform customerSpawnPoint; // The spawn point of the customers
+        [SerializeField] private Transform[] counterPath, exitPath; // The spawn point of the customers
+        
+        public Action OnExitShop;
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = new Color(0f, 1f, 0f, 0.5f);
+            for(var i = 1; i < counterPath.Length; i++)
+             Gizmos.DrawLine(counterPath[i].position, counterPath[i - 1].position);
+            
+            Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
+            for(var i = 1; i < exitPath.Length; i++)
+                Gizmos.DrawLine(exitPath[i].position, exitPath[i - 1].position);
+            
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(exitPath[0].position, 0.1f);
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(counterPath[0].position, 0.1f);
+        }
+
         /// <summary>
         /// Get all customers and 
         /// </summary>
@@ -41,7 +61,7 @@ namespace Customer
         /// </summary>
         private void RemoveCustomer()
         {
-            _lastCustomer.ExitShop(customerExitPoint, speed);
+            _lastCustomer.ExitShop(exitPath,ServeNewCustomer);
         }
         /// <summary>
         /// Instantiates all customers and saves them on a list
@@ -72,6 +92,7 @@ namespace Customer
         {
             RemoveCustomer();
         }
+        
         /// <summary>
         /// Select a random customer to serve that isn't the last customer and waits for the next customer to leave
         /// </summary>
@@ -81,17 +102,8 @@ namespace Customer
             validCustomers.AddRange(_customers);
             validCustomers.Remove(_lastCustomer);
             var customer = validCustomers[Random.Range(0, validCustomers.Count)];
-            customer.EnterShop(customerEntryPoint,customerTradePoint,speed);
+            customer.EnterShop(counterPath,OnExitShop);
             _lastCustomer = customer;
-            customer.OnExitShop += OnCustomerExitShop;
-        }
-        /// <summary>
-        /// Stop waiting for the current customer to leave and get the next customer
-        /// </summary>
-        private void OnCustomerExitShop()
-        {
-            _lastCustomer.OnExitShop -= OnCustomerExitShop;
-            ServeNewCustomer();
         }
     }
 }
