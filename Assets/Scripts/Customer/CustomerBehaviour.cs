@@ -59,8 +59,11 @@ namespace Customer
             
             PawningManager.Instance.OfferUserItem(item,(int)Math.Round(offer),this);
             // TODO: offer item
+            
             // TODO: await user price
+            
             // TODO: check if customer agrees on price
+            
             // TODO: sell or deny
         }
         
@@ -69,7 +72,7 @@ namespace Customer
         /// </summary>
         private void OnTryBuyItem()
         {
-            var item = PawningManager.Instance.RequestUserItem(this);
+            PawningManager.Instance.RequestUserItem(this);
             // TODO: get random item form user and offer price
             // TODO: await user price
             // TODO: check if customer agrees on price
@@ -111,10 +114,12 @@ namespace Customer
         private void OnAtCounter()
         {
             var validItems = _inventory.Count + UserData.Instance.inventoryCount;
-            if (_inventory.Count > Random.Range(0, validItems))
+            if (_inventory.Count < Random.Range(0, validItems))
                 OnTryBuyItem();
             else
                 OnOfferItem();
         }
+
+      
     }
 }

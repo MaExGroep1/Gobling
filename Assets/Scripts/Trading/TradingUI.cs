@@ -1,31 +1,56 @@
-using Item;
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Util;
 
-public class TradingUI : MonoBehaviour
+namespace Trading
 {
-    [SerializeField] private TMP_Text bidAmount; // The bid amount TextMeshPro Text
-    [SerializeField] private Slider bidSlider; // The bid amount slider UI element
-    
-    [SerializeField] private ItemData itemData; // The item data reference
-
-    
-    /// <summary>
-    /// Updates the bid amount text to match the current value of the bid slider.
-    /// </summary>
-    private void Update() => bidAmount.text = Mathf.Ceil(bidSlider.value).ToString();
-
-    
-    /// <summary>
-    /// Sets the slider's min and max values based on the calculated item value percentage.
-    /// </summary>
-    /// <param name="item">The item being sold.</param>
-    public void OnSellItem(Items item)
+    public class TradingUI : MonoBehaviour
     {
-        var barValue = item.CalculateValuePercent();
-        bidSlider.minValue = barValue.min;
-        bidSlider.maxValue = barValue.max;
-    }    
+        [SerializeField] private GameObject uiParent;
+        
+        [SerializeField] private TMP_Text bidAmount; // The bid amount TextMeshPro Text
+        [SerializeField] private Slider bidSlider; // The bid amount slider UI element
+
+        [SerializeField] private Button makeBidButton;
+
+        private static int barValueMin;
+        private static int barValueMax;
+
+
+
+        private void Awake()
+        {
+            PawningManager.Instance.OnStartpawn += OnStartpawn;
+            
+            
+            //!TODO make sure this removes UI elements after the item has been bought
+        
+            bidSlider.onValueChanged.AddListener(OnBarChanged);
+            makeBidButton.onClick.AddListener(OnBid);
+        }
+
+
+        public void OnStartpawn(MinMax<int> barValue, int baseValue)
+        {
+            SetBidSlider(barValue, baseValue);
+            uiParent.SetActive(true);
+        }
+
+        private void OnBarChanged(float barValue) => bidAmount.text = Mathf.Ceil(bidSlider.value).ToString();
+    
+
+        public void SetBidSlider(MinMax<int> barValue, int itemValue)
+        {
+            bidSlider.minValue = barValue.min;
+            bidSlider.maxValue = barValue.max;
+            bidSlider.value = itemValue;
+        }
+
+        private void OnBid() => PawningManager.Instance.CheckBid((int)bidSlider.value);
+
+        public void OnBidFinish() => uiParent.SetActive(false);
+    }
 }

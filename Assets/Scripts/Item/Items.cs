@@ -1,5 +1,6 @@
 using Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Util;
 
 namespace Item
@@ -17,7 +18,7 @@ namespace Item
         public int value { get; private set; } = 10;        //the base value of the item
         private ItemType _itemType = ItemType.Normal;       //the type of item
         
-        private MinMax<int> _valuePercentage;               // Minimum and Maximum value Percentage
+        [SerializeField] private MinMax<int> barValues; // Minimum and Maximum value Percentage
 
         /// <summary>
         /// Set all item data from scriptable object
@@ -30,14 +31,10 @@ namespace Item
             _prefab = itemData.prefab;
             value = itemData.value;
             _itemType = itemData.itemType;
-            _valuePercentage = itemData.valuePercentage; 
+            barValues = itemData.barValues; 
         }
         
-        /// <summary>
-        /// Calculates min and max percentage values based on `_value`.
-        /// </summary>
-        /// <returns>Returns a `MinMax<int>` with calculated values.</returns>
-        public MinMax<int> CalculateValuePercent() => new (value / _valuePercentage.min, value / _valuePercentage.max);
+        public MinMax<int> barValue => barValues;
 
         
         /// <summary>

@@ -11,7 +11,7 @@ namespace User
     {
         private static int thisNetWorth; // the amount of currency the player has
 
-        private List<Items> _inventory; // a list of Items that the player has
+        private List<Items> _inventory = new List<Items>(); // a list of Items that the player has
         public Items randomItem => _inventory[Random.Range(0, _inventory.Count)]; // returns a random item from the user
         public int inventoryCount => _inventory.Count; // the amount of items the player has
         public int netWorth => thisNetWorth; // the amount of currency the player has
