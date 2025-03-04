@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Item;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -82,7 +82,7 @@ namespace Customer
         {
             transform.position = path[0].position;
             gameObject.SetActive(true);
-            StartCoroutine(MoveCustomer(path,onComplete));
+            MoveCustomer(path,onComplete);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Customer
         {
             transform.position = path[0].position;
             gameObject.SetActive(true);
-            StartCoroutine(MoveCustomer(path,onComplete));
+            MoveCustomer(path,onComplete);
         }
 
         /// <summary>
@@ -102,20 +102,27 @@ namespace Customer
         /// </summary>
         /// <param name="path"></param>
         /// <param name="recall"></param>
-        private IEnumerator MoveCustomer(Transform[] path, Action recall)
+        private async void MoveCustomer(Transform[] path, Action recall)
         {
             for (var index = 1; index < path.Length; index++)
             {
                 var point = path[index];
                 var distance = Vector3.Distance(transform.position, point.position);
+                
                 var direction = point.position - transform.position;
                 var rotation = Quaternion.LookRotation(direction).eulerAngles;
-                //LeanTween.rotateY(gameObject,rotation.y,_turnSpeed).setEase(LeanTweenType.easeInQuad);
-                LeanTween.move(gameObject, point, distance / _speed).setEase(LeanTweenType.easeInQuad);
-                yield return new WaitWhile(() => LeanTween.isTweening(gameObject));
-            }
 
-            recall?.Invoke();
+                var rotationDistance = Mathf.Abs(Mathf.Abs(rotation.y) - Mathf.Abs(transform.rotation.eulerAngles.y));
+        
+                LeanTween.rotateY(gameObject, rotation.y, rotationDistance / _turnSpeed).setEase(LeanTweenType.easeOutBack);
+                LeanTween.move(gameObject, point.position, distance / _speed);
+                
+                await Task.Delay(10);
+
+                while (LeanTween.isTweening(gameObject))
+                    await Task.Delay(10); 
+            }
+            recall?.Invoke();        
         }
     }
 }
