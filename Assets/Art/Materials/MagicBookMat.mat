@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MagicWantParticleMat
-  m_Shader: {fileID: -6465566751694194690, guid: 1d0f776cbcea4f8419a31cc94d777adb,
+  m_Name: MagicBookMat
+  m_Shader: {fileID: -6465566751694194690, guid: dd609f779a76761468326eb767b6a12c,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -22,7 +22,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture_2D:
-        m_Texture: {fileID: 2800000, guid: eb359187ca553b04fa7008356654e5c2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8c4cab1eb3a428f46b6214bcf7a7b007, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _alpha:
@@ -43,15 +43,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 0
+    - _Pixelation: 300
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 2.59
-    - _shine: 0.03
-    m_Colors:
-    - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
+    - _darknes: 2.18
+    - _shine: 2
+    m_Colors: []
   m_BuildTextureStacks: []
---- !u!114 &5368910038848133560
+--- !u!114 &6000827148148339685
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

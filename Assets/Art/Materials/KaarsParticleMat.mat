@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MagicWantParticleMat
-  m_Shader: {fileID: -6465566751694194690, guid: 1d0f776cbcea4f8419a31cc94d777adb,
+  m_Name: KaarsParticleMat
+  m_Shader: {fileID: -6465566751694194690, guid: 10231b52659c38545997667b39b99db8,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,8 +21,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Texture2DAsset_406881f9818f4e0fb34ed566737d167e_Out_0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture_2D:
-        m_Texture: {fileID: 2800000, guid: eb359187ca553b04fa7008356654e5c2, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _alpha:
@@ -43,15 +47,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 0
+    - _Pixelation: 300
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 2.59
-    - _shine: 0.03
+    - _darknes: 2.18
+    - _shine: 0.63
     m_Colors:
-    - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
+    - _Color: {r: 1, g: 0.65517235, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &5368910038848133560
+--- !u!114 &6014993029088278820
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

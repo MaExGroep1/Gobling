@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-605391376714356899
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MagicWantParticleMat
+  m_Name: KaarsBabyMat
   m_Shader: {fileID: -6465566751694194690, guid: 1d0f776cbcea4f8419a31cc94d777adb,
     type: 3}
   m_ValidKeywords: []
@@ -22,7 +35,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture_2D:
-        m_Texture: {fileID: 2800000, guid: eb359187ca553b04fa7008356654e5c2, type: 3}
+        m_Texture: {fileID: 2800000, guid: bfff14f22864fbb4ab5145255e185982, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _alpha:
@@ -43,24 +56,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 0
+    - _Pixelation: 300
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 2.59
-    - _shine: 0.03
-    m_Colors:
-    - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
+    - _darknes: 0.94
+    - _shine: 2
+    m_Colors: []
   m_BuildTextureStacks: []
---- !u!114 &5368910038848133560
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
