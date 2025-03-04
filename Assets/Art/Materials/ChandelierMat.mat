@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BookMat
+  m_Name: ChandelierMat
   m_Shader: {fileID: -6465566751694194690, guid: 1d0f776cbcea4f8419a31cc94d777adb,
     type: 3}
   m_ValidKeywords: []
@@ -22,7 +22,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture_2D:
-        m_Texture: {fileID: 2800000, guid: 9e979bdc68a06ea4da4b2fd34ca3bf46, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7cafa515a46b3ca479351bfd43413409, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _alpha:
@@ -43,14 +43,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 158
+    - _Pixelation: 238
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 2.18
-    - _shine: 1.2
-    m_Colors: []
+    - _darknes: 1.93
+    - _shine: 0.5
+    m_Colors:
+    - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &3744519024697306586
+--- !u!114 &2297096633737077840
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
