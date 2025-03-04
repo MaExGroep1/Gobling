@@ -80,6 +80,10 @@ namespace Customer
         /// <param name="onComplete"></param>
         public void EnterShop(Transform[] path, Action onComplete)
         {
+            var direction = path[1].position - transform.position;
+            var rotation = Quaternion.LookRotation(direction).eulerAngles;
+            transform.rotation = Quaternion.Euler(rotation);
+
             transform.position = path[0].position;
             gameObject.SetActive(true);
             MoveCustomer(path,onComplete);
@@ -93,8 +97,17 @@ namespace Customer
         public void ExitShop(Transform[] path, Action onComplete)
         {
             transform.position = path[0].position;
-            gameObject.SetActive(true);
             MoveCustomer(path,onComplete);
+        }
+
+        public void RotateToCounter(Transform counter)
+        {
+            var direction = counter.position - transform.position;
+            var rotation = Quaternion.LookRotation(direction).eulerAngles;
+
+            var rotationDistance = Mathf.Abs(Mathf.Abs(rotation.y) - Mathf.Abs(transform.rotation.eulerAngles.y));
+        
+            LeanTween.rotateY(gameObject, rotation.y, rotationDistance / _turnSpeed);
         }
 
         /// <summary>
@@ -114,7 +127,7 @@ namespace Customer
 
                 var rotationDistance = Mathf.Abs(Mathf.Abs(rotation.y) - Mathf.Abs(transform.rotation.eulerAngles.y));
         
-                LeanTween.rotateY(gameObject, rotation.y, rotationDistance / _turnSpeed).setEase(LeanTweenType.easeOutBack);
+                LeanTween.rotateY(gameObject, rotation.y, rotationDistance / _turnSpeed).setEase(LeanTweenType.easeOutQuart);
                 LeanTween.move(gameObject, point.position, distance / _speed);
                 
                 await Task.Delay(10);
