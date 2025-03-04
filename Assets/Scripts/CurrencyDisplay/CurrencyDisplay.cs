@@ -20,7 +20,7 @@ namespace CurrencyDisplay
         /// </summary>
         /// <param name="currency">The new amount of currency</param>
 
-        private void UpdateDisplay(int currency) => currencyText.text = $"{currency}$";
+        private void UpdateDisplay(int currency) => currencyText.text = $"{currency.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("de"))}$";
         
     }
 }
