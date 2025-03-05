@@ -166,5 +166,15 @@ namespace Customer
 
             transform.rotation = targetRotation;
         }
+        
+        private void OnAtCounter()
+        {
+            var validItems = _inventory.Count + UserData.Instance.inventoryCount;
+            if (_inventory.Count < Random.Range(0, validItems))
+                OnTryBuyItem();
+            else
+                OnOfferItem();
+        }
+
     }
 }
