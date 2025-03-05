@@ -8,7 +8,7 @@ namespace Customer
     [CreateAssetMenu(fileName = "Customer", menuName = "ScriptableObjects/CustomerData", order = 3)]
     public class CustomerData : ScriptableObject
     {
-        public GameObject prefab; // the customers visuals
+        public Animator prefab; // the customers visuals
         public LootTable lootTable; // the lootTable to draw items from
         public float greediness; // high value will raise the goblins sell prices and lower buy prices
         public float speed; // the speed at which the customer moves

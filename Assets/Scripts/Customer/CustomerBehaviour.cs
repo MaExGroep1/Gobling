@@ -32,7 +32,7 @@ namespace Customer
         /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
-            _animator = Instantiate(customerData.prefab, transform).GetComponent<Animator>();
+            _animator = Instantiate(customerData.prefab, transform);
             gameObject.name = customerData.name;
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness=
