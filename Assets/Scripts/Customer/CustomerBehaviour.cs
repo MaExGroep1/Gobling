@@ -120,6 +120,7 @@ namespace Customer
         /// <param name="recall"></param>
         private async void MoveCustomer(Transform[] path, Action recall)
         {
+            recall += OnAtCounter;
             for (var index = 1; index < path.Length; index++)
             {
                 var point = path[index];
@@ -134,7 +135,8 @@ namespace Customer
                 while (LeanTween.isTweening(gameObject))
                     await Task.Delay(10); 
             }
-            recall?.Invoke();        
+            recall?.Invoke();
+            recall -= OnAtCounter;
         }
         
         /// <summary>
