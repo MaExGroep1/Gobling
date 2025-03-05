@@ -8,5 +8,6 @@ namespace DayLoop
     {
         public Action StartDay; // Action to invoke when the day starts
         public Action EndDay; // Action to invoke when the day ends
+        public Action CustomerLeave; // Action to invoke when the customer leaves
     }
 }
