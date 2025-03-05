@@ -87,9 +87,9 @@ namespace Customer
         /// <param name="speed">The speed at which the customer moves</param>
         public void EnterShop(Transform customerEntryPoint,Transform customerTradePoint, float speed)
         {
+            var distance = Vector3.Distance(transform.position, customerTradePoint.position);
             transform.position = customerEntryPoint.position;
             gameObject.SetActive(true);
-            var distance = Vector3.Distance(transform.position, customerTradePoint.position);
             LeanTween.move(gameObject, customerTradePoint, distance / speed).setEase(LeanTweenType.easeOutQuad).setOnComplete(OnAtCounter);
         }
         /// <summary>

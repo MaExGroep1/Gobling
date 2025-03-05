@@ -13,12 +13,14 @@ namespace Item
         [SerializeField] private float jumpXSpeed;          //x-axis move speed for JumpToPosition()
         [SerializeField] private float jumpYSpeed;          //y-axis move speed for JumpToPosition()
         [SerializeField] private float jumpHeight;          //jump height for JumpToPosition()
+        [SerializeField] private MinMax<int> barValues;     // Minimum and Maximum value Percentage
         
         private GameObject _prefab;                         //visuals of the item and extra scripts
-        public int value { get; private set; } = 10;        //the base value of the item
         private ItemType _itemType = ItemType.Normal;       //the type of item
+        public int value { get; private set; } = 10;        //the base value of the item
         
-        [SerializeField] private MinMax<int> barValues; // Minimum and Maximum value Percentage
+        
+        
 
         /// <summary>
         /// Set all item data from scriptable object
