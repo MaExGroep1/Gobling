@@ -32,6 +32,7 @@ namespace Customer
         /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
+            
             _animator = Instantiate(customerData.prefab, transform).GetComponent<Animator>();
             gameObject.name = customerData.name;
             _lootTable = customerData.lootTable;
@@ -99,7 +100,7 @@ namespace Customer
 
             transform.position = path[0].position;
             gameObject.SetActive(true);
-            MoveCustomer(path,onComplete);
+            MoveCustomer(path,() => OnAtCounter(onComplete));
         }
 
         /// <summary>
@@ -120,7 +121,6 @@ namespace Customer
         /// <param name="recall"></param>
         private async void MoveCustomer(Transform[] path, Action recall)
         {
-            recall += OnAtCounter;
             for (var index = 1; index < path.Length; index++)
             {
                 var point = path[index];
@@ -136,7 +136,6 @@ namespace Customer
                     await Task.Delay(10); 
             }
             recall?.Invoke();
-            recall -= OnAtCounter;
         }
         
         /// <summary>
@@ -165,17 +164,17 @@ namespace Customer
 
                 yield return null;
             }
-
             transform.rotation = targetRotation;
         }
         
-        private void OnAtCounter()
+        private void OnAtCounter(Action recall)
         {
             var validItems = _inventory.Count + UserData.Instance.inventoryCount;
             if (_inventory.Count < Random.Range(0, validItems))
                 OnTryBuyItem();
             else
                 OnOfferItem();
+            recall?.Invoke();
         }
 
     }

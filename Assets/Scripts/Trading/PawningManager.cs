@@ -19,11 +19,10 @@ namespace Trading
         
         private CustomerBehaviour _currentCustomer; // the customer that is being served
         private int _offerAmount;
+        private int _originalBid;
         private MinMax<int> _acceptableBidRange;
 
         [SerializeField] private TradingUI tradingUIManager; // Reference to the UI manager for trading
-        
-        
         
         
         /// <summary>
@@ -66,14 +65,9 @@ namespace Trading
             DayLoopEvents.Instance.CustomerLeave?.Invoke();
         }
 
-        private bool IsBidAcceptable(MinMax<int> barValue, int greed, int offerAmount)
+        /*private bool IsBidAcceptable(int barValue)
         {
-            int wiggleRoom = (barValue.max - barValue.min) * (1 - greed);
-            
-            float acceptableMin = Math.Max(barValue.min, offerAmount - wiggleRoom / 2);
-            float acceptableMax = Math.Min(barValue.max, offerAmount + wiggleRoom / 2);
-
-            return offerAmount >= acceptableMin && offerAmount <= acceptableMax;
-        }
+            int wiggleRoom = _originalBid * 1 - _currentCustomer._greediness;
+        }*/
     }
 }
