@@ -92,9 +92,9 @@ namespace Customer
         /// <param name="onComplete"></param>
         public void EnterShop(Transform[] path, Action onComplete)
         {
-            _animator.SetFloat("SpeedMultiplier", _speed);
             var direction = path[1].position - transform.position;
             var rotation = Quaternion.LookRotation(direction).eulerAngles;
+            _animator.SetFloat("SpeedMultiplier", _speed);
             transform.rotation = Quaternion.Euler(rotation);
 
             transform.position = path[0].position;
