@@ -94,7 +94,12 @@ namespace Customer
         {
             RemoveCustomer();
         }
-        
+
+        protected override void CustomerLeave()
+        {
+            RemoveCustomer();
+        }
+
         /// <summary>
         /// Select a random customer to serve that isn't the last customer and waits for the next customer to leave
         /// </summary>

@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Item;
+using Trading;
 using UnityEngine;
+using User;
 using Random = UnityEngine.Random;
 
 namespace Customer
@@ -55,26 +57,34 @@ namespace Customer
         /// <summary>
         /// The customer tries to sell an item to the user
         /// </summary>
-        public async void OnOfferItem()
+        private void OnOfferItem()
         {
             var item = _inventory[Random.Range(0, _inventory.Count)];
+            var offer = item.value / _greediness;
+            offer *= _satisfaction;
+            
+            PawningManager.Instance.OfferUserItem(item,(int)Math.Round(offer),this);
             // TODO: offer item
+            
             // TODO: await user price
+            
             // TODO: check if customer agrees on price
+            
             // TODO: sell or deny
         }
         
         /// <summary>
         /// The Customer Tries to buy an item from the user
         /// </summary>
-        public async void OnTryBuyItem()
+        private void OnTryBuyItem()
         {
+            PawningManager.Instance.RequestUserItem(this);
             // TODO: get random item form user and offer price
             // TODO: await user price
             // TODO: check if customer agrees on price
             // TODO: sell or deny
         }
-
+        
         /// <summary>
         /// Enter the shop to barter with the player
         /// </summary>
@@ -151,5 +161,6 @@ namespace Customer
 
             // Ensure final rotation is exactly at the target
             transform.rotation = targetRotation;
-        }    }
+        }
+    }
 }
