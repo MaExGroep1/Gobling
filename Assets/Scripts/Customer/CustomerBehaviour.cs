@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Item;
@@ -16,7 +17,8 @@ namespace Customer
         private float _trustworthiness; // the percentage of bad items in this customer's lootTable
         private float _speed; // the speed at which the customer moves
         private float _turnSpeed; // the speed at which the customer turns
-
+        private Coroutine _rotationCoroutine;
+        [SerializeField]private Animator _animator;
         
         private int _netWorth; // how much currency the customer has in total
         private int _income; // the amount of currency the customer earns every day 
@@ -28,7 +30,7 @@ namespace Customer
         /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
-            Instantiate(customerData.prefab, transform);
+            _animator = Instantiate(customerData.prefab, transform);
             gameObject.name = customerData.name;
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness=
@@ -80,6 +82,7 @@ namespace Customer
         /// <param name="onComplete"></param>
         public void EnterShop(Transform[] path, Action onComplete)
         {
+            _animator.SetFloat("SpeedMultiplier", _speed);
             var direction = path[1].position - transform.position;
             var rotation = Quaternion.LookRotation(direction).eulerAngles;
             transform.rotation = Quaternion.Euler(rotation);
@@ -99,17 +102,7 @@ namespace Customer
             transform.position = path[0].position;
             MoveCustomer(path,onComplete);
         }
-
-        public void RotateToCounter(Transform counter)
-        {
-            var direction = counter.position - transform.position;
-            var rotation = Quaternion.LookRotation(direction).eulerAngles;
-
-            var rotationDistance = Mathf.Abs(Mathf.Abs(rotation.y) - Mathf.Abs(transform.rotation.eulerAngles.y));
         
-            LeanTween.rotateY(gameObject, rotation.y, rotationDistance / _turnSpeed);
-        }
-
         /// <summary>
         /// Leave the shop after bartering
         /// </summary>
@@ -122,12 +115,8 @@ namespace Customer
                 var point = path[index];
                 var distance = Vector3.Distance(transform.position, point.position);
                 
-                var direction = point.position - transform.position;
-                var rotation = Quaternion.LookRotation(direction).eulerAngles;
-
-                var rotationDistance = Mathf.Abs(Mathf.Abs(rotation.y) - Mathf.Abs(transform.rotation.eulerAngles.y));
-        
-                LeanTween.rotateY(gameObject, rotation.y, rotationDistance / _turnSpeed).setEase(LeanTweenType.easeOutQuart);
+                if(_rotationCoroutine != null) StopCoroutine(_rotationCoroutine);
+                _rotationCoroutine = StartCoroutine(RotateCharacter(point));
                 LeanTween.move(gameObject, point.position, distance / _speed);
                 
                 await Task.Delay(10);
@@ -137,5 +126,30 @@ namespace Customer
             }
             recall?.Invoke();        
         }
-    }
+
+        private IEnumerator RotateCharacter(Transform rotateTarget)
+        {
+            var direction = rotateTarget.position - transform.position;
+            var targetRotation = Quaternion.LookRotation(direction);
+    
+            var startAngle = transform.rotation.eulerAngles.y;
+            var targetAngle = targetRotation.eulerAngles.y;
+            var rotationTime = 0f;
+            const float duration = 1f; // Adjust this to control the total rotation time
+
+            while (rotationTime < duration)
+            {
+                rotationTime += Time.deltaTime * _turnSpeed;
+                var t = rotationTime / duration;
+                t = 1 - Mathf.Pow(1 - t, 4); // Ease Out Quart function
+
+                var newY = Mathf.LerpAngle(startAngle, targetAngle, t);
+                transform.rotation = Quaternion.Euler(0, newY, 0);
+
+                yield return null;
+            }
+
+            // Ensure final rotation is exactly at the target
+            transform.rotation = targetRotation;
+        }    }
 }

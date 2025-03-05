@@ -18,9 +18,10 @@ namespace Customer
         [SerializeField] private CustomerBehaviour customerTemplate; // Template to instantiate when spawning in the customers
         [SerializeField] private Transform customerSpawnPoint; // The spawn point of the customers
         [SerializeField] private Transform[] counterPath, exitPath; // The spawn point of the customers
-        [SerializeField] private Transform counter; // The spawn point of the customers
         
         public Action OnExitShop;
+        
+        public Action OnAtCounter;
 
         private void OnDrawGizmos()
         {
@@ -104,7 +105,7 @@ namespace Customer
             validCustomers.AddRange(_customers);
             validCustomers.Remove(_lastCustomer);
             var customer = validCustomers[Random.Range(0, validCustomers.Count)];
-            customer.EnterShop(counterPath,() => _lastCustomer.RotateToCounter(counter));
+            customer.EnterShop(counterPath,OnAtCounter);
             _lastCustomer = customer;
         }
 
