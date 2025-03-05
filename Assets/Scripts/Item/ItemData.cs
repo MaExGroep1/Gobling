@@ -12,7 +12,12 @@ namespace Item
         public int value = 10; // the base value of the item
         public ItemType itemType = ItemType.Normal; // the type of item
 
-        public MinMax<int> valuePercentage; // Minimum and Maximum value Percentage
-        
+        public MinMax<int> barValues; // Minimum and Maximum value Percentage
+
+        public void CalculateBarValues()
+        {
+            barValues = new MinMax<int>((int)(value * 0.2), (int)(value * 2));  
+        } 
+
     }
 }
