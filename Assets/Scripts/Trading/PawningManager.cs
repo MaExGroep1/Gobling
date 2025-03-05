@@ -14,14 +14,15 @@ namespace Trading
     public class PawningManager : Singleton<PawningManager>
     {
         public Action<MinMax<int>, int> OnStartpawn; // Event triggered when a pawn transaction starts
-        
         public Action<int> OnBid; // Event triggered when a bid is made
-        
         public MinMax<int> barValue; // The min and max value range for the pawn bar
+        
+        private CustomerBehaviour _currentCustomer; // the customer that is being served
+        private int _offerAmount;
+        private MinMax<int> _acceptableBidRange;
 
         [SerializeField] private TradingUI tradingUIManager; // Reference to the UI manager for trading
         
-        private CustomerBehaviour _currentCustomer; // the customer that is being served
         
         
         
@@ -34,6 +35,7 @@ namespace Trading
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
         {
             _currentCustomer = customer;
+            _offerAmount = offerAmount;
             tradingUIManager.OnStartpawn(item.barValue, offerAmount);
         }
         /// <summary>
@@ -56,11 +58,20 @@ namespace Trading
         public void CheckBid(int bid)
         {
             OnBid?.Invoke(bid);
+            var acceptableBid = _offerAmount;
             
             //!TODO Implement checking algo
             
             tradingUIManager.OnBidFinish();
             DayLoopEvents.Instance.CustomerLeave?.Invoke();
+        }
+
+        private void CalculateAcceptableBidRange(MinMax<int> barValue, int greed)
+        {
+            _acceptableBidRange = new MinMax<int>(barValue.min + greed * (barValue.max - barValue.min),
+                barValue.max - greed * (barValue.max - barValue.min));
+            
+            print(_acceptableBidRange);
         }
     }
 }
