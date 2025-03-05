@@ -66,12 +66,14 @@ namespace Trading
             DayLoopEvents.Instance.CustomerLeave?.Invoke();
         }
 
-        private void CalculateAcceptableBidRange(MinMax<int> barValue, int greed)
+        private bool IsBidAcceptable(MinMax<int> barValue, int greed, int offerAmount)
         {
-            _acceptableBidRange = new MinMax<int>(barValue.min + greed * (barValue.max - barValue.min),
-                barValue.max - greed * (barValue.max - barValue.min));
+            int wiggleRoom = (barValue.max - barValue.min) * (1 - greed);
             
-            print(_acceptableBidRange);
+            float acceptableMin = Math.Max(barValue.min, offerAmount - wiggleRoom / 2);
+            float acceptableMax = Math.Min(barValue.max, offerAmount + wiggleRoom / 2);
+
+            return offerAmount >= acceptableMin && offerAmount <= acceptableMax;
         }
     }
 }
