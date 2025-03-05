@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DayLoop;
+using Item;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Util;
@@ -84,6 +85,7 @@ namespace Customer
             customer.EnterShop(customerEntryPoint,customerTradePoint,speed);
             _lastCustomer = customer;
             customer.OnExitShop += OnCustomerExitShop;
+            customer.OnReachCounter += StartMoveToCounter;
         }
         /// <summary>
         /// Stop waiting for the current customer to leave and get the next customer
@@ -91,7 +93,75 @@ namespace Customer
         private void OnCustomerExitShop()
         {
             _lastCustomer.OnExitShop -= OnCustomerExitShop;
+            _lastCustomer.OnReachCounter -= StartMoveToCounter;
+
             ServeNewCustomer();
+        }
+        
+        
+        //sprint review bullshit
+        
+        public List<Items> Items = new List<Items>();
+        [SerializeField] private Items item;
+        [SerializeField] private GameObject itemSpawnPoint;
+        [SerializeField] private GameObject itemCounterPositionPoint;
+        [SerializeField] private float jumpWaitTime;
+        [SerializeField] private float jumpLeaveWaitTime;
+        [SerializeField] private GameObject buyButton;
+        
+        private Items currentItem;
+
+        public void BuyItem()
+        {
+            StartMoveAwayFromCounter();
+            RemoveCustomer();
+        }
+
+        public void RejectItem()
+        {
+            StartCoroutine(MoveAwayFromCounter());
+            RemoveCustomer();
+        }
+        
+        private void GetNewItem()
+        {
+            if(currentItem) Destroy(currentItem.gameObject);
+            item = Items[Random.Range(0, Items.Count)];
+            Items spawnedItem = Instantiate(item, itemSpawnPoint.transform.position, Quaternion.identity);
+            currentItem = spawnedItem;
+        }
+
+        private void StartMoveToCounter()
+        {
+            currentItem.Activate();
+            StartCoroutine(MoveToCounter());
+        }
+
+        private IEnumerator MoveToCounter()
+        {
+            yield return new WaitForSeconds(jumpWaitTime);
+            currentItem.JumpToPosition(itemCounterPositionPoint.transform.position);
+            buyButton.SetActive(true);
+        }
+        
+        private void StartMoveAwayFromCounter()
+        {
+            currentItem.JumpToPosition(itemSpawnPoint.transform.position);
+            StartCoroutine(MoveAwayFromCounter());
+        }
+
+        private IEnumerator MoveAwayFromCounter()
+        {
+            yield return new WaitForSeconds(jumpLeaveWaitTime);
+            currentItem.Deactivate();
+            buyButton.SetActive(false);
+            yield return new WaitForSeconds(3);
+            GetNewItem();
+        }
+
+        private void Start()
+        {
+            GetNewItem();
         }
     }
 }

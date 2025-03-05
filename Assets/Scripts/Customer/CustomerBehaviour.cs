@@ -79,7 +79,7 @@ namespace Customer
             transform.position = customerEntryPoint.position;
             gameObject.SetActive(true);
             var distance = Vector3.Distance(transform.position, customerTradePoint.position);
-            LeanTween.move(gameObject, customerTradePoint, distance / speed).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.move(gameObject, customerTradePoint, distance / speed).setEase(LeanTweenType.easeOutQuad).setOnComplete(()=>OnReachCounter?.Invoke());;
         }
         /// <summary>
         /// Leave the shop after bartering
@@ -99,5 +99,8 @@ namespace Customer
             OnExitShop?.Invoke();
             gameObject.SetActive(false);
         }
+        
+        //sprintreview bullshit
+        public Action OnReachCounter;
     }
 }

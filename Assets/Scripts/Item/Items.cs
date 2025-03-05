@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using UnityEngine;
 using Util;
@@ -68,6 +69,11 @@ namespace Item
 
             LeanTween.move(gameObject, endPosition, xDuration).setEase(LeanTweenType.easeOutQuint);
             LeanTween.moveLocalY(visuals.gameObject, jumpHeight, yDuration).setEase(LeanTweenType.easeOutQuint).setLoopPingPong(1);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) Activate();
         }
     }
 }
