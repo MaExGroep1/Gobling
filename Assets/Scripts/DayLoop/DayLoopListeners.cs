@@ -11,7 +11,9 @@ namespace DayLoop
         {
             DayLoopEvents.Instance.StartDay += StartDay;
             DayLoopEvents.Instance.EndDay += EndDay;
+            DayLoopEvents.Instance.CustomerLeave += CustomerLeave;
         }
+
         /// <summary>
         /// Remove the start and end events to the StartDay() and EndDay()
         /// </summary>
@@ -19,6 +21,7 @@ namespace DayLoop
         {
             DayLoopEvents.Instance.StartDay -= StartDay;
             DayLoopEvents.Instance.EndDay -= EndDay;
+            DayLoopEvents.Instance.CustomerLeave -= CustomerLeave;
         }
         /// <summary>
         /// Event that gets called at the start of the day
@@ -28,5 +31,7 @@ namespace DayLoop
         /// Event that gets called at the end of the day
         /// </summary>
         protected abstract void EndDay();
+
+        protected abstract void CustomerLeave();
     }
 }
