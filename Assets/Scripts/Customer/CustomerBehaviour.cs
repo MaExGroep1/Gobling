@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Item;
+using Trading;
 using UnityEngine;
+using User;
 using Random = UnityEngine.Random;
 
 namespace Customer
@@ -16,7 +19,8 @@ namespace Customer
         private float _trustworthiness; // the percentage of bad items in this customer's lootTable
         private float _speed; // the speed at which the customer moves
         private float _turnSpeed; // the speed at which the customer turns
-
+        private Coroutine _rotationCoroutine; // the coroutine of the customer rotating while walking
+        private Animator _animator; // the animator of the customer
         
         private int _netWorth; // how much currency the customer has in total
         private int _income; // the amount of currency the customer earns every day 
@@ -28,7 +32,7 @@ namespace Customer
         /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
-            Instantiate(customerData.prefab, transform);
+            _animator = Instantiate(customerData.prefab, transform).GetComponent<Animator>();
             gameObject.name = customerData.name;
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness=
@@ -53,26 +57,34 @@ namespace Customer
         /// <summary>
         /// The customer tries to sell an item to the user
         /// </summary>
-        public async void OnOfferItem()
+        private void OnOfferItem()
         {
             var item = _inventory[Random.Range(0, _inventory.Count)];
+            var offer = item.value / _greediness;
+            offer *= _satisfaction;
+            
+            PawningManager.Instance.OfferUserItem(item,(int)Math.Round(offer),this);
             // TODO: offer item
+            
             // TODO: await user price
+            
             // TODO: check if customer agrees on price
+            
             // TODO: sell or deny
         }
         
         /// <summary>
         /// The Customer Tries to buy an item from the user
         /// </summary>
-        public async void OnTryBuyItem()
+        private void OnTryBuyItem()
         {
+            PawningManager.Instance.RequestUserItem(this);
             // TODO: get random item form user and offer price
             // TODO: await user price
             // TODO: check if customer agrees on price
             // TODO: sell or deny
         }
-
+        
         /// <summary>
         /// Enter the shop to barter with the player
         /// </summary>
@@ -80,6 +92,11 @@ namespace Customer
         /// <param name="onComplete"></param>
         public void EnterShop(Transform[] path, Action onComplete)
         {
+            _animator.SetFloat("SpeedMultiplier", _speed);
+            var direction = path[1].position - transform.position;
+            var rotation = Quaternion.LookRotation(direction).eulerAngles;
+            transform.rotation = Quaternion.Euler(rotation);
+
             transform.position = path[0].position;
             gameObject.SetActive(true);
             MoveCustomer(path,onComplete);
@@ -93,10 +110,9 @@ namespace Customer
         public void ExitShop(Transform[] path, Action onComplete)
         {
             transform.position = path[0].position;
-            gameObject.SetActive(true);
             MoveCustomer(path,onComplete);
         }
-
+        
         /// <summary>
         /// Leave the shop after bartering
         /// </summary>
@@ -109,12 +125,8 @@ namespace Customer
                 var point = path[index];
                 var distance = Vector3.Distance(transform.position, point.position);
                 
-                var direction = point.position - transform.position;
-                var rotation = Quaternion.LookRotation(direction).eulerAngles;
-
-                var rotationDistance = Mathf.Abs(Mathf.Abs(rotation.y) - Mathf.Abs(transform.rotation.eulerAngles.y));
-        
-                LeanTween.rotateY(gameObject, rotation.y, rotationDistance / _turnSpeed).setEase(LeanTweenType.easeOutBack);
+                if(_rotationCoroutine != null) StopCoroutine(_rotationCoroutine);
+                _rotationCoroutine = StartCoroutine(RotateCharacter(point.position));
                 LeanTween.move(gameObject, point.position, distance / _speed);
                 
                 await Task.Delay(10);
@@ -123,6 +135,36 @@ namespace Customer
                     await Task.Delay(10); 
             }
             recall?.Invoke();        
+        }
+        
+        /// <summary>
+        /// Rotate the customer towards the next point in the path easing out quart
+        /// </summary>
+        /// <param name="rotateTarget">The position to rotate towards</param>
+        /// <returns></returns>
+        private IEnumerator RotateCharacter(Vector3 rotateTarget)
+        {
+            var direction = rotateTarget - transform.position;
+            var targetRotation = Quaternion.LookRotation(direction);
+    
+            var startAngle = transform.rotation.eulerAngles.y;
+            var targetAngle = targetRotation.eulerAngles.y;
+            var rotationTime = 0f;
+            const float duration = 1f;
+
+            while (rotationTime < duration)
+            {
+                rotationTime += Time.deltaTime * _turnSpeed;
+                var t = rotationTime / duration;
+                t = 1 - Mathf.Pow(1 - t, 4); 
+
+                var newY = Mathf.LerpAngle(startAngle, targetAngle, t);
+                transform.rotation = Quaternion.Euler(0, newY, 0);
+
+                yield return null;
+            }
+
+            transform.rotation = targetRotation;
         }
     }
 }
