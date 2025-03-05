@@ -13,17 +13,13 @@ namespace Trading
 {
     public class PawningManager : Singleton<PawningManager>
     {
-        public Action<MinMax<int>, int> OnStartpawn;
+        public Action<MinMax<int>, int> OnStartpawn; // Event triggered when a pawn transaction starts
         
-        public Action<int> OnBid;
+        public Action<int> OnBid; // Event triggered when a bid is made
         
-        public MinMax<int> barValue;
+        public MinMax<int> barValue; // The min and max value range for the pawn bar
 
-        [SerializeField] private TradingUI tradingUIManager;
-        
-        
-        //TEMP
-        [SerializeField] private ItemData itemData; // The item data reference
+        [SerializeField] private TradingUI tradingUIManager; // Reference to the UI manager for trading
         
         private CustomerBehaviour _currentCustomer; // the customer that is being served
         
@@ -53,6 +49,10 @@ namespace Trading
             tradingUIManager.OnStartpawn(item.barValue, item.value);
         }
         
+        /// <summary>
+        /// Processes the bid made by the player and determines the outcome
+        /// </summary>
+        /// <param name="bid">The bid amount placed by the player</param>
         public void CheckBid(int bid)
         {
             OnBid?.Invoke(bid);

@@ -111,6 +111,10 @@ namespace Customer
             gameObject.SetActive(false);
         }
         
+        /// <summary>
+        /// Determines the customer's action upon reaching the counter.
+        /// The customer will either attempt to buy an item or offer an item for sale.
+        /// </summary>
         private void OnAtCounter()
         {
             var validItems = _inventory.Count + UserData.Instance.inventoryCount;
