@@ -12,17 +12,20 @@ namespace Customer
 {
     public class CustomerManager : DayLoopListeners
     {
-        private readonly List<CustomerBehaviour> _customers = new(); // List of all customers
-        private CustomerBehaviour _lastCustomer; // Last customer to visit the shop
+        private readonly List<CustomerBehaviour> _customers = new(); // list of all customers
+        private CustomerBehaviour _lastCustomer; // last customer to visit the shop
 
-        [SerializeField] private CustomerBehaviour customerTemplate; // Template to instantiate when spawning in the customers
-        [SerializeField] private Transform customerSpawnPoint; // The spawn point of the customers
-        [SerializeField] private Transform[] counterPath, exitPath; // The spawn point of the customers
+        [SerializeField] private CustomerBehaviour customerTemplate; // template to instantiate when spawning in the customers
+        [SerializeField] private Transform customerSpawnPoint; // the spawn point of the customers
+        [SerializeField] private Transform[] counterPath, exitPath; // the spawn point of the customers
         
-        public Action OnExitShop;
+        public Action OnExitShop; // the action that gets called on a customer exiting the shop
         
-        public Action OnAtCounter;
-
+        public Action OnAtCounter; //  the action that gets called on a customer arriving to the counter
+        
+        /// <summary>
+        /// Draws the path of the customers
+        /// </summary>
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(0f, 1f, 0f, 0.5f);

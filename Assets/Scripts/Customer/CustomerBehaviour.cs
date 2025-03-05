@@ -19,8 +19,8 @@ namespace Customer
         private float _trustworthiness; // the percentage of bad items in this customer's lootTable
         private float _speed; // the speed at which the customer moves
         private float _turnSpeed; // the speed at which the customer turns
-        private Coroutine _rotationCoroutine;
-        [SerializeField]private Animator _animator;
+        private Coroutine _rotationCoroutine; // the coroutine of the customer rotating while walking
+        private Animator _animator; // the animator of the customer
         
         private int _netWorth; // how much currency the customer has in total
         private int _income; // the amount of currency the customer earns every day 
@@ -32,7 +32,7 @@ namespace Customer
         /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
-            _animator = Instantiate(customerData.prefab, transform);
+            _animator = Instantiate(customerData.prefab, transform).GetComponent<Animator>();
             gameObject.name = customerData.name;
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness=
@@ -126,7 +126,7 @@ namespace Customer
                 var distance = Vector3.Distance(transform.position, point.position);
                 
                 if(_rotationCoroutine != null) StopCoroutine(_rotationCoroutine);
-                _rotationCoroutine = StartCoroutine(RotateCharacter(point));
+                _rotationCoroutine = StartCoroutine(RotateCharacter(point.position));
                 LeanTween.move(gameObject, point.position, distance / _speed);
                 
                 await Task.Delay(10);
@@ -136,22 +136,27 @@ namespace Customer
             }
             recall?.Invoke();        
         }
-
-        private IEnumerator RotateCharacter(Transform rotateTarget)
+        
+        /// <summary>
+        /// Rotate the customer towards the next point in the path easing out quart
+        /// </summary>
+        /// <param name="rotateTarget">The position to rotate towards</param>
+        /// <returns></returns>
+        private IEnumerator RotateCharacter(Vector3 rotateTarget)
         {
-            var direction = rotateTarget.position - transform.position;
+            var direction = rotateTarget - transform.position;
             var targetRotation = Quaternion.LookRotation(direction);
     
             var startAngle = transform.rotation.eulerAngles.y;
             var targetAngle = targetRotation.eulerAngles.y;
             var rotationTime = 0f;
-            const float duration = 1f; // Adjust this to control the total rotation time
+            const float duration = 1f;
 
             while (rotationTime < duration)
             {
                 rotationTime += Time.deltaTime * _turnSpeed;
                 var t = rotationTime / duration;
-                t = 1 - Mathf.Pow(1 - t, 4); // Ease Out Quart function
+                t = 1 - Mathf.Pow(1 - t, 4); 
 
                 var newY = Mathf.LerpAngle(startAngle, targetAngle, t);
                 transform.rotation = Quaternion.Euler(0, newY, 0);
@@ -159,7 +164,6 @@ namespace Customer
                 yield return null;
             }
 
-            // Ensure final rotation is exactly at the target
             transform.rotation = targetRotation;
         }
     }
