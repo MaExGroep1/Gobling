@@ -13,5 +13,10 @@ namespace DayLoop
         {
             Debug.Log("EndDay");
         }
+
+        protected override void CustomerLeave()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
