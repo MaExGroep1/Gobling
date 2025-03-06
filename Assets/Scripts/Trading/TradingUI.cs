@@ -91,9 +91,5 @@ namespace Trading
         /// Moves UI away after it's done being used by the player.
         /// </summary>
         private void MoveAway() => LeanTween.move(uiParent, startPos.transform.position, 2).setEase(LeanTweenType.easeInBack);
-        
-        
-        //!TODO find usefulness
-        private void DoSetActive(bool isActive) => uiParent.SetActive(isActive);
     }
 }
