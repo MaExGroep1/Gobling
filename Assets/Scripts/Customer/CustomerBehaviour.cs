@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Item;
 using Trading;
+using Unity.Mathematics;
 using UnityEngine;
 using User;
 using Random = UnityEngine.Random;
@@ -176,7 +177,7 @@ namespace Customer
             recall?.Invoke();
         }
 
-        public int CalculateWiggleRoom(int bid) => (int)(bid * (1 - _greediness));
+        private int CalculateWiggleRoom(int bid) => (int)(bid * (1 - _greediness));
         
         public int GetOfferOffset(int itemValue) => (int)(itemValue * (1 - _greediness) * _satisfaction);
 
@@ -185,5 +186,15 @@ namespace Customer
             _satisfaction += increase ? _satisfaction * _satisfaction * multiplier : -_satisfaction * (1 -_satisfaction) * multiplier;
             _satisfaction = Mathf.Clamp01(_satisfaction);
         }
+
+        public bool IsInterested(int newBid, int originalOffer, bool isBuying) => isBuying ? 
+                newBid > originalOffer + CalculateWiggleRoom(originalOffer) * 2 : 
+                newBid < originalOffer - CalculateWiggleRoom(originalOffer) * 2;
+        public bool WillBuy(int newBid, int originalOffer, bool isBuying) => isBuying ? 
+            newBid > originalOffer + CalculateWiggleRoom(originalOffer) * _greediness: 
+            newBid < originalOffer - CalculateWiggleRoom(originalOffer) * _greediness;
+
+        public int MakeNewOffer(int userBid, int originalOffer) => Mathf.RoundToInt( Mathf.Lerp(originalOffer, userBid, (1-_greediness) * _satisfaction));
+        
     }
 }

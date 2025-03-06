@@ -14,6 +14,7 @@ namespace Trading
     public class PawningManager : Singleton<PawningManager>
     {
         public Action<MinMax<int>, int> OnStartPawn; // Event triggered when a pawn transaction starts
+        public Action<int> OnNewBidRound;
         public Action<int> OnBid; // Event triggered when a bid is made
         public Action<bool,int> OnFinished;
         
@@ -63,21 +64,26 @@ namespace Trading
                 AcceptBid(bid);
                 return;
             }
-            else
+            
+            _currentCustomer.UpdateSatisfaction(false, 0.5f);
+            
+            if (IsBidOutOfRange(bid))
             {
-                _currentCustomer.UpdateSatisfaction(false, 0.5f);
-                if ()
-                {
-                    
-                }
+                LostInterest();
+                return;
             }
-            //!TODO Implement checking algo
+            
+            MakeNewOffer(bid);
         }
 
         private bool IsBidAcceptable(int barValue)
         {
-            var wiggleRoom = _currentCustomer.CalculateWiggleRoom(_originalBid);
-            
+            return _currentCustomer.WillBuy(barValue,_originalBid,_isOfferingItem);
+        }
+
+        private bool IsBidOutOfRange(int barValue)
+        {
+            return _currentCustomer.IsInterested(barValue,_originalBid,_isOfferingItem);
         }
 
         private void AcceptBid(int bid)
@@ -86,6 +92,24 @@ namespace Trading
             UserData.Instance.ChangeNetWorth(_isOfferingItem ? bid : -bid);
             DayLoopEvents.Instance.CustomerLeave?.Invoke();
             _currentCustomer.UpdateSatisfaction(true, 2);
+        }
+
+        private void LostInterest()
+        {
+            OnFinished?.Invoke(false, 0);
+            DayLoopEvents.Instance.CustomerLeave?.Invoke();
+        }
+
+        private void MakeNewOffer(int bid)
+        {
+            var newBid = _currentCustomer.MakeNewOffer(bid,_originalBid);
+            OnNewBidRound?.Invoke(newBid);
+            NewBidRound(newBid);
+        }
+
+        private void NewBidRound(int newBid)
+        {
+            
         }
     }
 }
