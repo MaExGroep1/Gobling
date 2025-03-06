@@ -24,13 +24,13 @@ namespace Item
             private set => Instance.itemCounterLocation.position = value;
         }
         
-        public static Vector3 ItemCustomerJumpLocation
+        public Vector3 ItemCustomerJumpLocation
         {
             get => Instance.itemCustomerLocation.position;
             private set => Instance.itemCustomerLocation.position = value;
         }
         
-        public static Vector3 ItemPlayerJumpLocation
+        public Vector3 ItemPlayerJumpLocation
         {
             get => Instance.itemPlayerLocation.position;
             private set => Instance.itemPlayerLocation.position = value;
@@ -41,7 +41,6 @@ namespace Item
 
         public Items InstantiateItem(ItemData itemData, string itemName)
         {
-            Items myItemPrefab;
             var item = Instantiate(itemPrefab, itemParent, true);
             item.Initialize(itemData, itemName);
             _allItems.Add(item);
@@ -51,7 +50,7 @@ namespace Item
 
         public void ItemEnableAndJump(Items item, Vector3 jumpPosition, Vector3 startPosition = default)
         {
-            OnEnableAndJump?.Invoke(item, startPosition, jumpPosition);
+            OnEnableAndJump?.Invoke(item, jumpPosition, startPosition);
         }
         
         public static void ItemJumpAndDisable(Items item, Vector3 jumpPosition, Vector3 startPosition = default)

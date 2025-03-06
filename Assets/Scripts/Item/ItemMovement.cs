@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Item
 {
     public class ItemMovement : MonoBehaviour
     {
-        [SerializeField] private GameObject visuals; //the parent GameObject of all visuals
+        [SerializeField] private GameObject itemParent; //the parent GameObject of all visuals
         [SerializeField] private float activationSpeed; //the speed at which the item activates
         [SerializeField] private float deactivationSpeed; //the speed at which the item deactivates
         [SerializeField] private float jumpXSpeed; //x-axis move speed for JumpToPosition()
@@ -36,8 +37,8 @@ namespace Item
         
         public void Activate()
         {
-            visuals.SetActive(true);
-            LeanTween.scale(visuals.gameObject, Vector3.one, activationSpeed).setEase(LeanTweenType.easeOutElastic);
+            itemParent.SetActive(true);
+            LeanTween.scale(itemParent.gameObject, Vector3.one, activationSpeed).setEase(LeanTweenType.easeOutElastic);
         }
 
         /// <summary>
@@ -45,8 +46,8 @@ namespace Item
         /// </summary>
         public void Deactivate()
         {
-            LeanTween.scale(visuals.gameObject, Vector3.zero, deactivationSpeed).setEase(LeanTweenType.easeInElastic)
-                .setOnComplete(() => visuals.SetActive(false));
+            LeanTween.scale(itemParent.gameObject, Vector3.zero, deactivationSpeed).setEase(LeanTweenType.easeInElastic)
+                .setOnComplete(() => itemParent.SetActive(false));
         }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace Item
             float yDuration = distance / jumpYSpeed;
 
             LeanTween.move(gameObject, endPosition, xDuration).setEase(LeanTweenType.easeOutQuint);
-            LeanTween.moveLocalY(visuals.gameObject, jumpHeight, yDuration).setEase(LeanTweenType.easeOutQuint)
+            LeanTween.moveLocalY(itemParent.gameObject, jumpHeight, yDuration).setEase(LeanTweenType.easeOutQuint)
                 .setLoopPingPong(1);
         }
         private void ActivateAndJump(Items item, Vector3 jumpPosition, Vector3 startPosition)

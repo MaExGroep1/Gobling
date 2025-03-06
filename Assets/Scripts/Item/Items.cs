@@ -8,6 +8,7 @@ namespace Item
     public class Items : MonoBehaviour
     {
         [SerializeField] private MinMax<int> barValues;     // Minimum and Maximum value Percentage
+        [SerializeField] private GameObject itemParent;
         
         private GameObject _prefab;                         //visuals of the item and extra scripts
         private ItemType _itemType = ItemType.Normal;       //the type of item
@@ -25,6 +26,7 @@ namespace Item
             value = itemData.value;
             _itemType = itemData.itemType;
             barValues = itemData.barValues; 
+            Instantiate(itemData.prefab, itemParent.transform);
         }
         
         public MinMax<int> barValue => barValues;
