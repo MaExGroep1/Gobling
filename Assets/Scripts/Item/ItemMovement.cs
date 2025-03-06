@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Item
@@ -14,6 +15,33 @@ namespace Item
         /// <summary>
         /// activates the visuals of the item, and scales it from 0 to 1 using a tween
         /// </summary>
+        ///
+        ///
+        private void Awake()
+        {
+            ItemManager.OnEnableAndJump += ActivateAndJump;
+            ItemManager.OnJumpAndDisable += JumpAndDeactivate;
+        }
+
+        private void OnDestroy()
+        {
+            ItemManager.OnEnableAndJump -= ActivateAndJump;
+            ItemManager.OnJumpAndDisable -= JumpAndDeactivate;
+        }
+        
+
+        private void ActivateAndJump(Items item, Vector3 jumpPosition)
+        {
+            if (item.gameObject != gameObject) return;
+            Debug.Log("Activate and Jump");
+        }
+        
+        private void JumpAndDeactivate(Items item, Vector3 jumpPosition)
+        {
+            if (item.gameObject != gameObject) return;
+            Debug.Log("Jump and Deactivate");
+        }
+        
         public void Activate()
         {
             visuals.SetActive(true);

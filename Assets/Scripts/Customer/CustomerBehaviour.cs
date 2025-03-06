@@ -60,6 +60,8 @@ namespace Customer
         private void OnOfferItem()
         {
             var item = _inventory[Random.Range(0, _inventory.Count)];
+            ItemManager.ItemEnableAndJump(item, ItemManager.ItemCounterJumpLocation);
+            
             var offer = item.value / _greediness;
             offer *= _satisfaction;
             
@@ -79,6 +81,7 @@ namespace Customer
         private void OnTryBuyItem()
         {
             PawningManager.Instance.RequestUserItem(this);
+            
             // TODO: get random item form user and offer price
             // TODO: await user price
             // TODO: check if customer agrees on price
