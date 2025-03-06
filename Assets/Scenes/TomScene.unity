@@ -1575,6 +1575,11 @@ PrefabInstance:
       objectReference: {fileID: 1377244999}
     - target: {fileID: 3846038467826951503, guid: 3ab8546edb9e9574897208dd2bc01e8f,
         type: 3}
+      propertyPath: targetPos
+      value: 
+      objectReference: {fileID: 1756322762}
+    - target: {fileID: 3846038467826951503, guid: 3ab8546edb9e9574897208dd2bc01e8f,
+        type: 3}
       propertyPath: buttonParent
       value: 
       objectReference: {fileID: 1377245002}
