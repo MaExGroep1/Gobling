@@ -34,7 +34,7 @@ namespace Trading
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
         {
             _currentCustomer = customer;
-            tradingUIManager.OnStartpawn(item.barValue, offerAmount);
+            tradingUIManager.OnStartPawn(item.barValue, offerAmount);
         }
         /// <summary>
         /// The customer tries to buy an item from the player
@@ -46,7 +46,7 @@ namespace Trading
             _currentCustomer = customer;
             var item = UserData.Instance.randomItem;
             //!TODO make item.value calculation
-            tradingUIManager.OnStartpawn(item.barValue, item.value);
+            tradingUIManager.OnStartPawn(item.barValue, item.value);
         }
         
         /// <summary>
