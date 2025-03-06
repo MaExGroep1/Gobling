@@ -9,7 +9,6 @@ namespace Item
 {
     public class ItemManager : Singleton<ItemManager>
     {
-        public static ItemManager Instance { get; private set; }
         
         [SerializeField] private Items itemPrefab;
         [SerializeField] private Transform itemParent;
@@ -19,7 +18,7 @@ namespace Item
         
         private readonly List<Items> _allItems = new();
 
-        public static Vector3 ItemCounterJumpLocation
+        public Vector3 ItemCounterJumpLocation
         {
             get => Instance.itemCounterLocation.position;
             private set => Instance.itemCounterLocation.position = value;
@@ -40,20 +39,9 @@ namespace Item
         public static Action<Items, Vector3, Vector3> OnEnableAndJump;
         public static Action<Items, Vector3, Vector3> OnJumpAndDisable;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-        }
-
         public Items InstantiateItem(ItemData itemData, string itemName)
         {
+            Items myItemPrefab;
             var item = Instantiate(itemPrefab, itemParent, true);
             item.Initialize(itemData, itemName);
             _allItems.Add(item);
@@ -61,7 +49,7 @@ namespace Item
         }
         
 
-        public static void ItemEnableAndJump(Items item, Vector3 jumpPosition, Vector3 startPosition = default)
+        public void ItemEnableAndJump(Items item, Vector3 jumpPosition, Vector3 startPosition = default)
         {
             OnEnableAndJump?.Invoke(item, startPosition, jumpPosition);
         }
