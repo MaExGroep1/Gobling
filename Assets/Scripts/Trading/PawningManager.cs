@@ -13,17 +13,15 @@ namespace Trading
 {
     public class PawningManager : Singleton<PawningManager>
     {
-        public Action<MinMax<int>, int> OnStartpawn; // Event triggered when a pawn transaction starts
+        public Action<MinMax<int>, int> OnStartPawn; // Event triggered when a pawn transaction starts
         public Action<int> OnBid; // Event triggered when a bid is made
-        public MinMax<int> barValue; // The min and max value range for the pawn bar
+        public Action<bool,int> OnFinished;
         
         private CustomerBehaviour _currentCustomer; // the customer that is being served
         private int _offerAmount;
         private int _originalBid;
+        private bool _isOfferingItem;
         private MinMax<int> _acceptableBidRange;
-
-        [SerializeField] private TradingUI tradingUIManager; // Reference to the UI manager for trading
-        
         
         /// <summary>
         /// The customer offers the player an item for a price
@@ -33,9 +31,10 @@ namespace Trading
         /// <param name="customer">The new customer to serve</param>
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
         {
+            _isOfferingItem = true;
             _currentCustomer = customer;
             _offerAmount = offerAmount;
-            tradingUIManager.OnStartpawn(item.barValue, offerAmount);
+            OnStartPawn?.Invoke(item.barValue,offerAmount);
         }
         /// <summary>
         /// The customer tries to buy an item from the player
@@ -44,10 +43,11 @@ namespace Trading
         /// <returns>The Item to buy</returns>
         public void RequestUserItem(CustomerBehaviour customer)
         {
-            _currentCustomer = customer;
+            _isOfferingItem = false;
             var item = UserData.Instance.randomItem;
-            //!TODO make item.value calculation
-            tradingUIManager.OnStartpawn(item.barValue, item.value);
+            var offerOffset = customer.GetOfferOffset(item.value);
+            _currentCustomer = customer;
+            OnStartPawn?.Invoke(item.barValue,item.value + offerOffset);
         }
         
         /// <summary>
@@ -57,17 +57,35 @@ namespace Trading
         public void CheckBid(int bid)
         {
             OnBid?.Invoke(bid);
-            var acceptableBid = _offerAmount;
-            
+
+            if (IsBidAcceptable(bid))
+            {
+                AcceptBid(bid);
+                return;
+            }
+            else
+            {
+                _currentCustomer.UpdateSatisfaction(false, 0.5f);
+                if ()
+                {
+                    
+                }
+            }
             //!TODO Implement checking algo
-            
-            tradingUIManager.OnBidFinish();
-            DayLoopEvents.Instance.CustomerLeave?.Invoke();
         }
 
-        /*private bool IsBidAcceptable(int barValue)
+        private bool IsBidAcceptable(int barValue)
         {
-            int wiggleRoom = _originalBid * 1 - _currentCustomer._greediness;
-        }*/
+            var wiggleRoom = _currentCustomer.CalculateWiggleRoom(_originalBid);
+            
+        }
+
+        private void AcceptBid(int bid)
+        {
+            OnFinished?.Invoke(true, bid);
+            UserData.Instance.ChangeNetWorth(_isOfferingItem ? bid : -bid);
+            DayLoopEvents.Instance.CustomerLeave?.Invoke();
+            _currentCustomer.UpdateSatisfaction(true, 2);
+        }
     }
 }

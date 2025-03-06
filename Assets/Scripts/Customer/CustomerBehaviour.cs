@@ -26,6 +26,7 @@ namespace Customer
         private int _income; // the amount of currency the customer earns every day 
         private readonly List<Items> _inventory = new(); // all the items the customer has
         
+        
         /// <summary>
         /// Transfer all data from the customer data scriptable object to this script
         /// </summary>
@@ -61,10 +62,8 @@ namespace Customer
         private void OnOfferItem()
         {
             var item = _inventory[Random.Range(0, _inventory.Count)];
-            var offer = item.value / _greediness;
-            offer *= _satisfaction;
             
-            PawningManager.Instance.OfferUserItem(item,(int)Math.Round(offer),this);
+            PawningManager.Instance.OfferUserItem(item,item.value + GetOfferOffset(item.value),this);
             // TODO: offer item
             
             // TODO: await user price
@@ -177,5 +176,14 @@ namespace Customer
             recall?.Invoke();
         }
 
+        public int CalculateWiggleRoom(int bid) => (int)(bid * (1 - _greediness));
+        
+        public int GetOfferOffset(int itemValue) => (int)(itemValue * (1 - _greediness) * _satisfaction);
+
+        public void UpdateSatisfaction(bool increase, float multiplier)
+        {
+            _satisfaction += increase ? _satisfaction * _satisfaction * multiplier : -_satisfaction * (1 -_satisfaction) * multiplier;
+            _satisfaction = Mathf.Clamp01(_satisfaction);
+        }
     }
 }

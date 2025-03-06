@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -20,11 +21,9 @@ namespace Trading
         /// </summary>
         private void Awake()
         {
-            PawningManager.Instance.OnStartpawn += OnStartpawn;
+            PawningManager.Instance.OnStartPawn += OnStartPawn;
+            PawningManager.Instance.OnFinished += OnBidFinish;
             
-            
-            //!TODO make sure this removes UI elements after the item has been bought
-        
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
         }
@@ -34,7 +33,7 @@ namespace Trading
         /// </summary>
         /// <param name="barValue">The min and max range for the bid slider</param>
         /// <param name="baseValue">The initial bid value</param>
-        public void OnStartpawn(MinMax<int> barValue, int baseValue)
+        private void OnStartPawn(MinMax<int> barValue, int baseValue)
         {
             SetBidSlider(barValue, baseValue);
             uiParent.SetActive(true);
@@ -44,14 +43,14 @@ namespace Trading
         /// Updates the bid amount text when the slider value changes.
         /// </summary>
         /// <param name="barValue">The current slider value</param>
-        private void OnBarChanged(float barValue) => bidAmount.text = Mathf.Ceil(bidSlider.value).ToString();
+        private void OnBarChanged(float barValue) => bidAmount.text = Mathf.Ceil(bidSlider.value).ToString(CultureInfo.InvariantCulture);
     
         /// <summary>
         /// Configures the bid slider's minimum, maximum, and initial value.
         /// </summary>
         /// <param name="barValue">The min and max range for the slider</param>
         /// <param name="itemValue">The default value to set on the slider</param>
-        public void SetBidSlider(MinMax<int> barValue, int itemValue)
+        private void SetBidSlider(MinMax<int> barValue, int itemValue)
         {
             bidSlider.minValue = barValue.min;
             bidSlider.maxValue = barValue.max;
@@ -66,6 +65,6 @@ namespace Trading
         /// <summary>
         /// Hides the trading UI after the bid process finishes.
         /// </summary>
-        public void OnBidFinish() => uiParent.SetActive(false);
+        private void OnBidFinish(bool isPawnSuccessful, int finalOffer) => uiParent.SetActive(false);
     }
 }
