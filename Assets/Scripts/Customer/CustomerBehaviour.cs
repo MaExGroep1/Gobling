@@ -120,6 +120,7 @@ namespace Customer
         /// <param name="recall"></param>
         private async void MoveCustomer(Transform[] path, Action recall)
         {
+            recall += OnAtCounter;
             for (var index = 1; index < path.Length; index++)
             {
                 var point = path[index];
@@ -134,7 +135,8 @@ namespace Customer
                 while (LeanTween.isTweening(gameObject))
                     await Task.Delay(10); 
             }
-            recall?.Invoke();        
+            recall?.Invoke();
+            recall -= OnAtCounter;
         }
         
         /// <summary>
@@ -166,5 +168,15 @@ namespace Customer
 
             transform.rotation = targetRotation;
         }
+        
+        private void OnAtCounter()
+        {
+            var validItems = _inventory.Count + UserData.Instance.inventoryCount;
+            if (_inventory.Count < Random.Range(0, validItems))
+                OnTryBuyItem();
+            else
+                OnOfferItem();
+        }
+
     }
 }
