@@ -13,8 +13,12 @@ namespace Trading
         [SerializeField] private TMP_Text bidAmount; // The bid amount TextMeshPro Text
         [SerializeField] private Slider bidSlider; // The bid amount slider UI element
         [SerializeField] private Button makeBidButton; // Button to confirm bid
+
+        [SerializeField] private GameObject buttonParent;
+        [SerializeField] private GameObject sliderParent;
+        
         [SerializeField] private Transform startPos; // The position the UI needs to start in or idle in
-        [SerializeField] private Transform targetPos; // The position the UI needs to move to 
+        [SerializeField] private Transform targetPos; // The position the button needs to move to
         
         
         /// <summary>
@@ -24,7 +28,8 @@ namespace Trading
         {
             PawningManager.Instance.OnStartpawn += OnStartPawn;
             
-            uiParent.transform.position = startPos.transform.position;
+            buttonParent.transform.position = startPos.transform.position;
+            sliderParent.transform.position = startPos.transform.position;
         
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
@@ -79,17 +84,26 @@ namespace Trading
             
             MoveAway();
         }
-        
-        
+
+
         /// <summary>
         /// Moves UI into the scene when the customer interacts
         /// </summary>
-        private void MoveIn() => LeanTween.move(uiParent, targetPos.transform.position, 3).setEase(LeanTweenType.easeOutBack);
-        
-        
+        private void MoveIn()
+        {
+            LeanTween.move(sliderParent, targetPos.transform.position, 3).setEase(LeanTweenType.easeOutBack);
+            LeanTween.move(buttonParent, targetPos.transform.position, 2).setEase(LeanTweenType.easeOutBack);
+
+        }
+
+
         /// <summary>
         /// Moves UI away after it's done being used by the player.
         /// </summary>
-        private void MoveAway() => LeanTween.move(uiParent, startPos.transform.position, 2).setEase(LeanTweenType.easeInBack);
+        private void MoveAway()
+        {
+            LeanTween.move(sliderParent, startPos.transform.position, 3).setEase(LeanTweenType.easeInBack);
+            LeanTween.move(buttonParent, startPos.transform.position, 2).setEase(LeanTweenType.easeInBack);
+        }
     }
 }
