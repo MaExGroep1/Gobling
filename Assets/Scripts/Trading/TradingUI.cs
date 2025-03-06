@@ -14,6 +14,8 @@ namespace Trading
         [SerializeField] private Slider bidSlider; // The bid amount slider UI element
 
         [SerializeField] private Button makeBidButton; // Button to confirm bid
+
+        private GameObject _startPos;
         
         /// <summary>
         /// Initializes event listeners and registers to the PawningManager's events.
@@ -21,12 +23,12 @@ namespace Trading
         private void Awake()
         {
             PawningManager.Instance.OnStartpawn += OnStartpawn;
-            
-            
-            //!TODO make sure this removes UI elements after the item has been bought
+            uiParent.transform.position = new Vector3(960, -300, 0);
         
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
+
+            _startPos.transform.position = uiParent.transform.position;
         }
         
         /// <summary>
@@ -37,7 +39,8 @@ namespace Trading
         public void OnStartpawn(MinMax<int> barValue, int baseValue)
         {
             SetBidSlider(barValue, baseValue);
-            uiParent.SetActive(true);
+            //uiParent.SetActive(true);
+            LeanTween.move(uiParent, new Vector3(960, 540, 0), 3).setEase(LeanTweenType.easeOutBack);
         }
         
         /// <summary>
@@ -66,6 +69,11 @@ namespace Trading
         /// <summary>
         /// Hides the trading UI after the bid process finishes.
         /// </summary>
-        public void OnBidFinish() => uiParent.SetActive(false);
+        public void OnBidFinish()
+        {
+            LeanTween.move(uiParent, _startPos.transform.position, 2).setEase(LeanTweenType.easeInBack);
+            //uiParent.SetActive(false);
+        }
+
     }
 }

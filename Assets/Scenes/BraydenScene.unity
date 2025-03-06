@@ -468,7 +468,7 @@ PrefabInstance:
     - target: {fileID: 1009725707378576467, guid: ea57dfd4293a76741928cbae0ddb5126,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 1009725707378576467, guid: ea57dfd4293a76741928cbae0ddb5126,
         type: 3}
@@ -485,10 +485,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1611170495800819222, guid: ea57dfd4293a76741928cbae0ddb5126,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611170497569640058, guid: ea57dfd4293a76741928cbae0ddb5126,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4272679699290684048, guid: ea57dfd4293a76741928cbae0ddb5126,
         type: 3}
       propertyPath: m_Name
       value: Trading UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272679699290684048, guid: ea57dfd4293a76741928cbae0ddb5126,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea57dfd4293a76741928cbae0ddb5126, type: 3}
@@ -947,6 +962,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1070962458049791916}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1854681701 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3846038467826951503, guid: 3ab8546edb9e9574897208dd2bc01e8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1722731983774392611}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e02ddd18a8f36c4582050491c9cbebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1879447863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,5 +1454,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4337967492222288760, guid: e404b991b6ef06e4e98d9ad3786365a2,
         type: 3}
+    - target: {fileID: 6941372754648274943, guid: 3ab8546edb9e9574897208dd2bc01e8f,
+        type: 3}
+      propertyPath: tradingUIManager
+      value: 
+      objectReference: {fileID: 1854681701}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ab8546edb9e9574897208dd2bc01e8f, type: 3}
