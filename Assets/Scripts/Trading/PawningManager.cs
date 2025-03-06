@@ -15,12 +15,13 @@ namespace Trading
     {
         public Action<MinMax<int>, int> OnStartPawn; // Event triggered when a pawn transaction starts
         public Action<int> OnNewBidRound;
-        public Action<int> OnBid; // Event triggered when a bid is made
+        public Action<int> OnCheckBid; // Event triggered when a bid is made
         public Action<bool,int> OnFinished;
         
         private CustomerBehaviour _currentCustomer; // the customer that is being served
         private int _offerAmount;
         private int _originalBid;
+        private Items _offerItem;
         private bool _isOfferingItem;
         private MinMax<int> _acceptableBidRange;
         
@@ -32,23 +33,32 @@ namespace Trading
         /// <param name="customer">The new customer to serve</param>
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
         {
+            var value = UserData.Instance.netWorth < item.barValue.max
+                ? customer.netWorth
+                : item.barValue.max;
+
+            _offerItem = item;
             _isOfferingItem = true;
             _currentCustomer = customer;
             _offerAmount = offerAmount;
-            OnStartPawn?.Invoke(item.barValue,offerAmount);
+            
+            OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value),offerAmount);
         }
         /// <summary>
         /// The customer tries to buy an item from the player
         /// </summary>
         /// <param name="customer">The new customer to serve</param>
         /// <returns>The Item to buy</returns>
-        public void RequestUserItem(CustomerBehaviour customer)
-        {
+        public void RequestUserItem(CustomerBehaviour customer) {
+            _offerItem = UserData.Instance.randomItem;
+            
+            var offerOffset = customer.GetOfferOffset(_offerItem.value);
+            var value = _currentCustomer.netWorth < _offerItem.barValue.max
+                ? _currentCustomer.netWorth
+                : _offerItem.barValue.max;
             _isOfferingItem = false;
-            var item = UserData.Instance.randomItem;
-            var offerOffset = customer.GetOfferOffset(item.value);
             _currentCustomer = customer;
-            OnStartPawn?.Invoke(item.barValue,item.value + offerOffset);
+            OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value),_offerItem.value + offerOffset);
         }
         
         /// <summary>
@@ -57,7 +67,7 @@ namespace Trading
         /// <param name="bid">The bid amount placed by the player</param>
         public void CheckBid(int bid)
         {
-            OnBid?.Invoke(bid);
+            OnCheckBid?.Invoke(bid);
 
             if (IsBidAcceptable(bid))
             {
@@ -89,9 +99,14 @@ namespace Trading
         private void AcceptBid(int bid)
         {
             OnFinished?.Invoke(true, bid);
-            UserData.Instance.ChangeNetWorth(_isOfferingItem ? bid : -bid);
             DayLoopEvents.Instance.CustomerLeave?.Invoke();
             _currentCustomer.UpdateSatisfaction(true, 2);
+            if (_isOfferingItem)
+            {
+                UserData.Instance.BuyItem(_offerItem, bid);
+                return;
+            }
+            UserData.Instance.SellItem(_offerItem,bid);
         }
 
         private void LostInterest()
@@ -109,7 +124,9 @@ namespace Trading
 
         private void NewBidRound(int newBid)
         {
-            
+            _originalBid = newBid;
+            OnNewBidRound?.Invoke(newBid);
+            OnCheckBid?.Invoke(newBid);
         }
     }
 }

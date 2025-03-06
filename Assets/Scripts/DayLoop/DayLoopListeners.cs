@@ -12,6 +12,7 @@ namespace DayLoop
             DayLoopEvents.Instance.StartDay += StartDay;
             DayLoopEvents.Instance.EndDay += EndDay;
             DayLoopEvents.Instance.CustomerLeave += CustomerLeave;
+            DayLoopEvents.Instance.EndDay += GameOver;
         }
 
         /// <summary>
@@ -22,6 +23,7 @@ namespace DayLoop
             DayLoopEvents.Instance.StartDay -= StartDay;
             DayLoopEvents.Instance.EndDay -= EndDay;
             DayLoopEvents.Instance.CustomerLeave -= CustomerLeave;
+            DayLoopEvents.Instance.EndDay -= GameOver;
         }
         /// <summary>
         /// Event that gets called at the start of the day
@@ -33,5 +35,6 @@ namespace DayLoop
         protected abstract void EndDay();
 
         protected abstract void CustomerLeave();
+        protected abstract void GameOver();
     }
 }

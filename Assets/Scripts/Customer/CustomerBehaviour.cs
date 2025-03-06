@@ -22,12 +22,13 @@ namespace Customer
         private float _turnSpeed; // the speed at which the customer turns
         private Coroutine _rotationCoroutine; // the coroutine of the customer rotating while walking
         private Animator _animator; // the animator of the customer
-        
-        private int _netWorth; // how much currency the customer has in total
+
         private int _income; // the amount of currency the customer earns every day 
         private readonly List<Items> _inventory = new(); // all the items the customer has
         
-        
+        public int netWorth { get; private set; } // how much currency the customer has in total
+
+
         /// <summary>
         /// Transfer all data from the customer data scriptable object to this script
         /// </summary>
@@ -40,7 +41,7 @@ namespace Customer
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness=
             _trustworthiness = customerData.trustworthiness;
-            _netWorth = customerData.netWorth;
+            netWorth = customerData.netWorth;
             _income = customerData.income;
             _speed = customerData.speed;
             _turnSpeed = customerData.turnSpeed;
@@ -65,13 +66,6 @@ namespace Customer
             var item = _inventory[Random.Range(0, _inventory.Count)];
             
             PawningManager.Instance.OfferUserItem(item,item.value + GetOfferOffset(item.value),this);
-            // TODO: offer item
-            
-            // TODO: await user price
-            
-            // TODO: check if customer agrees on price
-            
-            // TODO: sell or deny
         }
         
         /// <summary>
@@ -80,10 +74,6 @@ namespace Customer
         private void OnTryBuyItem()
         {
             PawningManager.Instance.RequestUserItem(this);
-            // TODO: get random item form user and offer price
-            // TODO: await user price
-            // TODO: check if customer agrees on price
-            // TODO: sell or deny
         }
         
         /// <summary>

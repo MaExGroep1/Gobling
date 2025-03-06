@@ -18,5 +18,10 @@ namespace DayLoop
         {
             throw new System.NotImplementedException();
         }
+
+        protected override void GameOver()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

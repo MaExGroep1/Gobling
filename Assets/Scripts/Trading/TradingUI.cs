@@ -23,6 +23,7 @@ namespace Trading
         {
             PawningManager.Instance.OnStartPawn += OnStartPawn;
             PawningManager.Instance.OnFinished += OnBidFinish;
+            PawningManager.Instance.OnNewBidRound += OnNewBid;
             
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
@@ -66,5 +67,7 @@ namespace Trading
         /// Hides the trading UI after the bid process finishes.
         /// </summary>
         private void OnBidFinish(bool isPawnSuccessful, int finalOffer) => uiParent.SetActive(false);
+        
+        private void OnNewBid(int bid) => bidSlider.value = bid;
     }
 }

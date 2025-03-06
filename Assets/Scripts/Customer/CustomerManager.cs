@@ -103,6 +103,15 @@ namespace Customer
             RemoveCustomer();
         }
 
+        protected override void GameOver()
+        {
+            foreach (var customer in _customers.ToList())
+            {
+                _customers.Remove(customer);
+                Destroy(customer.gameObject);
+            }
+        }
+
         /// <summary>
         /// Select a random customer to serve that isn't the last customer and waits for the next customer to leave
         /// </summary>
