@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6598254757296532571
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainTableGlassMat
-  m_Shader: {fileID: -6465566751694194690, guid: dd609f779a76761468326eb767b6a12c,
+  m_Name: MainTableAlpha
+  m_Shader: {fileID: -6465566751694194690, guid: 1e81d44fd90c243438d27a0f3d394ec7,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -59,7 +46,20 @@ Material:
     - _Pixelation: 300
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 1
-    - _shine: 2
+    - _darknes: 2.18
+    - _shine: 0.18
     m_Colors: []
   m_BuildTextureStacks: []
+--- !u!114 &4053647410401395172
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
