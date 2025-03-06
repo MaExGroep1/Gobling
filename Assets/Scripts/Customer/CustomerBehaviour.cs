@@ -60,8 +60,6 @@ namespace Customer
         private void OnOfferItem()
         {
             var item = _inventory[Random.Range(0, _inventory.Count)];
-            ItemManager.Instance.ItemEnableAndJump(item, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemCustomerJumpLocation);
-            
             var offer = item.value / _greediness;
             offer *= _satisfaction;
             

@@ -53,9 +53,9 @@ namespace Item
             OnEnableAndJump?.Invoke(item, jumpPosition, startPosition);
         }
         
-        public static void ItemJumpAndDisable(Items item, Vector3 jumpPosition, Vector3 startPosition = default)
+        public void ItemJumpAndDisable(Items item, Vector3 jumpPosition, Vector3 startPosition = default)
         {
-            OnJumpAndDisable?.Invoke(item, startPosition, jumpPosition);
+            OnJumpAndDisable?.Invoke(item, jumpPosition, startPosition);
         }
     }
 }
