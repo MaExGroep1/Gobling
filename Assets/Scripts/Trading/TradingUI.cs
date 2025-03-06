@@ -16,6 +16,7 @@ namespace Trading
         [SerializeField] private Button makeBidButton; // Button to confirm bid
 
         private GameObject _startPos;
+        private GameObject _targetPos;
         
         /// <summary>
         /// Initializes event listeners and registers to the PawningManager's events.
@@ -23,12 +24,10 @@ namespace Trading
         private void Awake()
         {
             PawningManager.Instance.OnStartpawn += OnStartpawn;
-            uiParent.transform.position = new Vector3(960, -300, 0);
+            uiParent.transform.position = _startPos.transform.position;
         
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
-
-            _startPos.transform.position = uiParent.transform.position;
         }
         
         /// <summary>
@@ -39,8 +38,8 @@ namespace Trading
         public void OnStartpawn(MinMax<int> barValue, int baseValue)
         {
             SetBidSlider(barValue, baseValue);
-            //uiParent.SetActive(true);
-            LeanTween.move(uiParent, new Vector3(960, 540, 0), 3).setEase(LeanTweenType.easeOutBack);
+            MoveIn();
+            
         }
         
         /// <summary>
@@ -71,9 +70,21 @@ namespace Trading
         /// </summary>
         public void OnBidFinish()
         {
-            LeanTween.move(uiParent, _startPos.transform.position, 2).setEase(LeanTweenType.easeInBack);
+            
             //uiParent.SetActive(false);
         }
 
+        private void MoveIn()
+        {
+            DoSetActive(true);
+            LeanTween.move(uiParent, new Vector3(960, 540, 0), 3).setEase(LeanTweenType.easeOutBack);
+        }
+
+        private void MoveOut()
+        {
+            LeanTween.move(uiParent, _startPos.transform.position, 2).setEase(LeanTweenType.easeInBack);
+        }
+
+        private void DoSetActive(bool isActive) => uiParent.SetActive(isActive);
     }
 }
