@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Item
@@ -11,6 +13,8 @@ namespace Item
         [SerializeField] private float jumpXSpeed; //x-axis move speed for JumpToPosition()
         [SerializeField] private float jumpYSpeed; //y-axis move speed for JumpToPosition()
         [SerializeField] private float jumpHeight; //jump height for JumpToPosition()
+        [SerializeField] private float jumpWaitTime;
+        [SerializeField] private float deactivationWaitTime;
 
         /// <summary>
         /// activates the visuals of the item, and scales it from 0 to 1 using a tween
@@ -29,18 +33,6 @@ namespace Item
             ItemManager.OnJumpAndDisable -= JumpAndDeactivate;
         }
         
-
-        private void ActivateAndJump(Items item, Vector3 jumpPosition)
-        {
-            if (item.gameObject != gameObject) return;
-            Debug.Log("Activate and Jump");
-        }
-        
-        private void JumpAndDeactivate(Items item, Vector3 jumpPosition)
-        {
-            if (item.gameObject != gameObject) return;
-            Debug.Log("Jump and Deactivate");
-        }
         
         public void Activate()
         {
@@ -60,8 +52,10 @@ namespace Item
         /// <summary>
         /// moves the item to a position using two tweens to make it look like it jumps
         /// </summary>
-        public void JumpToPosition(Vector3 endPosition)
+        public void JumpToPosition(Vector3 endPosition, Vector3 startPosition = default)
         {
+            if (startPosition != default) gameObject.transform.position = startPosition;
+            
             var distance = Vector3.Distance(transform.position, endPosition);
             float xDuration = distance / jumpXSpeed;
             float yDuration = distance / jumpYSpeed;
@@ -69,6 +63,35 @@ namespace Item
             LeanTween.move(gameObject, endPosition, xDuration).setEase(LeanTweenType.easeOutQuint);
             LeanTween.moveLocalY(visuals.gameObject, jumpHeight, yDuration).setEase(LeanTweenType.easeOutQuint)
                 .setLoopPingPong(1);
+        }
+        private void ActivateAndJump(Items item, Vector3 jumpPosition, Vector3 startPosition)
+        {
+            if (item.gameObject != gameObject) return; 
+            
+            if (startPosition != default) gameObject.transform.position = startPosition;
+            StartCoroutine(JumpAndActivateTimer(jumpPosition));
+        }
+        
+        private void JumpAndDeactivate(Items item, Vector3 jumpPosition, Vector3 startPosition)
+        {
+            if (item.gameObject != gameObject) return; 
+            
+            if (startPosition != default) gameObject.transform.position = startPosition;
+            StartCoroutine(DeactivateAndJumpTimer(jumpPosition));
+        }
+
+        private IEnumerator JumpAndActivateTimer(Vector3 jumpPosition)
+        {
+            Activate();
+            yield return new WaitForSeconds(jumpWaitTime);
+            JumpToPosition(jumpPosition);
+        }
+        
+        private IEnumerator DeactivateAndJumpTimer(Vector3 jumpPosition)
+        {
+            JumpToPosition(jumpPosition);
+            yield return new WaitForSeconds(deactivationWaitTime);
+            Deactivate();
         }
     }
 }

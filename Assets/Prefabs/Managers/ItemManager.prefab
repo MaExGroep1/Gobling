@@ -46,3 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 0}
   itemParent: {fileID: 0}
+  itemCounterLocation: {fileID: 2941672814321196018, guid: 25df4c246c246ff4ca960b50e93f714a,
+    type: 3}
+  itemCustomerLocation: {fileID: 2941672814321196018, guid: 95dd8b85361a566429b014c226343b38,
+    type: 3}
+  itemPlayerLocation: {fileID: 2941672814321196018, guid: c5faa41a595788c45a6c0b1d79a6d0b7,
+    type: 3}

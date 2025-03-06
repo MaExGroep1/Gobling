@@ -13,32 +13,32 @@ namespace Item
         
         [SerializeField] private Items itemPrefab;
         [SerializeField] private Transform itemParent;
-        [SerializeField] private Transform itemCounterJumpLocation;
-        [SerializeField] private Transform itemCustomerJumpLocation;
-        [SerializeField] private Transform itemPlayerJumpLocation;
+        [SerializeField] private Transform itemCounterLocation;
+        [SerializeField] private Transform itemCustomerLocation;
+        [SerializeField] private Transform itemPlayerLocation;
         
         private readonly List<Items> _allItems = new();
 
         public static Vector3 ItemCounterJumpLocation
         {
-            get => Instance.itemCounterJumpLocation.position;
-            private set => Instance.itemCounterJumpLocation.position = value;
+            get => Instance.itemCounterLocation.position;
+            private set => Instance.itemCounterLocation.position = value;
         }
         
         public static Vector3 ItemCustomerJumpLocation
         {
-            get => Instance.itemCustomerJumpLocation.position;
-            private set => Instance.itemCustomerJumpLocation.position = value;
+            get => Instance.itemCustomerLocation.position;
+            private set => Instance.itemCustomerLocation.position = value;
         }
         
         public static Vector3 ItemPlayerJumpLocation
         {
-            get => Instance.itemPlayerJumpLocation.position;
-            private set => Instance.itemPlayerJumpLocation.position = value;
+            get => Instance.itemPlayerLocation.position;
+            private set => Instance.itemPlayerLocation.position = value;
         }
 
-        public static Action<Items, Vector3> OnEnableAndJump;
-        public static Action<Items, Vector3> OnJumpAndDisable;
+        public static Action<Items, Vector3, Vector3> OnEnableAndJump;
+        public static Action<Items, Vector3, Vector3> OnJumpAndDisable;
 
         protected override void Awake()
         {
@@ -61,14 +61,14 @@ namespace Item
         }
         
 
-        public static void ItemEnableAndJump(Items item, Vector3 jumpPosition)
+        public static void ItemEnableAndJump(Items item, Vector3 jumpPosition, Vector3 startPosition = default)
         {
-            OnEnableAndJump?.Invoke(item, jumpPosition);
+            OnEnableAndJump?.Invoke(item, startPosition, jumpPosition);
         }
         
-        public static void ItemJumpAndDisable(Items item, Vector3 jumpPosition)
+        public static void ItemJumpAndDisable(Items item, Vector3 jumpPosition, Vector3 startPosition = default)
         {
-            OnJumpAndDisable?.Invoke(item, jumpPosition);
+            OnJumpAndDisable?.Invoke(item, startPosition, jumpPosition);
         }
     }
 }

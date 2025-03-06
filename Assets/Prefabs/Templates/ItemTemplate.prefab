@@ -77,12 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7eda20c9e843a489a61ee38978efa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visuals: {fileID: 3670770931800744828}
-  activationSpeed: 0.75
-  deactivationSpeed: 0.5
-  jumpXSpeed: 0.5
-  jumpYSpeed: 3
-  jumpHeight: 0.5
   barValues:
     min: 0
     max: 0
@@ -104,3 +98,5 @@ MonoBehaviour:
   jumpXSpeed: 0.5
   jumpYSpeed: 3
   jumpHeight: 0.5
+  jumpWaitTime: 3
+  deactivationWaitTime: 3
