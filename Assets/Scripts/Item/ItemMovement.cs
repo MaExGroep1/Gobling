@@ -24,14 +24,14 @@ namespace Item
         ///
         private void Awake()
         {
-            ItemManager.OnEnableAndJump += ActivateAndJump;
-            ItemManager.OnJumpAndDisable += JumpAndDeactivate;
+            ItemManager.Instance.OnEnableAndJump += ActivateAndJump;
+            ItemManager.Instance.OnJumpAndDisable += JumpAndDeactivate;
         }
 
         private void OnDestroy()
         {
-            ItemManager.OnEnableAndJump -= ActivateAndJump;
-            ItemManager.OnJumpAndDisable -= JumpAndDeactivate;
+            ItemManager.Instance.OnEnableAndJump -= ActivateAndJump;
+            ItemManager.Instance.OnJumpAndDisable -= JumpAndDeactivate;
         }
         
         

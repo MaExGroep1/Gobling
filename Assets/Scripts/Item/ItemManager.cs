@@ -36,8 +36,8 @@ namespace Item
             private set => Instance.itemPlayerLocation.position = value;
         }
 
-        public static Action<Items, Vector3, Vector3> OnEnableAndJump;
-        public static Action<Items, Vector3, Vector3> OnJumpAndDisable;
+        public Action<Items, Vector3, Vector3> OnEnableAndJump;
+        public Action<Items, Vector3, Vector3> OnJumpAndDisable;
 
         public Items InstantiateItem(ItemData itemData, string itemName)
         {
