@@ -79,7 +79,6 @@ namespace Customer
         private void OnTryBuyItem()
         {
             PawningManager.Instance.RequestUserItem(this);
-            
             // TODO: get random item form user and offer price
             // TODO: await user price
             // TODO: check if customer agrees on price
