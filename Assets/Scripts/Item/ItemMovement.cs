@@ -8,20 +8,15 @@ namespace Item
 {
     public class ItemMovement : MonoBehaviour
     {
-        [SerializeField] private GameObject itemParent; //the parent GameObject of all visuals
-        [SerializeField] private float activationSpeed; //the speed at which the item activates
-        [SerializeField] private float deactivationSpeed; //the speed at which the item deactivates
-        [SerializeField] private float jumpXSpeed; //x-axis move speed for JumpToPosition()
-        [SerializeField] private float jumpYSpeed; //y-axis move speed for JumpToPosition()
-        [SerializeField] private float jumpHeight; //jump height for JumpToPosition()
-        [SerializeField] private float jumpWaitTime;
-        [SerializeField] private float deactivationWaitTime;
-
-        /// <summary>
-        /// activates the visuals of the item, and scales it from 0 to 1 using a tween
-        /// </summary>
-        ///
-        ///
+        [SerializeField] private GameObject itemParent;         //the parent GameObject of all visuals
+        [SerializeField] private float activationSpeed;         //the speed at which the item activates
+        [SerializeField] private float deactivationSpeed;       //the speed at which the item deactivates
+        [SerializeField] private float jumpXSpeed;              //x-axis move speed for JumpToPosition()
+        [SerializeField] private float jumpYSpeed;              //y-axis move speed for JumpToPosition()
+        [SerializeField] private float jumpHeight;              //jump height for JumpToPosition()
+        [SerializeField] private float jumpWaitTime;            //the time the item waits between enabling and jumping
+        [SerializeField] private float deactivationWaitTime;    //the time the item waits between jumping and disabling
+        
         private void Awake()
         {
             ItemManager.Instance.OnEnableAndJump += ActivateAndJump;
@@ -34,7 +29,9 @@ namespace Item
             ItemManager.Instance.OnJumpAndDisable -= JumpAndDeactivate;
         }
         
-        
+        /// <summary>
+        /// activates the visuals of the item, and scales it from 0 to 1 using a tween
+        /// </summary>
         public void Activate()
         {
             itemParent.SetActive(true);
@@ -65,6 +62,14 @@ namespace Item
             LeanTween.moveLocalY(itemParent.gameObject, jumpHeight, yDuration).setEase(LeanTweenType.easeOutQuint)
                 .setLoopPingPong(1);
         }
+        
+        /// <summary>
+        /// calls the coroutine used for enabling and jumping the item to a location
+        /// if starting position is default(0, 0, 0), the item will jump from its current position
+        /// </summary>
+        /// <param name="item">used to see if item is this, if it is it will continue</param>
+        /// <param name="jumpPosition">the position where the item will jump</param>
+        /// <param name="startPosition">the position from which the item will jump</param>
         private void ActivateAndJump(Items item, Vector3 jumpPosition, Vector3 startPosition)
         {
             if (item.gameObject != gameObject) return; 
@@ -73,6 +78,13 @@ namespace Item
             StartCoroutine(JumpAndActivateTimer(jumpPosition));
         }
         
+        /// <summary>
+        /// calls the coroutine used for jumping  to a certain location and disabling it
+        /// if starting position is default(0, 0, 0), the item will jump from its current position
+        /// </summary>
+        /// <param name="item">used to see if item is this, if it is it will continue</param>
+        /// <param name="jumpPosition">the position where the item will jump</param>
+        /// <param name="startPosition">the position from which the item will jump</param>
         private void JumpAndDeactivate(Items item, Vector3 jumpPosition, Vector3 startPosition)
         {
             if (item.gameObject != gameObject) return; 
@@ -81,6 +93,11 @@ namespace Item
             StartCoroutine(DeactivateAndJumpTimer(jumpPosition));
         }
 
+        /// <summary>
+        /// Activates itself, waits for "jumpWaitTime" and then jumps to the location
+        /// </summary>
+        /// <param name="jumpPosition"></param>
+        /// <returns></returns>
         private IEnumerator JumpAndActivateTimer(Vector3 jumpPosition)
         {
             Activate();
@@ -88,6 +105,11 @@ namespace Item
             JumpToPosition(jumpPosition);
         }
         
+        /// <summary>
+        /// Jumps to the location, waits for "deactivationWaitTime" and deactivates itself
+        /// </summary>
+        /// <param name="jumpPosition"></param>
+        /// <returns></returns>
         private IEnumerator DeactivateAndJumpTimer(Vector3 jumpPosition)
         {
             JumpToPosition(jumpPosition);
