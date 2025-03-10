@@ -21,6 +21,7 @@ namespace Trading
         private CustomerBehaviour _currentCustomer; // the customer that is being served
         private int _offerAmount;
         private int _originalBid;
+        private int _lastOffer;
         private Items _offerItem;
         private bool _isOfferingItem;
         private MinMax<int> _acceptableBidRange;
@@ -34,14 +35,14 @@ namespace Trading
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
         {
             var value = UserData.Instance.netWorth < item.barValue.max
-                ? customer.netWorth
+                ? UserData.Instance.netWorth
                 : item.barValue.max;
-
+            _lastOffer = 0;
+            _originalBid = offerAmount;
             _offerItem = item;
             _isOfferingItem = true;
             _currentCustomer = customer;
             _offerAmount = offerAmount;
-            
             OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value),offerAmount);
         }
         /// <summary>
@@ -56,8 +57,11 @@ namespace Trading
             var value = _currentCustomer.netWorth < _offerItem.barValue.max
                 ? _currentCustomer.netWorth
                 : _offerItem.barValue.max;
+            _lastOffer = value;
+            _originalBid = _offerItem.value - offerOffset;
             _isOfferingItem = false;
             _currentCustomer = customer;
+            Debug.LogWarning($"min max{(_offerItem.barValue.min,value)} value{_offerItem.value}");
             OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value),_offerItem.value + offerOffset);
         }
         
@@ -71,18 +75,21 @@ namespace Trading
 
             if (IsBidAcceptable(bid))
             {
+                Debug.Log("Bid accepted");
                 AcceptBid(bid);
                 return;
             }
             
             _currentCustomer.UpdateSatisfaction(false, 0.5f);
             
-            if (IsBidOutOfRange(bid))
+            if (IsBidOutOfRange(bid) || _isOfferingItem ? bid < _lastOffer : bid > _lastOffer)
             {
+                Debug.LogError("Customer left the shop");
                 LostInterest();
                 return;
             }
-            
+            _lastOffer = bid;
+            Debug.LogError("Making new bid");
             MakeNewOffer(bid);
         }
 
@@ -106,7 +113,7 @@ namespace Trading
                 UserData.Instance.BuyItem(_offerItem, bid);
                 return;
             }
-            UserData.Instance.SellItem(_offerItem,bid);
+            UserData.Instance.SellItem(_offerItem, bid);
         }
 
         private void LostInterest()

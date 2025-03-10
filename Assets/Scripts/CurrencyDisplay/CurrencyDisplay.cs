@@ -24,7 +24,7 @@ namespace CurrencyDisplay
         private void UpdateDisplay(int currency)
         {
             if (currency > 999999) currency = 999999;
-            if (currency < -99999) currency = -99999;
+            if (currency < 0) currency = 0;
             var text = currency.ToString();
             for (var i = 0; i < 6; i++)
             {

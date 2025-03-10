@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8164267866662008297, guid: d8ab9987ee2cd6740be3e66e3f909bab, type: 3}
   lootTable: {fileID: 11400000, guid: 2f6ae9f4f3d37c446a89d1a75c80639a, type: 2}
-  greediness: 1
+  greediness: 0.5
   speed: 0.5
   turnSpeed: 0.5
   netWorth: 100
