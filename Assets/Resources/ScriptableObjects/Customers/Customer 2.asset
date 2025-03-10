@@ -17,6 +17,6 @@ MonoBehaviour:
   greediness: 0.5
   speed: 0.5
   turnSpeed: 0.5
-  netWorth: 100
+  netWorth: 10000
   income: 10
   startInventorySize: 5

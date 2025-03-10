@@ -23,7 +23,7 @@ namespace Trading
         private int _originalBid;
         private int _lastOffer;
         private Items _offerItem;
-        private bool _isOfferingItem;
+        private bool _isGoblinOffering;
         private MinMax<int> _acceptableBidRange;
         
         /// <summary>
@@ -40,7 +40,7 @@ namespace Trading
             _lastOffer = 0;
             _originalBid = offerAmount;
             _offerItem = item;
-            _isOfferingItem = true;
+            _isGoblinOffering = true;
             _currentCustomer = customer;
             _offerAmount = offerAmount;
             OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value),offerAmount);
@@ -59,7 +59,7 @@ namespace Trading
                 : _offerItem.barValue.max;
             _lastOffer = value;
             _originalBid = _offerItem.value - offerOffset;
-            _isOfferingItem = false;
+            _isGoblinOffering = false;
             _currentCustomer = customer;
             Debug.LogWarning($"min max{(_offerItem.barValue.min,value)} value{_offerItem.value}");
             OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value),_offerItem.value + offerOffset);
@@ -82,7 +82,7 @@ namespace Trading
             
             _currentCustomer.UpdateSatisfaction(false, 0.5f);
             
-            if (IsBidOutOfRange(bid) || _isOfferingItem ? bid < _lastOffer : bid > _lastOffer)
+            if (IsBidOutOfRange(bid) || _isGoblinOffering ? bid < _lastOffer : bid > _lastOffer)
             {
                 Debug.LogError("Customer left the shop");
                 LostInterest();
@@ -95,12 +95,12 @@ namespace Trading
 
         private bool IsBidAcceptable(int barValue)
         {
-            return _currentCustomer.WillBuy(barValue,_originalBid,_isOfferingItem);
+            return _currentCustomer.WillBuy(barValue,_originalBid,_isGoblinOffering);
         }
 
         private bool IsBidOutOfRange(int barValue)
         {
-            return _currentCustomer.IsInterested(barValue,_originalBid,_isOfferingItem);
+            return !_currentCustomer.IsInterested(barValue,_originalBid,_isGoblinOffering);
         }
 
         private void AcceptBid(int bid)
@@ -108,7 +108,7 @@ namespace Trading
             OnFinished?.Invoke(true, bid);
             DayLoopEvents.Instance.CustomerLeave?.Invoke();
             _currentCustomer.UpdateSatisfaction(true, 2);
-            if (_isOfferingItem)
+            if (_isGoblinOffering)
             {
                 UserData.Instance.BuyItem(_offerItem, bid);
                 return;

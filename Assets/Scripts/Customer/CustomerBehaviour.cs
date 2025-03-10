@@ -181,17 +181,21 @@ namespace Customer
 
         public bool IsInterested(int newBid, int originalOffer, bool isBuying)
         {
-            var i = isBuying ? originalOffer + CalculateWiggleRoom(originalOffer) * 2 * _satisfaction: originalOffer - CalculateWiggleRoom(originalOffer) * 2 * _satisfaction;
-            Debug.Log($"{i} new bid{newBid} {CalculateWiggleRoom(originalOffer) * 2 * _satisfaction}");
-            return isBuying ? 
-                newBid > originalOffer + CalculateWiggleRoom(originalOffer) * 2 * _satisfaction: 
-                newBid < originalOffer - CalculateWiggleRoom(originalOffer) * 2 * _satisfaction;
+            var i = isBuying ? originalOffer - CalculateWiggleRoom(originalOffer) * 2 * _satisfaction : originalOffer + CalculateWiggleRoom(originalOffer) * 2 * _satisfaction;
+            Debug.Log($"leave Price {i}, new bid {newBid}");
+            var leaveBid = isBuying ? 
+                originalOffer - CalculateWiggleRoom(originalOffer) * 3 * _satisfaction: 
+                originalOffer + CalculateWiggleRoom(originalOffer) * 3 * _satisfaction;
+            var willStay = isBuying ?
+                newBid > leaveBid:
+                newBid < leaveBid;
+            return willStay;
         }
 
         public bool WillBuy(int newBid, int originalOffer, bool isBuying)
         {
-            var i = isBuying ? originalOffer + CalculateWiggleRoom(originalOffer) * _greediness : originalOffer - CalculateWiggleRoom(originalOffer) * _greediness;
-            Debug.Log($"{i} new bid{newBid}");
+            var i = isBuying ? originalOffer - CalculateWiggleRoom(originalOffer) * _greediness : originalOffer + CalculateWiggleRoom(originalOffer) * _greediness;
+            Debug.Log($"will buy Price {i}, new bid {newBid}");
 
             return isBuying ? 
                 newBid > originalOffer - CalculateWiggleRoom(originalOffer) * _greediness: 
