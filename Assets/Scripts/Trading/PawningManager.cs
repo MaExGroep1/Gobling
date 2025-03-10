@@ -37,8 +37,8 @@ namespace Trading
             var itemManager = ItemManager.Instance;
             
             itemManager.ItemEnableAndJump(item, itemManager.ItemCounterJumpLocation, itemManager.ItemCustomerJumpLocation);
-            tradingUIManager.OnStartpawn(item.barValue, offerAmount);
             
+            tradingUIManager.OnStartPawn(item.barValue, offerAmount);
         }
         /// <summary>
         /// The customer tries to buy an item from the player
@@ -53,8 +53,8 @@ namespace Trading
             //!TODO make item.value calculation
             
             itemManager.ItemEnableAndJump(item ,itemManager.ItemCounterJumpLocation, itemManager.ItemPlayerJumpLocation);
-            tradingUIManager.OnStartpawn(item.barValue, item.value);
-            
+
+            tradingUIManager.OnStartPawn(item.barValue, item.value);
         }
         
         /// <summary>
