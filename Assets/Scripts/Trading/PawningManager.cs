@@ -34,6 +34,10 @@ namespace Trading
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
         {
             _currentCustomer = customer;
+            var itemManager = ItemManager.Instance;
+            
+            itemManager.ItemEnableAndJump(item, itemManager.ItemCounterJumpLocation, itemManager.ItemCustomerJumpLocation);
+            
             tradingUIManager.OnStartPawn(item.barValue, offerAmount);
         }
         /// <summary>
@@ -45,7 +49,11 @@ namespace Trading
         {
             _currentCustomer = customer;
             var item = UserData.Instance.randomItem;
+            var itemManager = ItemManager.Instance;
             //!TODO make item.value calculation
+            
+            itemManager.ItemEnableAndJump(item ,itemManager.ItemCounterJumpLocation, itemManager.ItemPlayerJumpLocation);
+
             tradingUIManager.OnStartPawn(item.barValue, item.value);
         }
         
