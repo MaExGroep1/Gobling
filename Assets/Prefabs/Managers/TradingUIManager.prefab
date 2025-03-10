@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6811182876065291802}
   - component: {fileID: 6811182876065291805}
   m_Layer: 0
-  m_Name: TradingManager
+  m_Name: TradingUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,5 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e02ddd18a8f36c4582050491c9cbebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiParent: {fileID: 0}
   bidAmount: {fileID: 0}
   bidSlider: {fileID: 0}
+  makeBidButton: {fileID: 0}
+  buttonParent: {fileID: 0}
+  sliderParent: {fileID: 0}
+  startPos: {fileID: 0}
+  targetPos: {fileID: 0}
