@@ -8,7 +8,7 @@ namespace Item
     public class Items : MonoBehaviour
     {
         [SerializeField] private MinMax<int> barValues;     // Minimum and Maximum value Percentage
-        [SerializeField] private GameObject itemParent;
+        [SerializeField] private GameObject itemParent;     // Parent of the item visuals and data
         
         private GameObject _prefab;                         //visuals of the item and extra scripts
         private ItemType _itemType = ItemType.Normal;       //the type of item
