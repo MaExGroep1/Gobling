@@ -13,9 +13,6 @@ namespace Trading
         [SerializeField] private TMP_Text bidAmount; // The bid amount TextMeshPro Text
         [SerializeField] private Slider bidSlider; // The bid amount slider UI element
         [SerializeField] private Button makeBidButton; // Button to confirm bid
-
-        [SerializeField] private GameObject buttonParent;
-        [SerializeField] private GameObject sliderParent;
         
         [SerializeField] private Transform startPos; // The position the UI needs to start in or idle in
         [SerializeField] private Transform targetPos; // The position the button needs to move to
@@ -28,8 +25,7 @@ namespace Trading
         {
             PawningManager.Instance.OnStartpawn += OnStartPawn;
             
-            buttonParent.transform.position = startPos.transform.position;
-            sliderParent.transform.position = startPos.transform.position;
+            uiParent.transform.position = startPos.transform.position;
         
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
@@ -91,9 +87,7 @@ namespace Trading
         /// </summary>
         private void MoveIn()
         {
-            LeanTween.move(sliderParent, targetPos.transform.position, 3).setEase(LeanTweenType.easeOutBack);
-            LeanTween.move(buttonParent, targetPos.transform.position, 2).setEase(LeanTweenType.easeOutBack);
-
+            LeanTween.move(uiParent, targetPos.transform.position, 3).setEase(LeanTweenType.easeOutBack);
         }
 
 
@@ -102,8 +96,7 @@ namespace Trading
         /// </summary>
         private void MoveAway()
         {
-            LeanTween.move(sliderParent, startPos.transform.position, 3).setEase(LeanTweenType.easeInBack);
-            LeanTween.move(buttonParent, startPos.transform.position, 2).setEase(LeanTweenType.easeInBack);
+            LeanTween.move(uiParent, startPos.transform.position, 3).setEase(LeanTweenType.easeInBack);
         }
     }
 }
