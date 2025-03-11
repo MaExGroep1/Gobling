@@ -45,33 +45,6 @@ namespace Customer
             for (var i = 0; i < customerData.startInventorySize; i++)
                 OnGetNewItem(_lootTable.GetRandomLoot());
         }
-        /// <summary>
-        /// Instantiate new item on the customer
-        /// </summary>
-        /// <param name="itemData">The item to instantiate</param>
-        private void OnGetNewItem(ItemData itemData)
-        {
-            var item = ItemManager.Instance.InstantiateItem(itemData,$"{gameObject.name}.{itemData.name}");
-            _inventory.Add(item);
-        }
-        
-        /// <summary>
-        /// The customer tries to sell an item to the user
-        /// </summary>
-        private void OnOfferItem()
-        {
-            var item = _inventory[Random.Range(0, _inventory.Count - 1)];
-            
-            PawningManager.Instance.OfferUserItem(item,item.value + GetOfferOffset(item.value),this);
-        }
-        
-        /// <summary>
-        /// The Customer Tries to buy an item from the user
-        /// </summary>
-        private void OnTryBuyItem()
-        {
-            PawningManager.Instance.RequestUserItem(this);
-        }
         
         /// <summary>
         /// Enter the shop to barter with the player
@@ -100,82 +73,7 @@ namespace Customer
             transform.position = path[0].position;
             MoveCustomer(path,onComplete);
         }
-        
-        /// <summary>
-        /// Leave the shop after bartering
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="recall"></param>
-        private async void MoveCustomer(Transform[] path, Action recall)
-        {
-            for (var index = 1; index < path.Length; index++)
-            {
-                var point = path[index];
-                var distance = Vector3.Distance(transform.position, point.position);
-                
-                if(_rotationCoroutine != null) StopCoroutine(_rotationCoroutine);
-                _rotationCoroutine = StartCoroutine(RotateCharacter(point.position));
-                LeanTween.move(gameObject, point.position, distance / _speed);
-                
-                await Task.Delay(10);
 
-                while (LeanTween.isTweening(gameObject))
-                    await Task.Delay(10); 
-            }
-            recall?.Invoke();
-        }
-        
-        /// <summary>
-        /// Rotate the customer towards the next point in the path easing out quart
-        /// </summary>
-        /// <param name="rotateTarget">The position to rotate towards</param>
-        /// <returns></returns>
-        private IEnumerator RotateCharacter(Vector3 rotateTarget)
-        {
-            var direction = rotateTarget - transform.position;
-            var targetRotation = Quaternion.LookRotation(direction);
-    
-            var startAngle = transform.rotation.eulerAngles.y;
-            var targetAngle = targetRotation.eulerAngles.y;
-            var rotationTime = 0f;
-            const float duration = 1f;
-
-            while (rotationTime < duration)
-            {
-                rotationTime += Time.deltaTime * _turnSpeed;
-                var t = rotationTime / duration;
-                t = 1 - Mathf.Pow(1 - t, 4); 
-
-                var newY = Mathf.LerpAngle(startAngle, targetAngle, t);
-                transform.rotation = Quaternion.Euler(0, newY, 0);
-
-                yield return null;
-            }
-            transform.rotation = targetRotation;
-        }
-        
-        /// <summary>
-        /// Makes the customer chose weather to sell or buy.
-        /// Depending on the customers inventory size and the players inventory size
-        /// </summary>
-        /// <param name="recall">Action to call after choosing the to buy or sell</param>
-        private void OnAtCounter(Action recall)
-        {
-            var validItems = _inventory.Count + UserData.Instance.inventoryCount + 1;
-            if (_inventory.Count < Random.Range(1, validItems))
-                OnTryBuyItem();
-            else
-                OnOfferItem();
-            recall?.Invoke();
-        }
-        
-        /// <summary>
-        /// Calculate the wiggle room of an item
-        /// </summary>
-        /// <param name="bid">The price of the item</param>
-        /// <returns>The wiggle room of the item</returns>
-        private int CalculateWiggleRoom(int bid) => Mathf.RoundToInt(bid * (1 - _greediness));
-        
         /// <summary>
         /// Calculates the offset from the default price the customer will aks for
         /// </summary>
@@ -248,6 +146,109 @@ namespace Customer
             netWorth -= cost;
             item.name = $"{gameObject.name}.{item.ItemName}";
             _inventory.Add(item);
+        }
+                
+        /// <summary>
+        /// Calculate the wiggle room of an item
+        /// </summary>
+        /// <param name="bid">The price of the item</param>
+        /// <returns>The wiggle room of the item</returns>
+        private int CalculateWiggleRoom(int bid) => Mathf.RoundToInt(bid * (1 - _greediness));
+        
+        /// <summary>
+        /// Instantiate new item on the customer
+        /// </summary>
+        /// <param name="itemData">The item to instantiate</param>
+        private void OnGetNewItem(ItemData itemData)
+        {
+            var item = ItemManager.Instance.InstantiateItem(itemData,$"{gameObject.name}.{itemData.name}");
+            _inventory.Add(item);
+        }
+        
+        /// <summary>
+        /// The customer tries to sell an item to the user
+        /// </summary>
+        private void OnOfferItem()
+        {
+            var item = _inventory[Random.Range(0, _inventory.Count - 1)];
+            
+            PawningManager.Instance.OfferUserItem(item,item.value + GetOfferOffset(item.value),this);
+        }
+        
+        /// <summary>
+        /// The Customer Tries to buy an item from the user
+        /// </summary>
+        private void OnTryBuyItem()
+        {
+            PawningManager.Instance.RequestUserItem(this);
+        }
+
+        /// <summary>
+        /// Makes the customer chose weather to sell or buy.
+        /// Depending on the customers inventory size and the players inventory size
+        /// </summary>
+        /// <param name="recall">Action to call after choosing the to buy or sell</param>
+        private void OnAtCounter(Action recall)
+        {
+            var validItems = _inventory.Count + UserData.Instance.inventoryCount + 1;
+            if (_inventory.Count < Random.Range(1, validItems))
+                OnTryBuyItem();
+            else
+                OnOfferItem();
+            recall?.Invoke();
+        }
+        
+        /// <summary>
+        /// Rotate the customer towards the next point in the path easing out quart
+        /// </summary>
+        /// <param name="rotateTarget">The position to rotate towards</param>
+        /// <returns></returns>
+        private IEnumerator RotateCharacter(Vector3 rotateTarget)
+        {
+            var direction = rotateTarget - transform.position;
+            var targetRotation = Quaternion.LookRotation(direction);
+    
+            var startAngle = transform.rotation.eulerAngles.y;
+            var targetAngle = targetRotation.eulerAngles.y;
+            var rotationTime = 0f;
+            const float duration = 1f;
+
+            while (rotationTime < duration)
+            {
+                rotationTime += Time.deltaTime * _turnSpeed;
+                var t = rotationTime / duration;
+                t = 1 - Mathf.Pow(1 - t, 4); 
+
+                var newY = Mathf.LerpAngle(startAngle, targetAngle, t);
+                transform.rotation = Quaternion.Euler(0, newY, 0);
+
+                yield return null;
+            }
+            transform.rotation = targetRotation;
+        }
+                
+        /// <summary>
+        /// Leave the shop after bartering
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="recall"></param>
+        private async void MoveCustomer(Transform[] path, Action recall)
+        {
+            for (var index = 1; index < path.Length; index++)
+            {
+                var point = path[index];
+                var distance = Vector3.Distance(transform.position, point.position);
+                
+                if(_rotationCoroutine != null) StopCoroutine(_rotationCoroutine);
+                _rotationCoroutine = StartCoroutine(RotateCharacter(point.position));
+                LeanTween.move(gameObject, point.position, distance / _speed);
+                
+                await Task.Delay(10);
+
+                while (LeanTween.isTweening(gameObject))
+                    await Task.Delay(10); 
+            }
+            recall?.Invoke();
         }
     }
 }
