@@ -14,8 +14,8 @@ namespace Trading
         [SerializeField] private Slider bidSlider; // The bid amount slider UI element
         [SerializeField] private Button makeBidButton; // Button to confirm bid
         
-        [SerializeField] private Transform startPos; // The position the UI needs to start in or idle in
-        [SerializeField] private Transform targetPos; // The position the button needs to move to
+        [SerializeField] private Transform inVisiblePosition; // The position the UI needs to start in or idle in
+        [SerializeField] private Transform visiblePosition; // The position the button needs to move to
         
         
         /// <summary>
@@ -25,7 +25,7 @@ namespace Trading
         {
             PawningManager.Instance.OnStartpawn += OnStartPawn;
             
-            uiParent.transform.position = startPos.transform.position;
+            uiParent.transform.position = inVisiblePosition.transform.position;
         
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
@@ -87,7 +87,7 @@ namespace Trading
         /// </summary>
         private void MoveIn()
         {
-            LeanTween.move(uiParent, targetPos.transform.position, 3).setEase(LeanTweenType.easeOutBack);
+            LeanTween.move(uiParent, visiblePosition.transform.position, 3).setEase(LeanTweenType.easeOutBack);
         }
 
 
@@ -96,7 +96,7 @@ namespace Trading
         /// </summary>
         private void MoveAway()
         {
-            LeanTween.move(uiParent, startPos.transform.position, 3).setEase(LeanTweenType.easeInBack);
+            LeanTween.move(uiParent, inVisiblePosition.transform.position, 3).setEase(LeanTweenType.easeInBack);
         }
     }
 }

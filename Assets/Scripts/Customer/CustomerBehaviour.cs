@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Item;
 using Trading;
 using UnityEngine;
+using UnityEngine.Serialization;
 using User;
 using Random = UnityEngine.Random;
 
@@ -20,7 +21,7 @@ namespace Customer
         private float _speed; // the speed at which the customer moves
         private float _turnSpeed; // the speed at which the customer turns
         private Coroutine _rotationCoroutine; // the coroutine of the customer rotating while walking
-        private Animator _animator; // the animator of the customer
+        [SerializeField] private CustomerAnimations customerAnimations; // the animator of the customer
         
         private int _netWorth; // how much currency the customer has in total
         private int _income; // the amount of currency the customer earns every day 
@@ -32,7 +33,7 @@ namespace Customer
         /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
-            _animator = Instantiate(customerData.prefab, transform).GetComponent<Animator>();
+            customerAnimations = Instantiate(customerData.customerAnimations, transform);
             gameObject.name = customerData.name;
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness=
@@ -94,7 +95,6 @@ namespace Customer
         {
             var direction = path[1].position - transform.position;
             var rotation = Quaternion.LookRotation(direction).eulerAngles;
-            _animator.SetFloat("SpeedMultiplier", _speed);
             transform.rotation = Quaternion.Euler(rotation);
 
             transform.position = path[0].position;
@@ -121,6 +121,8 @@ namespace Customer
         private async void MoveCustomer(Transform[] path, Action recall)
         {
             recall += OnAtCounter;
+            customerAnimations.SetAnimationFloat("SpeedMultiplier", _speed);
+
             for (var index = 1; index < path.Length; index++)
             {
                 var point = path[index];
@@ -171,6 +173,7 @@ namespace Customer
         
         private void OnAtCounter()
         {
+            customerAnimations.TriggerAnimation("AtCounter");
             var validItems = _inventory.Count + UserData.Instance.inventoryCount;
             if (_inventory.Count < Random.Range(0, validItems))
                 OnTryBuyItem();
