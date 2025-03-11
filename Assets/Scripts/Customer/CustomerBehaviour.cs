@@ -20,7 +20,7 @@ namespace Customer
         private float _speed;                               // the speed at which the customer moves
         private float _turnSpeed;                           // the speed at which the customer turns
         private Coroutine _rotationCoroutine;               // the coroutine of the customer rotating while walking
-        private Animator _animator;                         // the animator of the customer
+        private CustomerAnimations _animator;                // the animator of the customer
         private int _income;                                // the amount of currency the customer earns every day 
         private readonly List<Items> _inventory = new();    // all the items the customer has
         public int netWorth { get; private set; }           // how much currency the customer has in total
@@ -32,8 +32,7 @@ namespace Customer
         /// <param name="customerData">The Target Data to copy</param>
         public void Initialize(CustomerData customerData)
         {
-            
-            _animator = Instantiate(customerData.prefab, transform).GetComponent<Animator>();
+            _animator = Instantiate(customerData.customerAnimations, transform);
             gameObject.name = customerData.name;
             _lootTable = customerData.lootTable;
             _greediness = customerData.greediness;
@@ -55,7 +54,7 @@ namespace Customer
         {
             var direction = path[1].position - transform.position;
             var rotation = Quaternion.LookRotation(direction).eulerAngles;
-            _animator.SetFloat("SpeedMultiplier", _speed);
+            _animator.SetAnimationFloat("SpeedMultiplier", _speed);
             transform.rotation = Quaternion.Euler(rotation);
 
             transform.position = path[0].position;
@@ -70,6 +69,7 @@ namespace Customer
         /// <param name="onComplete"></param>
         public void ExitShop(Transform[] path, Action onComplete)
         {
+            _animator.TriggerAnimation("LeaveCounter");
             transform.position = path[0].position;
             MoveCustomer(path,onComplete);
         }
@@ -190,6 +190,7 @@ namespace Customer
         /// <param name="recall">Action to call after choosing the to buy or sell</param>
         private void OnAtCounter(Action recall)
         {
+            _animator.TriggerAnimation("AtCounter");
             var validItems = _inventory.Count + UserData.Instance.inventoryCount + 1;
             if (_inventory.Count < Random.Range(1, validItems))
                 OnTryBuyItem();
@@ -234,6 +235,7 @@ namespace Customer
         /// <param name="recall"></param>
         private async void MoveCustomer(Transform[] path, Action recall)
         {
+            _animator.SetAnimationFloat("SpeedMultiplier",_speed);
             for (var index = 1; index < path.Length; index++)
             {
                 var point = path[index];
