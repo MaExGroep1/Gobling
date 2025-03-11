@@ -9,7 +9,9 @@ namespace Item
 {
     public class ItemManager : Singleton<ItemManager>
     {
-        
+        public Action<Items, Vector3, Vector3> OnEnableAndJump;     //when the item should appear and jump to a location (item, jumpLocation, startLocation)
+        public Action<Items, Vector3, Vector3> OnJumpAndDisable;    //when the item should jump to a location and disappear (item, jumpLocation, startLocation)
+
         [SerializeField] private Items itemPrefab;
         [SerializeField] private Transform itemParent;              //Parent of the item visuals and data
         [SerializeField] private Transform itemCounterLocation;     //The location on the counter where the item can be
@@ -35,10 +37,7 @@ namespace Item
             get => Instance.itemPlayerLocation.position;
             private set => Instance.itemPlayerLocation.position = value;
         }
-
-        public Action<Items, Vector3, Vector3> OnEnableAndJump;     //when the item should appear and jump to a location (item, jumpLocation, startLocation)
-        public Action<Items, Vector3, Vector3> OnJumpAndDisable;    //when the item should jump to a location and disappear (item, jumpLocation, startLocation)
-
+        
         public Items InstantiateItem(ItemData itemData, string itemName)
         {
             var item = Instantiate(itemPrefab, itemParent, true);
