@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3897457925906099093
+--- !u!114 &-421532512071963927
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FloorMat
+  m_Name: SwordMat
   m_Shader: {fileID: -6465566751694194690, guid: 1d0f776cbcea4f8419a31cc94d777adb,
     type: 3}
   m_ValidKeywords: []
@@ -35,7 +35,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture_2D:
-        m_Texture: {fileID: 2800000, guid: 3735ad433d2f09749a9eae5a10300073, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2f0ce5f6cbeb85641a9583cc4bd98710, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _alpha:
@@ -56,11 +56,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 348
+    - _Pixelation: 150
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 1.07
-    - _shine: 2
+    - _darknes: 0.83
+    - _shine: 0.75
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
   m_BuildTextureStacks: []

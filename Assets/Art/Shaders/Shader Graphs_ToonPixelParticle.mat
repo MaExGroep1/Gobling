@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3897457925906099093
+--- !u!114 &-7961627788005815096
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FloorMat
-  m_Shader: {fileID: -6465566751694194690, guid: 1d0f776cbcea4f8419a31cc94d777adb,
+  m_Name: Shader Graphs_ToonPixelParticle
+  m_Shader: {fileID: -6465566751694194690, guid: 10231b52659c38545997667b39b99db8,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,11 +34,11 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Texture_2D:
-        m_Texture: {fileID: 2800000, guid: 3735ad433d2f09749a9eae5a10300073, type: 3}
+    - _Texture2DAsset_406881f9818f4e0fb34ed566737d167e_Out_0:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _alpha:
+    - _Texture_2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -56,11 +56,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 348
+    - _Pixelation: 300
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 1.07
-    - _shine: 2
+    - _darknes: 2.18
+    - _shine: 0.25
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 0, b: 0, a: 0.29411766}
   m_BuildTextureStacks: []

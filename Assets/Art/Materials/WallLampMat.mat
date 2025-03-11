@@ -43,11 +43,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 161
+    - _Pixelation: 92
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 1.53
-    - _shine: 1.08
+    - _darknes: 0.78
+    - _shine: 1.57
     m_Colors:
     - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
   m_BuildTextureStacks: []
