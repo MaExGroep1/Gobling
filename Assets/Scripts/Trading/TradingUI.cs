@@ -10,11 +10,10 @@ namespace Trading
 {
     public class TradingUI : MonoBehaviour
     {
-        [SerializeField] private GameObject uiParent; // Parent UI element for trading
-        [SerializeField] private TMP_Text bidAmount; // The bid amount TextMeshPro Text
-        [SerializeField] private Slider bidSlider; // The bid amount slider UI element
-
-        [SerializeField] private Button makeBidButton; // Button to confirm bid
+        [SerializeField] private GameObject uiParent;       // Parent UI element for trading
+        [SerializeField] private TMP_Text bidAmount;        // The bid amount TextMeshPro Text
+        [SerializeField] private Slider bidSlider;          // The bid amount slider UI element
+        [SerializeField] private Button makeBidButton;      // Button to confirm bid
         
         /// <summary>
         /// Initializes event listeners and registers to the PawningManager's events.
@@ -67,6 +66,10 @@ namespace Trading
         /// Hides the trading UI after the bid process finishes.
         /// </summary>
         private void OnBidFinish(bool isPawnSuccessful, int finalOffer) => uiParent.SetActive(false);
+        /// <summary>
+        /// Sets the new bid on the bid slider
+        /// </summary>
+        /// <param name="bid"></param>
         
         private void OnNewBid(int bid) => bidSlider.value = bid;
     }
