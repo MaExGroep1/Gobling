@@ -20,9 +20,9 @@ public class SpawnTestItem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) _item.Activate();
+        /*if (Input.GetKeyDown(KeyCode.Space)) _item.Activate();
         if (Input.GetKeyDown(KeyCode.Backspace)) _item.Deactivate();
         if (Input.GetKeyDown(KeyCode.Return)) _item.JumpToPosition(jumpPosition.transform.position);
-        if (Input.GetKeyDown(KeyCode.KeypadEnter)) _item.JumpToPosition(spawnPoint.transform.position);
+        if (Input.GetKeyDown(KeyCode.KeypadEnter)) _item.JumpToPosition(spawnPoint.transform.position);*/
     }
 }
