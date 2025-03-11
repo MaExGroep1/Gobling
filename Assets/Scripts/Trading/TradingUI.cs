@@ -42,6 +42,7 @@ namespace Trading
         {
             SetBidSlider(barValue, baseValue);
             uiParent.SetActive(true);
+            MoveIn();
         }
         
         /// <summary>
@@ -72,6 +73,7 @@ namespace Trading
         /// </summary>
         private void OnBidFinish(bool isSuccess, int amount)
         {
+            uiParent.SetActive(false);
             MoveAway();
         }
 
@@ -89,8 +91,7 @@ namespace Trading
         {
             LeanTween.move(uiParent, targetPos.transform.position, 3).setEase(LeanTweenType.easeOutBack);
         }
-
-
+        
         /// <summary>
         /// Moves UI away after it's done being used by the player
         /// </summary>
