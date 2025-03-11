@@ -14,7 +14,7 @@ public class SpawnTestItem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        /*if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (_theItem != null) Destroy(_theItem);
             _currentItem++;
@@ -26,6 +26,6 @@ public class SpawnTestItem : MonoBehaviour
             if (_theItem != null) Destroy(_theItem);
             _currentItem--;
             _theItem = Instantiate(lootTable.GetItem(_currentItem).prefab, spawnPoint.transform.position, Quaternion.identity); 
-        }
+        }*/
     }
 }
