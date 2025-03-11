@@ -8,6 +8,7 @@ namespace CurrencyDisplay
     public class CurrencyDisplay : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI[] currencyText = new TextMeshProUGUI[6]; // Display of current amount of currency
+        
         /// <summary>
         /// subscribe to the OnCurrencyChanged Action from the UserData Singleton
         /// </summary>
@@ -20,11 +21,10 @@ namespace CurrencyDisplay
         /// Update the display to the current currency
         /// </summary>
         /// <param name="currency">The new amount of currency</param>
-
         private void UpdateDisplay(int currency)
         {
             if (currency > 999999) currency = 999999;
-            if (currency < -99999) currency = -99999;
+            if (currency < 0) currency = 0;
             var text = currency.ToString();
             for (var i = 0; i < 6; i++)
             {
@@ -33,6 +33,5 @@ namespace CurrencyDisplay
                 currencyText[i].text = display;
             }
         }
-        
     }
 }

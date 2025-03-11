@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,51 +10,49 @@ namespace Trading
 {
     public class TradingUI : MonoBehaviour
     {
-        [SerializeField] private GameObject uiParent; // Parent UI element for trading
-        [SerializeField] private TMP_Text bidAmount; // The bid amount TextMeshPro Text
-        [SerializeField] private Slider bidSlider; // The bid amount slider UI element
-        [SerializeField] private Button makeBidButton; // Button to confirm bid
+        [SerializeField] private GameObject uiParent;       // parent UI element for trading
+        [SerializeField] private TMP_Text bidAmount;        // the bid amount TextMeshPro Text
+        [SerializeField] private Slider bidSlider;          // the bid amount slider UI element
+        [SerializeField] private Button makeBidButton;      // button to confirm bid
         
-        [SerializeField] private Transform startPos; // The position the UI needs to start in or idle in
-        [SerializeField] private Transform targetPos; // The position the button needs to move to
+        [SerializeField] private Transform startPos;        // the position the UI needs to start in or idle in
+        [SerializeField] private Transform targetPos;       // the position the button needs to move to
         
         
         /// <summary>
-        /// Initializes event listeners and registers to the PawningManager's events.
+        /// Initializes event listeners and registers to the PawningManager's events
         /// </summary>
         private void Awake()
         {
-            PawningManager.Instance.OnStartpawn += OnStartPawn;
+            PawningManager.Instance.OnStartPawn += OnStartPawn;
+            PawningManager.Instance.OnFinished += OnBidFinish;
+            PawningManager.Instance.OnNewBidRound += OnNewBid;
             
-            uiParent.transform.position = startPos.transform.position;
-        
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
         }
-        
-        
-        // ReSharper disable Unity.PerformanceAnalysis
+
+
         /// <summary>
-        /// Starts the pawn process by setting up the bid UI and displaying it.
+        /// Starts the pawn process by setting up the bid UI and displaying it
         /// </summary>
         /// <param name="barValue">The min and max range for the bid slider</param>
         /// <param name="baseValue">The initial bid value</param>
-        public void OnStartPawn(MinMax<int> barValue, int baseValue)
+        private void OnStartPawn(MinMax<int> barValue, int baseValue)
         {
             SetBidSlider(barValue, baseValue);
+            uiParent.SetActive(true);
             MoveIn();
-        }   
-        
+        }
         
         /// <summary>
-        /// Updates the bid amount text when the slider value changes.
+        /// Updates the bid amount text when the slider value changes
         /// </summary>
         /// <param name="barValue">The current slider value</param>
-        private void OnBarChanged(float barValue) => bidAmount.text = Mathf.Ceil(bidSlider.value).ToString();
+        private void OnBarChanged(float barValue) => bidAmount.text = Mathf.RoundToInt(bidSlider.value).ToString();
     
-        
         /// <summary>
-        /// Configures the bid slider's minimum, maximum, and initial value.
+        /// Configures the bid slider's minimum, maximum, and initial value
         /// </summary>
         /// <param name="barValue">The min and max range for the slider</param>
         /// <param name="itemValue">The default value to set on the slider</param>
@@ -64,35 +63,37 @@ namespace Trading
             bidSlider.value = itemValue;
         }
 
-        
         /// <summary>
-        /// Sends the final bid amount to the PawningManager for processing.
+        /// Sends the final bid amount to the PawningManager for processing
         /// </summary>
         private void OnBid() => PawningManager.Instance.CheckBid((int)bidSlider.value);
 
-        
         /// <summary>
-        /// Hides the trading UI after the bid process finishes.
+        /// Hides the trading UI after the bid process finishes
         /// </summary>
-        public void OnBidFinish()
+        private void OnBidFinish(bool isSuccess, int amount)
         {
-            //!TODO Check if bid is accepted or denied
-            
+            uiParent.SetActive(false);
             MoveAway();
         }
 
-
         /// <summary>
-        /// Moves UI into the scene when the customer interacts
+        /// Sets the new bid on the bid slider
+        /// </summary>
+        /// <param name="bid"></param>
+        
+        private void OnNewBid(int bid) => bidSlider.value = bid;
+        
+        /// <summary>
+        /// Moves UI in to frame when starting the bid
         /// </summary>
         private void MoveIn()
         {
             LeanTween.move(uiParent, targetPos.transform.position, 3).setEase(LeanTweenType.easeOutBack);
         }
-
-
+        
         /// <summary>
-        /// Moves UI away after it's done being used by the player.
+        /// Moves UI away after it's done being used by the player
         /// </summary>
         private void MoveAway()
         {
