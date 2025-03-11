@@ -63,7 +63,7 @@ namespace Customer
         /// </summary>
         private void OnOfferItem()
         {
-            var item = _inventory[Random.Range(0, _inventory.Count)];
+            var item = _inventory[Random.Range(0, _inventory.Count - 1)];
             
             PawningManager.Instance.OfferUserItem(item,item.value + GetOfferOffset(item.value),this);
         }
@@ -159,8 +159,8 @@ namespace Customer
         
         private void OnAtCounter(Action recall)
         {
-            var validItems = _inventory.Count + UserData.Instance.inventoryCount;
-            if (_inventory.Count < Random.Range(0, validItems))
+            var validItems = _inventory.Count + UserData.Instance.inventoryCount + 1;
+            if (_inventory.Count < Random.Range(1, validItems))
                 OnTryBuyItem();
             else
                 OnOfferItem();
@@ -170,7 +170,7 @@ namespace Customer
         private int CalculateWiggleRoom(int bid) => Mathf.RoundToInt(bid * (1 - _greediness));
         
         
-        public int GetOfferOffset(int itemValue) => (int)(itemValue * (1 - _greediness) * _satisfaction);
+        public int GetOfferOffset(int itemValue) => (int)((itemValue * (1 - _greediness) * (1 - _satisfaction)) + itemValue * 0.1f);
 
         public void UpdateSatisfaction(bool increase, float multiplier)
         {
@@ -181,11 +181,11 @@ namespace Customer
 
         public bool IsInterested(int newBid, int originalOffer, bool isBuying)
         {
-            var i = isBuying ? originalOffer - CalculateWiggleRoom(originalOffer) * 2 * _satisfaction : originalOffer + CalculateWiggleRoom(originalOffer) * 2 * _satisfaction;
+            var i = isBuying ? originalOffer - CalculateWiggleRoom(originalOffer) * 10 * _satisfaction : originalOffer + CalculateWiggleRoom(originalOffer) * 10 * _satisfaction;
             Debug.Log($"leave Price {i}, new bid {newBid}");
             var leaveBid = isBuying ? 
-                originalOffer - CalculateWiggleRoom(originalOffer) * 3 * _satisfaction: 
-                originalOffer + CalculateWiggleRoom(originalOffer) * 3 * _satisfaction;
+                originalOffer - CalculateWiggleRoom(originalOffer) * 10 * _satisfaction: 
+                originalOffer + CalculateWiggleRoom(originalOffer) * 10 * _satisfaction;
             var willStay = isBuying ?
                 newBid > leaveBid:
                 newBid < leaveBid;
@@ -202,6 +202,18 @@ namespace Customer
                 newBid < originalOffer + CalculateWiggleRoom(originalOffer) * _greediness;
         }        
         public int MakeNewOffer(int userBid, int originalOffer) => Mathf.RoundToInt( Mathf.Lerp(originalOffer, userBid, (1-_greediness) * _satisfaction));
-        
+
+        public bool RemoveItem(Items item)
+        {
+            if (!_inventory.Contains(item)) return false;
+            _inventory.Remove(item);
+            return true;
+        }
+
+        public void AddItem(Items item)
+        {
+            item.name = $"{gameObject.name}.{item.ItemName}";
+            _inventory.Add(item);
+        }
     }
 }

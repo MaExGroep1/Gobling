@@ -44,7 +44,7 @@ namespace Trading
         /// Updates the bid amount text when the slider value changes.
         /// </summary>
         /// <param name="barValue">The current slider value</param>
-        private void OnBarChanged(float barValue) => bidAmount.text = Mathf.Ceil(bidSlider.value).ToString(CultureInfo.InvariantCulture);
+        private void OnBarChanged(float barValue) => bidAmount.text = Mathf.RoundToInt(bidSlider.value).ToString();
     
         /// <summary>
         /// Configures the bid slider's minimum, maximum, and initial value.

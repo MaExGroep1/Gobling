@@ -52,7 +52,8 @@ namespace Trading
         /// <returns>The Item to buy</returns>
         public void RequestUserItem(CustomerBehaviour customer) {
             _offerItem = UserData.Instance.randomItem;
-            
+            _currentCustomer = customer;
+
             var offerOffset = customer.GetOfferOffset(_offerItem.value);
             var value = _currentCustomer.netWorth < _offerItem.barValue.max
                 ? _currentCustomer.netWorth
@@ -60,9 +61,8 @@ namespace Trading
             _lastOffer = value;
             _originalBid = _offerItem.value - offerOffset;
             _isGoblinOffering = false;
-            _currentCustomer = customer;
             Debug.LogWarning($"min max{(_offerItem.barValue.min,value)} value{_offerItem.value}");
-            OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value),_offerItem.value + offerOffset);
+            OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value),_originalBid);
         }
         
         /// <summary>
@@ -80,9 +80,15 @@ namespace Trading
                 return;
             }
             
-            _currentCustomer.UpdateSatisfaction(false, 0.5f);
-            
-            if (IsBidOutOfRange(bid) || _isGoblinOffering ? bid < _lastOffer : bid > _lastOffer)
+            _currentCustomer.UpdateSatisfaction(false, 0.1f);
+            var ple = IsBidOutOfRange(bid);
+            if (ple)
+            {
+                Debug.LogError("Customer left the shop");
+                LostInterest();
+                return;
+            }
+            if (_isGoblinOffering ? bid < _lastOffer : bid > _lastOffer)
             {
                 Debug.LogError("Customer left the shop");
                 LostInterest();
@@ -107,13 +113,13 @@ namespace Trading
         {
             OnFinished?.Invoke(true, bid);
             DayLoopEvents.Instance.CustomerLeave?.Invoke();
-            _currentCustomer.UpdateSatisfaction(true, 2);
+            _currentCustomer.UpdateSatisfaction(true, 3);
             if (_isGoblinOffering)
             {
-                UserData.Instance.BuyItem(_offerItem, bid);
+                UserData.Instance.BuyItem(_offerItem, bid, _currentCustomer);
                 return;
             }
-            UserData.Instance.SellItem(_offerItem, bid);
+            UserData.Instance.SellItem(_offerItem, bid, _currentCustomer);
         }
 
         private void LostInterest()
