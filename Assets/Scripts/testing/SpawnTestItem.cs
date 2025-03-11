@@ -9,9 +9,13 @@ public class SpawnTestItem : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private GameObject jumpPosition;
     [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private LootTable lootTable;
     
     private GameObject _spawnedItem;
     private Items _item;
+    private int _currentItem = 0;
+    private GameObject _theItem;
+
     void Start()
     {
         _spawnedItem = Instantiate(itemPrefab, spawnPoint.transform.position, Quaternion.identity);
@@ -20,9 +24,12 @@ public class SpawnTestItem : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Space)) _item.Activate();
-        if (Input.GetKeyDown(KeyCode.Backspace)) _item.Deactivate();
-        if (Input.GetKeyDown(KeyCode.Return)) _item.JumpToPosition(jumpPosition.transform.position);
-        if (Input.GetKeyDown(KeyCode.KeypadEnter)) _item.JumpToPosition(spawnPoint.transform.position);*/
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (_theItem != null) Destroy(_theItem);
+            _theItem = Instantiate(lootTable.GetItem(_currentItem).prefab, spawnPoint.transform.position, Quaternion.identity);
+            _currentItem++;
+            if (lootTable.GetItem(_currentItem) == null) _currentItem = 0;
+        }
     }
 }
