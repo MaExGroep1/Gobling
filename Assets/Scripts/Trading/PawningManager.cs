@@ -92,13 +92,13 @@ namespace Trading
             if (ple)
             {
                 Debug.LogError("Customer left the shop");
-                LostInterest();
+                LostInterest(_isGoblinOffering);
                 return;
             }
             if (_isGoblinOffering ? bid < _latestOffer : bid > _latestOffer)
             {
                 Debug.LogError("Customer left the shop");
-                LostInterest();
+                LostInterest(_isGoblinOffering);
                 return;
             }
             _latestOffer = bid;
@@ -151,14 +151,20 @@ namespace Trading
         /// <summary>
         /// Makes the customer leave the shop
         /// </summary>
-        private void LostInterest()
+        private void LostInterest(bool isGoblinOffering)
         {
             var itemManager = ItemManager.Instance;
 
             OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke();
-            
+
+            if (isGoblinOffering)
+            {
+                itemManager.ItemJumpAndDisable(_offerItem, itemManager.ItemCustomerJumpLocation);
+                return;
+            }
             itemManager.ItemJumpAndDisable(_offerItem, itemManager.ItemPlayerJumpLocation);
+
         }
         
         /// <summary>
