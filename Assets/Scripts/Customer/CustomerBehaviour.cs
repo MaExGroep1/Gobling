@@ -55,7 +55,7 @@ namespace Customer
         {
             var direction = path[1].position - transform.position;
             var rotation = Quaternion.LookRotation(direction).eulerAngles;
-            _animator.SetSpeedFloat(_speed);
+            _animator.SetSpeedMultiplierFloat(_speed);
             transform.rotation = Quaternion.Euler(rotation);
 
             transform.position = path[0].position;
@@ -148,15 +148,19 @@ namespace Customer
             item.name = $"{gameObject.name}.{item.ItemName}";
             _inventory.Add(item);
         }
-
+        
+        /// <summary>
+        /// Wait until the item can jump to the hand then wait until the customer can leave
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator TakeItem()
         {
-            _animator.GaveItem();
-            _animator.StopJump();
+            _animator.CantLeaveShop();
+            _animator.CantJump();
             _animator.TriggerGiveTake();
-            yield return new WaitUntil(() => _animator.jump);
+            yield return new WaitUntil(() => _animator.itemCanJump);
             // TODO: Add jump here
-            yield return new WaitUntil(() => _animator.hasGotItem);
+            yield return new WaitUntil(() => _animator.canLeaveShop);
         }
         /// <summary>
         /// Calculate the wiggle room of an item
@@ -254,7 +258,7 @@ namespace Customer
         /// <param name="recall"></param>
         private async void MoveCustomer(Transform[] path, Action recall)
         {
-            _animator.SetSpeedFloat(_speed);
+            _animator.SetSpeedMultiplierFloat(_speed);
             for (var index = 1; index < path.Length; index++)
             {
                 var point = path[index];
@@ -271,11 +275,15 @@ namespace Customer
             }
             recall?.Invoke();
         }
-
+        
+        /// <summary>
+        /// Makes the customer wait until it can jump to the table
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator ItemAnimation()
         {
-            _animator.StopJump();
-            yield return new WaitUntil(() => JumpTime.jump);
+            _animator.CantJump();
+            yield return new WaitUntil(() => _animator.itemCanJump);
             //TODO: add item jump
         }
     }

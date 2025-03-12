@@ -18476,7 +18476,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 2.1666667
-    functionName: StartJump
+    functionName: CanJump
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 4906ffed6241e4c4a9ca8c954e347fa6,
       type: 3}
@@ -18484,7 +18484,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 5.6666665
-    functionName: GotItem
+    functionName: CanLeaveShop
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 4906ffed6241e4c4a9ca8c954e347fa6,
       type: 3}

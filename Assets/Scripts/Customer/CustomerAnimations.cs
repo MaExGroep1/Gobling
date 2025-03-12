@@ -5,23 +5,24 @@ namespace Customer
 {
     public class CustomerAnimations : MonoBehaviour
     {
-        private Animator _animator;
-        public bool jump { get; private set; }
-
-        public bool hasGotItem { get; private set; }
+        private Animator _animator;                         // the animator of the customer
+        public bool itemCanJump { get; private set; }              // weather the item can jump
+        public bool canLeaveShop { get; private set; }        // weather the customer can leave the shop
         
-        
+        /// <summary>
+        /// Set the animator as the gameobjects animator
+        /// </summary>
         private void Awake() => _animator = GetComponent<Animator>();
+        
+        public void CanJump() => itemCanJump = true;
 
-        public void StartJump() => jump = true;
-
-        public void StopJump() => jump = false;
+        public void CantJump() => itemCanJump = false;
         
-        public void GotItem() => hasGotItem = true;
+        public void CanLeaveShop() => canLeaveShop = true;
         
-        public void GaveItem() => hasGotItem = false;
+        public void CantLeaveShop() => canLeaveShop = false;
         
-        public void SetSpeedFloat(float value) => _animator.SetFloat("SpeedMultiplier", value);
+        public void SetSpeedMultiplierFloat(float value) => _animator.SetFloat("SpeedMultiplier", value);
         
         public void TriggerAtCounter() => _animator.SetTrigger("AtCounter");
         
