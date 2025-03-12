@@ -17,11 +17,11 @@ namespace Sound
             staticSoundObjectSpawn = soundObjectSpawn;
         }
 
-        public static void PlaySoundClip(AudioClip audioClip, float volume)
+        public static void PlaySoundClip(AudioClip audioClip)
         {
             AudioSource audioSource = Instantiate(staticSoundObject, staticSoundObjectSpawn.position, Quaternion.identity);
             audioSource.clip = audioClip;
-            audioSource.volume = volume;
+            audioSource.volume = 1f;
             audioSource.Play();
             float clipLength = audioSource.clip.length;
             Destroy(audioSource.gameObject, clipLength);
