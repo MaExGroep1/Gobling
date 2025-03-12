@@ -6,8 +6,9 @@ namespace DayLoop
 {
     public class DayLoopEvents : Singleton<DayLoopEvents>
     {
-        public Action StartDay; // Action to invoke when the day starts
-        public Action EndDay; // Action to invoke when the day ends
-        public Action CustomerLeave; // Action to invoke when the customer leaves
+        public Action StartDay; // action to invoke when the day starts
+        public Action EndDay; // action to invoke when the day ends
+        public Action CustomerLeave; // action to invoke when the customer leaves
+        public Action GameOver; // action to invoke when the player has no money left
     }
 }
