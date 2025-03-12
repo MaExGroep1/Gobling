@@ -14,6 +14,7 @@ namespace Trading
         [SerializeField] private TMP_Text bidAmount;        // the bid amount TextMeshPro Text
         [SerializeField] private Slider bidSlider;          // the bid amount slider UI element
         [SerializeField] private Button makeBidButton;      // button to confirm bid
+        [SerializeField] private Button rejectButton;      // button to confirm bid
         
         [SerializeField] private Transform startPos;        // the position the UI needs to start in or idle in
         [SerializeField] private Transform targetPos;       // the position the button needs to move to
@@ -30,8 +31,9 @@ namespace Trading
             
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
+            rejectButton.onClick.AddListener(OnReject);
         }
-
+        
 
         /// <summary>
         /// Starts the pawn process by setting up the bid UI and displaying it
@@ -98,6 +100,11 @@ namespace Trading
         private void MoveAway()
         {
             LeanTween.move(uiParent, startPos.transform.position, 3).setEase(LeanTweenType.easeInBack);
+        }
+        
+        private void OnReject()
+        {
+            PawningManager.Instance.RejectOffer();
         }
     }
 }

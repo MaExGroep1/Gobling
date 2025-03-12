@@ -97,6 +97,15 @@ namespace Trading
         }
         
         /// <summary>
+        /// Kicks the customer out of the shop
+        /// </summary>
+        public void RejectOffer()
+        {
+            OnFinished?.Invoke(false, 0);
+            DayLoopEvents.Instance.CustomerLeave?.Invoke();
+        }
+        
+        /// <summary>
         /// Checks if the customer accepts your price
         /// </summary>
         /// <param name="barValue">The users bid</param>
