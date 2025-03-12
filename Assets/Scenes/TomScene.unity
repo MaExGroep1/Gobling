@@ -2257,6 +2257,86 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsBye.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsGrunt.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsHello.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsBye.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 463b59f138066c645a659bc15a167e44, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsBye.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 78b45192caeefd84f945ee15dc45713f, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsBye.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1942ea291c50dc04cac2032e11854d43, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsBye.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0d7eaa81f2b06824ab854988c5008cd8, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsGrunt.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b36c48a3559ffe540ab8f276da667c45, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsGrunt.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7417b17018865cd4eb12946f9207aa76, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsGrunt.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: b17e00c8f9cd2a944ac038b9cc916297, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsGrunt.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 520d52aa6f038ee4aa45155391b8afc8, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsGrunt.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5306b1c18123bdc4c96c02ff6c7f9b9d, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsGrunt.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 52b2404f51cfecb4090312b224a7edbe, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsHello.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: cde73b4023cf16141bd5f636e8356c98, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsHello.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9b702987a77bce44ea319043dac88043, type: 3}
+    - target: {fileID: 3981475593160746386, guid: 93453c2cad175324dba112390650e57d,
+        type: 3}
+      propertyPath: audioClipsHello.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 500b47b086808ce4d9b24ff93db4b12b, type: 3}
     - target: {fileID: 3981475593160746387, guid: 93453c2cad175324dba112390650e57d,
         type: 3}
       propertyPath: m_Name
