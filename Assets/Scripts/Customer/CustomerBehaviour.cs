@@ -209,8 +209,8 @@ namespace Customer
         /// <param name="recall">Action to call after choosing the to buy or sell</param>
         private IEnumerator OnAtCounter(Action recall)
         {
-            SoundManager.IsAtCounter();
             _animator.TriggerAtCounter();
+            SoundManager.IsAtCounter();
             
             yield return new WaitUntil(() => !_isRotating);
             

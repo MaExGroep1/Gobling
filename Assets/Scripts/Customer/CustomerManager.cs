@@ -104,12 +104,12 @@ namespace Customer
         /// </summary>
         protected override void CustomerLeave(bool itemToGoblin)
         {
-            SoundManager.CustomerLeave();
             if (itemToGoblin)
             {
                 StartCoroutine(WaitForCustomerToTakeItem());
                 return;
             }
+            SoundManager.CustomerLeave();
             RemoveCustomer();
         }
 

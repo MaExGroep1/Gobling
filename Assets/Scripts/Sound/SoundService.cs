@@ -8,26 +8,33 @@ namespace Sound
     public class SoundService : MonoBehaviour
     {
         [Header("Audio Settings")]
-        [SerializeField] private AudioClip[] audioClips;
-        [SerializeField] private float volume;
+        [SerializeField] private AudioClip[] audioClips; // Array of audio clips that can be played
+        [SerializeField] private float volume; // Volume level for audio playback
         
         [Header("Audio Settings")]
-        [SerializeField] private Transform soundObjectSpawn;
-        [SerializeField] private bool isRadio;
+        [SerializeField] private Transform soundObjectSpawn; // The position where sound objects spawn
+        [SerializeField] private bool isRadio; // Determines if this is a radio sound system
         
         [Header("Radio Settings")]
         
         [ShowIf("isRadio")]
-        [SerializeField] private AudioClip radioCallClip;
+        [SerializeField] private AudioClip radioCallClip; // Audio clip for radio call sound
         
+         
+        private bool _hasFinishedNews; // Tracks if the news audio has finished playing
+        private bool _hasSpawned; // Ensures the radio sound plays only once
         
-        private bool _hasFinishedNews;
-        private bool _hasSpawned;
+        /// <summary>
+        /// Plays a random footstep sound effect.
+        /// </summary>
         public void FootStep()
         {
             SoundManager.PlayRandomClip(audioClips, soundObjectSpawn, volume);
         }
 
+        /// <summary>
+        /// Starts the audio sequence, playing radio news first if applicable.
+        /// </summary>
         private void Start()
         {
             if (!isRadio && _hasSpawned) return;
@@ -36,13 +43,14 @@ namespace Sound
                 StartCoroutine(PlayNewsThenRandom());
         }
         
+        /// <summary>
+        /// Plays the radio call clip first, then switches to a random audio clip.
+        /// </summary>
         protected IEnumerator PlayNewsThenRandom()
         {
             SoundManager.PlaySoundClip(radioCallClip, soundObjectSpawn, volume);
             yield return new WaitForSeconds(radioCallClip.length);
             SoundManager.PlayRandomClip(audioClips, soundObjectSpawn, volume);
         }
-
-
     }
 }
