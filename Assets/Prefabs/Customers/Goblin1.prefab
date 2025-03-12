@@ -65,13 +65,13 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a95bd0e2d1e607d43a98b5d1445a4dd4,
         type: 3}
       propertyPath: m_Name
-      value: Goblin_Walk
+      value: Goblin1
       objectReference: {fileID: 0}
     - target: {fileID: 6860641434701783778, guid: a95bd0e2d1e607d43a98b5d1445a4dd4,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 18e741a79b6636747bc0dea34297a266, type: 2}
+      objectReference: {fileID: 2100000, guid: 366bf496466f2f244a4377aec6a82d2c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a95bd0e2d1e607d43a98b5d1445a4dd4, type: 3}
 --- !u!1 &6528019233351282492 stripped

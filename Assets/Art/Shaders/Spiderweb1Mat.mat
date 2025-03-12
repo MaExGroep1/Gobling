@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4706799382024445824
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoblinMat
-  m_Shader: {fileID: -6465566751694194690, guid: 1d0f776cbcea4f8419a31cc94d777adb,
+  m_Name: Spiderweb1Mat
+  m_Shader: {fileID: -6465566751694194690, guid: 1e81d44fd90c243438d27a0f3d394ec7,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -35,11 +22,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture_2D:
-        m_Texture: {fileID: 2800000, guid: 6306a257ff1a2844db94a974538c622e, type: 3}
+        m_Texture: {fileID: 2800000, guid: f98f9df7f610a3740993cb53092d2ce2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _alpha:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1b1533c76ea9c2046ac846e8410cdb8b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -56,11 +43,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 300
+    - _Pixelation: 109
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 2.18
-    - _shine: 0.52
-    m_Colors:
-    - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
+    - _darknes: 0.14
+    - _shine: 2
+    m_Colors: []
   m_BuildTextureStacks: []
+--- !u!114 &4053647410401395172
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
