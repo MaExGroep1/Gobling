@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Customer;
 using DayLoop;
 using Item;
+using Sound;
 using UnityEngine;
 using Util;
 using Random = UnityEngine.Random;
@@ -38,6 +39,7 @@ namespace User
         private void ChangeNetWorth(int change)
         {
             netWorth += change;
+            SoundManager.PlayKachingSound();
             if (netWorth > 0)
             {
                 OnCurrencyChanged?.Invoke(netWorth);
