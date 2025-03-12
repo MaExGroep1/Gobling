@@ -159,7 +159,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5effccf4edac404ab6dd977b4befcf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 047ffcaf308c0434da644b03945dfee6, type: 3}
+  _audioClips:
+  - {fileID: 8300000, guid: d35458239535b2c4ca6fb05ec17184ba, type: 3}
+  - {fileID: 8300000, guid: c01f6df9e2bef9b479dac5b6172ac16c, type: 3}
+  - {fileID: 8300000, guid: 46ac79e292d8c0c43a84ebea60027564, type: 3}
+  - {fileID: 8300000, guid: 1a307e59ac508d74a82f3971a27678ca, type: 3}
+  - {fileID: 8300000, guid: e4a43ffb33f05314a911c5bcad3e9e7a, type: 3}
 --- !u!95 &362415125
 Animator:
   serializedVersion: 5
@@ -1442,7 +1447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5effccf4edac404ab6dd977b4befcf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 0}
+  _audioClips: []
 --- !u!4 &1588347167 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070962457003558579, guid: 3d8734a4c3e76d3439b24ddc56490959,

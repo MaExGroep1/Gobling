@@ -9,7 +9,7 @@ public class SoundService : MonoBehaviour
     [SerializeField] private AudioClip[] _audioClips;
     public void FootStep()
     {
-        var randClip = _audioClips[Random.Range(0, _audioClips.Length)]
+        var randClip = _audioClips[Random.Range(0, _audioClips.Length)];
         SoundManager.PlaySoundClip(randClip);
     }
 }
