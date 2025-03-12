@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Item;
+using Sound;
 using Trading;
 using Unity.Mathematics;
 using UnityEngine;
@@ -189,6 +190,7 @@ namespace Customer
         /// <param name="recall">Action to call after choosing the to buy or sell</param>
         private void OnAtCounter(Action recall)
         {
+            SoundManager.IsAtCounter();
             var validItems = _inventory.Count + UserData.Instance.inventoryCount + 1;
             if (_inventory.Count < Random.Range(1, validItems))
                 OnTryBuyItem();

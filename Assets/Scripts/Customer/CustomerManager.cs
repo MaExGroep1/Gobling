@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DayLoop;
+using Sound;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Util;
@@ -103,6 +104,7 @@ namespace Customer
         /// </summary>
         protected override void CustomerLeave()
         {
+            SoundManager.CustomerLeave();
             RemoveCustomer();
         }
 

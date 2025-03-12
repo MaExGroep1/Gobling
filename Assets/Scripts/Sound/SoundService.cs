@@ -7,7 +7,7 @@ namespace Sound
 {
     public class SoundService : MonoBehaviour
     {
-        [Header("Adio Settings")]
+        [Header("Audio Settings")]
         [SerializeField] private AudioClip[] audioClips;
         [SerializeField] private float volume;
         
@@ -16,8 +16,6 @@ namespace Sound
         [SerializeField] private bool isRadio;
         
         [Header("Radio Settings")]
-        [ShowIf("isRadio")]
-        [SerializeField] private AudioClip newsClip;
         
         [ShowIf("isRadio")]
         [SerializeField] private AudioClip radioCallClip;
@@ -27,7 +25,7 @@ namespace Sound
         private bool _hasSpawned;
         public void FootStep()
         {
-            PlayRandomClip();
+            SoundManager.PlayRandomClip(audioClips, soundObjectSpawn, volume);
         }
 
         private void Start()
@@ -38,21 +36,13 @@ namespace Sound
                 StartCoroutine(PlayNewsThenRandom());
         }
         
-        private IEnumerator PlayNewsThenRandom()
+        protected IEnumerator PlayNewsThenRandom()
         {
-            SoundManager.PlaySoundClip(radioCallClip, soundObjectSpawn, 0.2f);
+            SoundManager.PlaySoundClip(radioCallClip, soundObjectSpawn, volume);
             yield return new WaitForSeconds(radioCallClip.length);
-            SoundManager.PlaySoundClip(newsClip, soundObjectSpawn, 0.2f);
-            yield return new WaitForSeconds(newsClip.length);
-            PlayRandomClip();
+            SoundManager.PlayRandomClip(audioClips, soundObjectSpawn, volume);
         }
 
-        private void PlayRandomClip()
-        {
-            if (audioClips.Length == 0) return;
-            
-            var randClip = audioClips[Random.Range(0, audioClips.Length)];
-            SoundManager.PlaySoundClip(randClip, soundObjectSpawn, volume);
-        }
+
     }
 }
