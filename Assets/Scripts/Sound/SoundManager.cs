@@ -6,7 +6,7 @@ namespace Sound
     public class SoundManager : Singleton<SoundManager>
     {
         [SerializeField] private AudioSource soundObject;
-        [SerializeField] private Transform soundObjectSpawn;
+        
 
         private static AudioSource staticSoundObject;
         private static Transform staticSoundObjectSpawn;
@@ -14,14 +14,14 @@ namespace Sound
         protected override void Awake()
         {
             staticSoundObject = soundObject;
-            staticSoundObjectSpawn = soundObjectSpawn;
+            //staticSoundObjectSpawn = soundObjectSpawn;
         }
 
-        public static void PlaySoundClip(AudioClip audioClip)
+        public static void PlaySoundClip(AudioClip audioClip, Transform soundObjectSpawn, float volume)
         {
-            AudioSource audioSource = Instantiate(staticSoundObject, staticSoundObjectSpawn.position, Quaternion.identity);
+            AudioSource audioSource = Instantiate(staticSoundObject, soundObjectSpawn.position, Quaternion.identity);
             audioSource.clip = audioClip;
-            audioSource.volume = 1f;
+            audioSource.volume = volume;
             audioSource.Play();
             float clipLength = audioSource.clip.length;
             Destroy(audioSource.gameObject, clipLength);

@@ -1,15 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
-using Sound;
+using System;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
-public class SoundService : MonoBehaviour
+namespace Sound
 {
-    [SerializeField] private AudioClip[] _audioClips;
-    public void FootStep()
+    public class SoundService : MonoBehaviour
     {
-        var randClip = _audioClips[Random.Range(0, _audioClips.Length)];
-        SoundManager.PlaySoundClip(randClip);
+        [Header("Adio Settings")]
+        [SerializeField] private AudioClip[] audioClips;
+        [SerializeField] private float volume;
+        
+        [Header("Adio Settings")]
+        [SerializeField] private Transform soundObjectSpawn;
+        [SerializeField] private bool isRadio;
+        
+        private bool _hasSpawned;
+        public void FootStep()
+        {
+            PlayRandomClip();
+        }
+
+        private void Start()
+        {
+            if (isRadio && !_hasSpawned)
+            {
+                PlayRandomClip();
+                _hasSpawned = true;
+            }
+        }
+
+        private void PlayRandomClip()
+        {
+            if (audioClips.Length == 0) return;
+            
+            var randClip = audioClips[Random.Range(0, audioClips.Length)];
+            SoundManager.PlaySoundClip(randClip, soundObjectSpawn, volume);
+        }
     }
 }
