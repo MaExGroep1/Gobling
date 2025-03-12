@@ -13,6 +13,7 @@ namespace Customer
 {
     public class CustomerBehaviour : MonoBehaviour
     {
+        private bool _isRotating;
         private LootTable _lootTable;                       // table of loot the customer can buy outside the shop
         private float _greediness;                          // high value will raise the goblins sell prices and lower buy prices
         private float _satisfaction =  0.5f;                // how satisfied the customer is with the user
@@ -54,12 +55,12 @@ namespace Customer
         {
             var direction = path[1].position - transform.position;
             var rotation = Quaternion.LookRotation(direction).eulerAngles;
-            _animator.SetAnimationFloat("SpeedMultiplier", _speed);
+            _animator.SetSpeedFloat(_speed);
             transform.rotation = Quaternion.Euler(rotation);
 
             transform.position = path[0].position;
             gameObject.SetActive(true);
-            MoveCustomer(path,() => OnAtCounter(onComplete));
+            MoveCustomer(path,() => StartCoroutine(OnAtCounter(onComplete)));
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Customer
         /// <param name="onComplete"></param>
         public void ExitShop(Transform[] path, Action onComplete)
         {
-            _animator.TriggerAnimation("LeaveCounter");
+            _animator.TriggerLeaveCounter();
             transform.position = path[0].position;
             MoveCustomer(path,onComplete);
         }
@@ -147,7 +148,16 @@ namespace Customer
             item.name = $"{gameObject.name}.{item.ItemName}";
             _inventory.Add(item);
         }
-                
+
+        public IEnumerator TakeItem()
+        {
+            JumpTime.GaveItem();
+            JumpTime.StopJump();
+            _animator.TriggerGiveTake();
+            yield return new WaitUntil(() => JumpTime.jump);
+            // TODO: Add jump here
+            yield return new WaitUntil(() => JumpTime.hasGotItem);
+        }
         /// <summary>
         /// Calculate the wiggle room of an item
         /// </summary>
@@ -172,6 +182,8 @@ namespace Customer
         {
             var item = _inventory[Random.Range(0, _inventory.Count - 1)];
             
+            _animator.TriggerGiveTake();
+            
             PawningManager.Instance.OfferUserItem(item,item.value + GetOfferOffset(item.value),this);
         }
         
@@ -188,9 +200,12 @@ namespace Customer
         /// Depending on the customers inventory size and the players inventory size
         /// </summary>
         /// <param name="recall">Action to call after choosing the to buy or sell</param>
-        private void OnAtCounter(Action recall)
+        private IEnumerator OnAtCounter(Action recall)
         {
-            _animator.TriggerAnimation("AtCounter");
+            _animator.TriggerAtCounter();
+            
+            yield return new WaitUntil(() => !_isRotating);
+            
             var validItems = _inventory.Count + UserData.Instance.inventoryCount + 1;
             if (_inventory.Count < Random.Range(1, validItems))
                 OnTryBuyItem();
@@ -214,6 +229,7 @@ namespace Customer
             var rotationTime = 0f;
             const float duration = 1f;
 
+            _isRotating = true;
             while (rotationTime < duration)
             {
                 rotationTime += Time.deltaTime * _turnSpeed;
@@ -225,6 +241,7 @@ namespace Customer
 
                 yield return null;
             }
+            _isRotating = false;
             transform.rotation = targetRotation;
         }
                 
@@ -235,7 +252,7 @@ namespace Customer
         /// <param name="recall"></param>
         private async void MoveCustomer(Transform[] path, Action recall)
         {
-            _animator.SetAnimationFloat("SpeedMultiplier",_speed);
+            _animator.SetSpeedFloat(_speed);
             for (var index = 1; index < path.Length; index++)
             {
                 var point = path[index];

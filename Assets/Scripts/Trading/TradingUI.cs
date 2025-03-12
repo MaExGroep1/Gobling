@@ -71,7 +71,7 @@ namespace Trading
         /// <summary>
         /// Hides the trading UI after the bid process finishes
         /// </summary>
-        private void OnBidFinish(bool isSuccess, int amount)
+        private void OnBidFinish(bool isSuccess, bool isGoblinBuying, int amount)
         {
             uiParent.SetActive(false);
             MoveAway();
