@@ -25,28 +25,28 @@ namespace Sound
         private bool _hasSpawned; // Ensures the radio sound plays only once
         
         /// <summary>
+        /// Starts the audio sequence, playing radio news first if applicable.
+        /// </summary>
+        private void Start()
+        {
+            if (!isRadio && _hasSpawned) return;
+            _hasSpawned = true;
+
+            StartCoroutine(PlayNewsThenRandom());
+        }
+        
+        /// <summary>
         /// Plays a random footstep sound effect.
         /// </summary>
         public void FootStep()
         {
             SoundManager.PlayRandomClip(audioClips, soundObjectSpawn, volume);
         }
-
-        /// <summary>
-        /// Starts the audio sequence, playing radio news first if applicable.
-        /// </summary>
-        private void Start()
-        {
-            if (!isRadio && _hasSpawned) return;
-                _hasSpawned = true;
-
-                StartCoroutine(PlayNewsThenRandom());
-        }
         
         /// <summary>
         /// Plays the radio call clip first, then switches to a random audio clip.
         /// </summary>
-        protected IEnumerator PlayNewsThenRandom()
+        private IEnumerator PlayNewsThenRandom()
         {
             SoundManager.PlaySoundClip(radioCallClip, soundObjectSpawn, volume);
             yield return new WaitForSeconds(radioCallClip.length);

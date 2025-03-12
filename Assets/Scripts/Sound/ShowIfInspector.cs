@@ -9,7 +9,7 @@ namespace Sound
     /// based on a boolean field defined in the <see cref="ShowIfAttribute"/>.
     /// </summary>
     [CustomPropertyDrawer(typeof(ShowIfAttribute))]
-    public class SoundServiceInspector : PropertyDrawer
+    public class ShowIfInspector : PropertyDrawer
     {
         
         /// <summary>
