@@ -8,7 +8,7 @@ namespace DayLoop
         
         protected override void EndDay() => Debug.Log("EndDay");
         
-        protected override void CustomerLeave() => Debug.Log("EndDay");
+        protected override void CustomerLeave(bool itemToGoblin) => Debug.Log("EndDay");
 
         protected override void GameOver() => Debug.Log("EndDay");
         
