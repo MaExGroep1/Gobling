@@ -12,6 +12,7 @@ namespace DayLoop
             DayLoopEvents.Instance.StartDay += StartDay;
             DayLoopEvents.Instance.EndDay += EndDay;
             DayLoopEvents.Instance.CustomerLeave += CustomerLeave;
+            DayLoopEvents.Instance.EndDay += GameOver;
         }
 
         /// <summary>
@@ -22,6 +23,7 @@ namespace DayLoop
             DayLoopEvents.Instance.StartDay -= StartDay;
             DayLoopEvents.Instance.EndDay -= EndDay;
             DayLoopEvents.Instance.CustomerLeave -= CustomerLeave;
+            DayLoopEvents.Instance.EndDay -= GameOver;
         }
         /// <summary>
         /// Event that gets called at the start of the day
@@ -31,7 +33,13 @@ namespace DayLoop
         /// Event that gets called at the end of the day
         /// </summary>
         protected abstract void EndDay();
-
+        /// <summary>
+        /// Event that gets called when a customer leaves the shop
+        /// </summary>
         protected abstract void CustomerLeave();
+        /// <summary>
+        /// Event that gets called when the user has 0 currency
+        /// </summary>
+        protected abstract void GameOver();
     }
 }

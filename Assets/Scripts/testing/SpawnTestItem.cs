@@ -6,23 +6,26 @@ using UnityEngine;
 
 public class SpawnTestItem : MonoBehaviour
 {
-    [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private GameObject jumpPosition;
     [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private LootTable lootTable;
     
-    private GameObject _spawnedItem;
-    private Items _item;
-    void Start()
-    {
-        _spawnedItem = Instantiate(itemPrefab, spawnPoint.transform.position, Quaternion.identity);
-        _item = _spawnedItem.GetComponent<Items>();
-    }
+    private int _currentItem = -1;
+    private GameObject _theItem;
 
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Space)) _item.Activate();
-        if (Input.GetKeyDown(KeyCode.Backspace)) _item.Deactivate();
-        if (Input.GetKeyDown(KeyCode.Return)) _item.JumpToPosition(jumpPosition.transform.position);
-        if (Input.GetKeyDown(KeyCode.KeypadEnter)) _item.JumpToPosition(spawnPoint.transform.position);*/
+        /*if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (_theItem != null) Destroy(_theItem);
+            _currentItem++;
+            if (lootTable.GetItem(_currentItem) == null) _currentItem = 0;
+            _theItem = Instantiate(lootTable.GetItem(_currentItem).prefab, spawnPoint.transform.position, Quaternion.identity);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (_theItem != null) Destroy(_theItem);
+            _currentItem--;
+            _theItem = Instantiate(lootTable.GetItem(_currentItem).prefab, spawnPoint.transform.position, Quaternion.identity); 
+        }*/
     }
 }
