@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 522f703c7f679da40b1bf64bfc4cb036, type: 3}
-  m_Name: AxeItem
+  m_Name: MushroomItem
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5725466551590536268, guid: 3e714901cdbf32d4099c5fdb64638781, type: 3}
-  value: 350
+  prefab: {fileID: 1899041660608147368, guid: da9d039b16f4d7b4faa5c807997064f4, type: 3}
+  value: 50
   itemType: 0
   barValues:
-    min: 70
-    max: 700
+    min: 10
+    max: 100
