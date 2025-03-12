@@ -14,18 +14,18 @@ public class SpawnTestItem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        /*if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (_theItem != null) Destroy(_theItem);
             _currentItem++;
-            //if (lootTable.GetItem(_currentItem) == null) _currentItem = 0;
-            //_theItem = Instantiate(lootTable.GetItem(_currentItem).prefab, spawnPoint.transform.position, Quaternion.identity);
+            if (lootTable.GetItem(_currentItem) == null) _currentItem = 0;
+            _theItem = Instantiate(lootTable.GetItem(_currentItem).prefab, spawnPoint.transform.position, Quaternion.identity);
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if (_theItem != null) Destroy(_theItem);
             _currentItem--;
-            //_theItem = Instantiate(lootTable.GetItem(_currentItem).prefab, spawnPoint.transform.position, Quaternion.identity); 
-        }
+            _theItem = Instantiate(lootTable.GetItem(_currentItem).prefab, spawnPoint.transform.position, Quaternion.identity); 
+        }*/
     }
 }
