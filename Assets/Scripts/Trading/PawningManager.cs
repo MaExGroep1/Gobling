@@ -16,7 +16,7 @@ namespace Trading
         public Action<MinMax<int>, int> OnStartPawn;        // event triggered when a pawn transaction starts
         public Action<int> OnNewBidRound;                   // event when the customer gives a counteroffer
         public Action<int> OnCheckBid;                      // event triggered when a bid is made
-        public Action<bool,int> OnFinished;                 // event to trigger when the customer is done pawing
+        public Action<bool,bool,int> OnFinished;                 // event to trigger when the customer is done pawing
         
         private CustomerBehaviour _currentCustomer;         // the customer that is being served
         private int _previousOffer;                         // the previous bid of the customer
@@ -31,7 +31,7 @@ namespace Trading
         /// <param name="offerAmount">The initial amount the customer wants for it</param>
         /// <param name="customer">The new customer to serve</param>
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
-        {
+        {   
             var value = UserData.Instance.netWorth < item.barValue.max
                 ? UserData.Instance.netWorth
                 : item.barValue.max;
@@ -121,8 +121,8 @@ namespace Trading
         /// <param name="bid"></param>
         private void AcceptBid(int bid)
         {
-            OnFinished?.Invoke(true, bid);
-            DayLoopEvents.Instance.CustomerLeave?.Invoke();
+            OnFinished?.Invoke(true, _isGoblinOffering, bid);
+            DayLoopEvents.Instance.CustomerLeave?.Invoke(!_isGoblinOffering);
             _currentCustomer.UpdateSatisfaction(true, 3);
             if (_isGoblinOffering)
             {
@@ -137,8 +137,8 @@ namespace Trading
         /// </summary>
         private void LostInterest()
         {
-            OnFinished?.Invoke(false, 0);
-            DayLoopEvents.Instance.CustomerLeave?.Invoke();
+            OnFinished?.Invoke(false, _isGoblinOffering, 0);
+            DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
         }
         
         /// <summary>
