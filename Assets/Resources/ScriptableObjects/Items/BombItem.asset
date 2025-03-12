@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BombItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 5237213945524274286, guid: 1a102a215f87eee4c85f3fe9c5f69f8f, type: 3}
-  value: 100
+  value: 150
   itemType: 0
   barValues:
-    min: 50
-    max: 200
+    min: 30
+    max: 300
