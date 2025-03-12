@@ -143,6 +143,5 @@ namespace Customer
             yield return StartCoroutine(_lastCustomer.TakeItem());
             RemoveCustomer();
         }
-        
     }
 }

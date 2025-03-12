@@ -151,12 +151,12 @@ namespace Customer
 
         public IEnumerator TakeItem()
         {
-            JumpTime.GaveItem();
-            JumpTime.StopJump();
+            _animator.GaveItem();
+            _animator.StopJump();
             _animator.TriggerGiveTake();
-            yield return new WaitUntil(() => JumpTime.jump);
+            yield return new WaitUntil(() => _animator.jump);
             // TODO: Add jump here
-            yield return new WaitUntil(() => JumpTime.hasGotItem);
+            yield return new WaitUntil(() => _animator.hasGotItem);
         }
         /// <summary>
         /// Calculate the wiggle room of an item
@@ -183,6 +183,8 @@ namespace Customer
             var item = _inventory[Random.Range(0, _inventory.Count - 1)];
             
             _animator.TriggerGiveTake();
+
+            StartCoroutine(ItemAnimation());
             
             PawningManager.Instance.OfferUserItem(item,item.value + GetOfferOffset(item.value),this);
         }
@@ -268,6 +270,13 @@ namespace Customer
                     await Task.Delay(10); 
             }
             recall?.Invoke();
+        }
+
+        private IEnumerator ItemAnimation()
+        {
+            _animator.StopJump();
+            yield return new WaitUntil(() => JumpTime.jump);
+            //TODO: add item jump
         }
     }
 }
