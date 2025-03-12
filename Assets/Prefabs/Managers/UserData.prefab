@@ -44,3 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaea8a841dc9a6240a9aad53276d79fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startMoney: 0
+  startItems:
+  - {fileID: 11400000, guid: e8960e56e4df2f74dbb6a24c58687864, type: 2}
+  - {fileID: 11400000, guid: 3a8d2b215399cf440842194476490952, type: 2}
+  - {fileID: 11400000, guid: 41f6c5f89a0c6ca4cb526dec62e77f15, type: 2}
+  - {fileID: 11400000, guid: dfbb476449b27b74ca12f52502a7013f, type: 2}
+  - {fileID: 11400000, guid: 83bb166acae026248a2ff73ba2a1f1c0, type: 2}
+  - {fileID: 11400000, guid: 11e33b933942b274ebfa4c9dcccc0f80, type: 2}

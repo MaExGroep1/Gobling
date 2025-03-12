@@ -102,9 +102,14 @@ namespace Customer
         /// <summary>
         /// Kicks the current customer out
         /// </summary>
-        protected override void CustomerLeave()
+        protected override void CustomerLeave(bool itemToGoblin)
         {
             SoundManager.CustomerLeave();
+            if (itemToGoblin)
+            {
+                StartCoroutine(WaitForCustomerToTakeItem());
+                return;
+            }
             RemoveCustomer();
         }
 
@@ -135,5 +140,10 @@ namespace Customer
             _lastCustomer = customer;
         }
 
+        private IEnumerator WaitForCustomerToTakeItem()
+        {
+            yield return StartCoroutine(_lastCustomer.TakeItem());
+            RemoveCustomer();
+        }
     }
 }
