@@ -16,8 +16,8 @@ namespace Trading
         [SerializeField] private Button makeBidButton;      // button to confirm bid
         [SerializeField] private Button rejectButton;      // button to confirm bid
         
-        [SerializeField] private Transform startPos;        // the position the UI needs to start in or idle in
-        [SerializeField] private Transform targetPos;       // the position the button needs to move to
+        [SerializeField] private Transform bottomPosition;        // the position the UI needs to start in or idle in
+        [SerializeField] private Transform topPosition;       // the position the button needs to move to
         
         
         /// <summary>
@@ -73,7 +73,7 @@ namespace Trading
         /// <summary>
         /// Hides the trading UI after the bid process finishes
         /// </summary>
-        private void OnBidFinish(bool isSuccess, int amount)
+        private void OnBidFinish(bool isSuccess, bool isGoblinBuying, int amount)
         {
             uiParent.SetActive(false);
             MoveAway();
@@ -83,7 +83,6 @@ namespace Trading
         /// Sets the new bid on the bid slider
         /// </summary>
         /// <param name="bid"></param>
-        
         private void OnNewBid(int bid) => bidSlider.value = bid;
         
         /// <summary>
@@ -91,7 +90,7 @@ namespace Trading
         /// </summary>
         private void MoveIn()
         {
-            LeanTween.move(uiParent, targetPos.transform.position, 3).setEase(LeanTweenType.easeOutBack);
+            LeanTween.move(uiParent, topPosition.transform.position, 3).setEase(LeanTweenType.easeOutBack);
         }
         
         /// <summary>
@@ -99,7 +98,7 @@ namespace Trading
         /// </summary>
         private void MoveAway()
         {
-            LeanTween.move(uiParent, startPos.transform.position, 3).setEase(LeanTweenType.easeInBack);
+            LeanTween.move(uiParent, bottomPosition.transform.position, 3).setEase(LeanTweenType.easeInBack);
         }
         
         private void OnReject()
