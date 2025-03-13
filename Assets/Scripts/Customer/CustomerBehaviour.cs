@@ -26,6 +26,8 @@ namespace Customer
         private int _income;                                // the amount of currency the customer earns every day 
         private readonly List<Items> _inventory = new();    // all the items the customer has
         public int netWorth { get; private set; }           // how much currency the customer has in total
+        
+        public float satisfaction => _satisfaction;
 
 
         /// <summary>

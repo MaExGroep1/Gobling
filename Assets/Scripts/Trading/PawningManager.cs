@@ -16,7 +16,8 @@ namespace Trading
     {
         public Items OfferItem { get; private set; }
         
-        public Action<MinMax<int>, int> OnStartPawn;        // event triggered when a pawn transaction starts
+        public Action<MinMax<int>, int, int,CustomerBehaviour> OnStartPawn;        // event triggered when a pawn transaction starts
+        
         public Action<int> OnNewBidRound;                   // event when the customer gives a counteroffer
         public Action<int> OnCheckBid;                      // event triggered when a bid is made
         public Action<bool,int> OnFinished;            // event to trigger when the customer is done pawing
@@ -43,7 +44,8 @@ namespace Trading
             OfferItem = item;
             _isGoblinOffering = true;
             _currentCustomer = customer;
-            OnStartPawn?.Invoke(new MinMax<int>(OfferItem.barValue.min,value),offerAmount);
+
+            OnStartPawn?.Invoke(new MinMax<int>(OfferItem.barValue.min,value), offerAmount, item.value, customer);
         }
         /// <summary>
         /// The customer tries to buy an item from the user
@@ -62,8 +64,9 @@ namespace Trading
             _latestOffer = value;
             _previousOffer = OfferItem.value - offerOffset;
             _isGoblinOffering = false;
+
             Debug.LogWarning($"min max{(OfferItem.barValue.min,value)} value{OfferItem.value}");
-            OnStartPawn?.Invoke(new MinMax<int>(OfferItem.barValue.min,value),_previousOffer); 
+            OnStartPawn?.Invoke(new MinMax<int>(OfferItem.barValue.min,value), _previousOffer, OfferItem.value, customer);
             
             ItemManager.Instance.ItemEnableAndJump(OfferItem, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemPlayerJumpLocation);
         }
