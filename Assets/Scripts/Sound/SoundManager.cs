@@ -101,8 +101,8 @@ namespace Sound
 
         public static void OnDoorSound()
         {
-            PlaySoundClip(doorClip, Camera.main?.transform, 1f);
-            PlaySoundClip(bellClip, Camera.main?.transform, 1f );
+            PlaySoundClip(doorClip, Camera.main?.transform, 0.8f);
+            PlaySoundClip(bellClip, Camera.main?.transform, 1f);
         }
     }
 }
