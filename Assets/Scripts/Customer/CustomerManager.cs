@@ -102,8 +102,7 @@ namespace Customer
                 StartCoroutine(WaitForCustomerToTakeItem());
                 return;
             }
-            SoundManager.CustomerLeave();
-            RemoveCustomer();
+            SoundManager.Instance.CustomerLeave();
         }
 
         /// <summary>

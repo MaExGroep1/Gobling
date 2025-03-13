@@ -51,7 +51,7 @@ namespace Sound
         /// <param name="audioClip">The audio clip to be played</param>
         /// <param name="soundObjectSpawn">The transform position where the sound should be played</param>
         /// <param name="volume">The volume level for the sound</param>
-        public static void PlaySoundClip(AudioClip audioClip, Transform soundObjectSpawn, float volume)
+        public void PlaySoundClip(AudioClip audioClip, Transform soundObjectSpawn, float volume)
         {
             AudioSource audioSource = Instantiate(staticSoundObject, soundObjectSpawn.position, Quaternion.identity);
             audioSource.clip = audioClip;
@@ -67,7 +67,7 @@ namespace Sound
         /// <param name="audioClips">Array of audio clips to choose from</param>
         /// <param name="soundObjectSpawn">The transform position where the sound should be played</param>
         /// <param name="volume">The volume level for the sound</param>
-        public static void PlayRandomClip(AudioClip[] audioClips, Transform soundObjectSpawn, float volume)
+        public void PlayRandomClip(AudioClip[] audioClips, Transform soundObjectSpawn, float volume)
         {
             if (audioClips.Length == 0) return;
             
@@ -78,28 +78,28 @@ namespace Sound
         /// <summary>
         /// Plays the "kaching" sound to signify a successful transaction.
         /// </summary>
-        public static void PlayKachingSound() =>
+        public void PlayKachingSound() =>
             PlaySoundClip(staticKachingSound, Camera.main?.transform, 0.4f);
 
         /// <summary>
         /// Plays a random hello sound when a customer is at the counter.
         /// </summary>
-        public static void IsAtCounter() =>
+        public void IsAtCounter() =>
             PlayRandomClip(helloClips, Camera.main?.transform, 1f);
 
         /// <summary>
         /// Plays a random goodbye sound when a customer leaves.
         /// </summary>
-        public static void CustomerLeave() =>
+        public void CustomerLeave() =>
             PlayRandomClip(byeClips, Camera.main?.transform, 1f);
 
         /// <summary>
         /// Plays a random grunt sound when a customer grunts.
         /// </summary>
-        public static void OnCustomerGrunt() =>
+        public void OnCustomerGrunt() =>
             PlayRandomClip(gruntClips, Camera.main?.transform, 1f);
 
-        public static void OnDoorSound()
+        public void OnDoorSound()
         {
             PlaySoundClip(doorClip, Camera.main?.transform, 0.8f);
             PlaySoundClip(bellClip, Camera.main?.transform, 1f);

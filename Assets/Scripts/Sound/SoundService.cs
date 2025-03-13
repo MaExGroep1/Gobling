@@ -40,7 +40,7 @@ namespace Sound
         /// </summary>
         public void FootStep()
         {
-            SoundManager.PlayRandomClip(audioClips, soundObjectSpawn, volume);
+            SoundManager.Instance.PlayRandomClip(audioClips, soundObjectSpawn, volume);
         }
         
         /// <summary>
@@ -48,9 +48,9 @@ namespace Sound
         /// </summary>
         private IEnumerator PlayNewsThenRandom()
         {
-            SoundManager.PlaySoundClip(radioCallClip, soundObjectSpawn, volume);
+            SoundManager.Instance.PlaySoundClip(radioCallClip, soundObjectSpawn, volume);
             yield return new WaitForSeconds(radioCallClip.length);
-            SoundManager.PlayRandomClip(audioClips, soundObjectSpawn, volume);
+            SoundManager.Instance.PlayRandomClip(audioClips, soundObjectSpawn, volume);
         }
     }
 }

@@ -216,7 +216,7 @@ namespace Customer
         private IEnumerator OnAtCounter(Action recall)
         {
             _animator.TriggerAtCounter();
-            SoundManager.IsAtCounter();
+            SoundManager.Instance.IsAtCounter();
             
             yield return new WaitUntil(() => !_isRotating);
             
