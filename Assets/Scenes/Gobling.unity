@@ -610,15 +610,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1203930749091365451, guid: ea57dfd4293a76741928cbae0ddb5126,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1611170495800819222, guid: ea57dfd4293a76741928cbae0ddb5126,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526170133647940071, guid: ea57dfd4293a76741928cbae0ddb5126,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4272679699290684048, guid: ea57dfd4293a76741928cbae0ddb5126,
         type: 3}
       propertyPath: m_Name
       value: Trading UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5050945051680900847, guid: ea57dfd4293a76741928cbae0ddb5126,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346573437414957941, guid: ea57dfd4293a76741928cbae0ddb5126,
+        type: 3}
+      propertyPath: m_text
+      value: 'Base value: '
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea57dfd4293a76741928cbae0ddb5126, type: 3}
@@ -640,6 +660,30 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1180711652}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1180711656 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8346573437414957941, guid: ea57dfd4293a76741928cbae0ddb5126,
+    type: 3}
+  m_PrefabInstance: {fileID: 1180711652}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1180711657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6043690590422283359, guid: ea57dfd4293a76741928cbae0ddb5126,
+    type: 3}
+  m_PrefabInstance: {fileID: 1180711652}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1236940704 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1611170496330815597, guid: ea57dfd4293a76741928cbae0ddb5126,
@@ -1242,6 +1286,11 @@ PrefabInstance:
       objectReference: {fileID: 1180711655}
     - target: {fileID: 3846038467826951503, guid: 3ab8546edb9e9574897208dd2bc01e8f,
         type: 3}
+      propertyPath: baseValue
+      value: 
+      objectReference: {fileID: 1180711656}
+    - target: {fileID: 3846038467826951503, guid: 3ab8546edb9e9574897208dd2bc01e8f,
+        type: 3}
       propertyPath: bidAmount
       value: 
       objectReference: {fileID: 1236940704}
@@ -1265,6 +1314,11 @@ PrefabInstance:
       propertyPath: rejectButton
       value: 
       objectReference: {fileID: 1671247219}
+    - target: {fileID: 3846038467826951503, guid: 3ab8546edb9e9574897208dd2bc01e8f,
+        type: 3}
+      propertyPath: satisfaction
+      value: 
+      objectReference: {fileID: 1180711657}
     - target: {fileID: 3846038467826951503, guid: 3ab8546edb9e9574897208dd2bc01e8f,
         type: 3}
       propertyPath: makeBidButton
