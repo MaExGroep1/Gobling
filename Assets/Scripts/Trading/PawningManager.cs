@@ -2,6 +2,7 @@ using System;
 using Customer;
 using DayLoop;
 using Item;
+using Sound;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,7 +17,7 @@ namespace Trading
         public Action<MinMax<int>, int> OnStartPawn;        // event triggered when a pawn transaction starts
         public Action<int> OnNewBidRound;                   // event when the customer gives a counteroffer
         public Action<int> OnCheckBid;                      // event triggered when a bid is made
-        public Action<bool,bool,int> OnFinished;                 // event to trigger when the customer is done pawing
+        public Action<bool,int> OnFinished;            // event to trigger when the customer is done pawing
         
         private CustomerBehaviour _currentCustomer;         // the customer that is being served
         private int _previousOffer;                         // the previous bid of the customer
@@ -107,6 +108,15 @@ namespace Trading
         }
         
         /// <summary>
+        /// Kicks the customer out of the shop
+        /// </summary>
+        public void RejectOffer()
+        {
+            OnFinished?.Invoke(false, 0);
+            DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
+        }
+        
+        /// <summary>
         /// Checks if the customer accepts your price
         /// </summary>
         /// <param name="barValue">The users bid</param>
@@ -133,7 +143,7 @@ namespace Trading
         {
             var itemManager = ItemManager.Instance;
 
-            OnFinished?.Invoke(true, _isGoblinOffering, bid);
+            OnFinished?.Invoke(true, bid);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(!_isGoblinOffering);
 
             _currentCustomer.UpdateSatisfaction(true, 3);
@@ -156,7 +166,7 @@ namespace Trading
         {
             var itemManager = ItemManager.Instance;
 
-            OnFinished?.Invoke(false, _isGoblinOffering, 0);
+            OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
 
             if (isGoblinOffering)
@@ -173,6 +183,7 @@ namespace Trading
         /// <param name="bid">The bid of the user</param>
         private void MakeNewOffer(int bid)
         {
+            SoundManager.OnCustomerGrunt();
             var newBid = _currentCustomer.MakeNewOffer(bid,_previousOffer);
             OnNewBidRound?.Invoke(newBid);
             NewBidRound(newBid);
