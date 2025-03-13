@@ -47,8 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 8300000, guid: 8388974a66f1a2844a6fff8ff40c6680, type: 3}
-  volume: 0.008
+  - {fileID: 8300000, guid: 445e563e61da48c4eaa5e5dd60be1164, type: 3}
+  - {fileID: 8300000, guid: 26f5de6ced43d4b44be388c9b61e88b2, type: 3}
+  - {fileID: 8300000, guid: 6451e49adaa9752458213c66558e6634, type: 3}
+  - {fileID: 8300000, guid: 916019e07e7eaa8489faeaaf50668e74, type: 3}
+  - {fileID: 8300000, guid: a40c563ab723f984cbd58b456a2139a4, type: 3}
+  - {fileID: 8300000, guid: 9b9b356ec8b19c44eb270fbd7c8a8939, type: 3}
+  volume: 0.09
   soundObjectSpawn: {fileID: 2943148993213150180}
   isRadio: 1
   radioCallClip: {fileID: 8300000, guid: 9b9b356ec8b19c44eb270fbd7c8a8939, type: 3}

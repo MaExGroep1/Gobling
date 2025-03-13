@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be841096285695d4cb3be822e5049e95, type: 3}
-  m_Name: Customer 3
+  m_Name: Customer Woman 3
   m_EditorClassIdentifier: 
-  customerAnimations: {fileID: 8669458323896252514, guid: d8ab9987ee2cd6740be3e66e3f909bab,
+  customerAnimations: {fileID: 1248041189860178958, guid: 816e0e73d752c6942af63bd438f91595,
     type: 3}
   lootTable: {fileID: 11400000, guid: 2f6ae9f4f3d37c446a89d1a75c80639a, type: 2}
   greediness: 0.5
