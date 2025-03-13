@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StickItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 8327791723194803749, guid: 6c3f4776faeba4a4c985c0ec89263871, type: 3}
-  value: 1
+  value: 2
   itemType: 0
   barValues:
-    min: 1
+    min: 0
     max: 5

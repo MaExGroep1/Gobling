@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Customer;
 using DayLoop;
 using Item;
+using Sound;
 using UnityEngine;
 using Util;
 using Random = UnityEngine.Random;
@@ -11,15 +12,15 @@ namespace User
 {
     public class UserData : Singleton<UserData>
     {
-        [SerializeField] private int startMoney;                                    // the money the player starts with
-        [SerializeField] private ItemData[] startItems;                             // the items the player starts with
+        [SerializeField] private int startMoney;                                        // the money the player starts with
+        [SerializeField] private ItemData[] startItems;                                 // the items the player starts with
         
-        public Items randomItem => _inventory[Random.Range(0, _inventory.Count)];   // returns a random item from the user
-        public int inventoryCount => _inventory.Count;                              // the amount of items the player has
-        public int netWorth { get; private set; }                                   // the net worth of the player
-        public Action<int> OnCurrencyChanged;                                       // gets called when the player spends or earns currency
+        public Items randomItem => _inventory[Random.Range(0, _inventory.Count - 1)];   // returns a random item from the user
+        public int inventoryCount => _inventory.Count;                                  // the amount of items the player has
+        public int netWorth { get; private set;}                                       // the net worth of the player
+        public Action<int> OnCurrencyChanged;                                           // gets called when the player spends or earns currency
         
-        private readonly List<Items> _inventory = new List<Items>();                // a list of Items that the player has
+        private readonly List<Items> _inventory = new List<Items>();                    // a list of Items that the player has
         
         /// <summary>
         /// Gives the player its start net worth and start items
@@ -35,9 +36,10 @@ namespace User
         /// Changes the current net worth by adding "change" to it
         /// </summary>
         /// <param name="change"> Amount to add to netWorth</param>
-        private void ChangeNetWorth(int change)
+        public void ChangeNetWorth(int change)
         {
             netWorth += change;
+            SoundManager.PlayKachingSound();
             if (netWorth > 0)
             {
                 OnCurrencyChanged?.Invoke(netWorth);

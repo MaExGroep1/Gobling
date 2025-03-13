@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DayLoop;
+using Sound;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Util;
@@ -101,8 +102,14 @@ namespace Customer
         /// <summary>
         /// Kicks the current customer out
         /// </summary>
-        protected override void CustomerLeave()
+        protected override void CustomerLeave(bool itemToGoblin)
         {
+            if (itemToGoblin)
+            {
+                StartCoroutine(WaitForCustomerToTakeItem());
+                return;
+            }
+            SoundManager.CustomerLeave();
             RemoveCustomer();
         }
 
@@ -133,5 +140,10 @@ namespace Customer
             _lastCustomer = customer;
         }
 
+        private IEnumerator WaitForCustomerToTakeItem()
+        {
+            yield return StartCoroutine(_lastCustomer.TakeItem());
+            RemoveCustomer();
+        }
     }
 }

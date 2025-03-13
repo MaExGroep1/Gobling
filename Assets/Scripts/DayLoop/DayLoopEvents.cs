@@ -8,7 +8,7 @@ namespace DayLoop
     {
         public Action StartDay; // action to invoke when the day starts
         public Action EndDay; // action to invoke when the day ends
-        public Action CustomerLeave; // action to invoke when the customer leaves
+        public Action<bool> CustomerLeave; // action to invoke when the customer leaves
         public Action GameOver; // action to invoke when the player has no money left
     }
 }

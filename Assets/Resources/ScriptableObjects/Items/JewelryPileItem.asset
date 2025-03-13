@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: JewelryPileItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 6023953437437596138, guid: 348f9fbf350971246be068fab9d541a7, type: 3}
-  value: 2500
+  value: 850
   itemType: 0
   barValues:
-    min: 1000
-    max: 6000
+    min: 170
+    max: 1700

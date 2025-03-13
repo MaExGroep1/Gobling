@@ -36,7 +36,7 @@ namespace DayLoop
         /// <summary>
         /// Event that gets called when a customer leaves the shop
         /// </summary>
-        protected abstract void CustomerLeave();
+        protected abstract void CustomerLeave(bool itemToGoblin);
         /// <summary>
         /// Event that gets called when the user has 0 currency
         /// </summary>

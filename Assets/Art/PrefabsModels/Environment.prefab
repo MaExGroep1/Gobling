@@ -2063,6 +2063,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8011477376784703615}
     m_Modifications:
+    - target: {fileID: 4933433681155178482, guid: abe9459e58829184485fd9a82adf0fe7,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5630668724238679012, guid: abe9459e58829184485fd9a82adf0fe7,
         type: 3}
       propertyPath: m_Name
