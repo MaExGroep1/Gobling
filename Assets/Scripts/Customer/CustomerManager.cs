@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DayLoop;
+using Sound;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Util;
@@ -108,6 +109,7 @@ namespace Customer
                 StartCoroutine(WaitForCustomerToTakeItem());
                 return;
             }
+            SoundManager.CustomerLeave();
             RemoveCustomer();
         }
 
