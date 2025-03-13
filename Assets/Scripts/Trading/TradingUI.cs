@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using Customer;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -19,6 +20,8 @@ namespace Trading
         [SerializeField] private Transform bottomPosition;        // the position the UI needs to start in or idle in
         [SerializeField] private Transform topPosition;       // the position the button needs to move to
         
+        [SerializeField] private TMP_Text satisfaction;        // the bid amount TextMeshPro Text
+        [SerializeField] private TMP_Text baseValue;        // the bid amount TextMeshPro Text
         
         /// <summary>
         /// Initializes event listeners and registers to the PawningManager's events
@@ -33,16 +36,20 @@ namespace Trading
             makeBidButton.onClick.AddListener(OnBid);
             rejectButton.onClick.AddListener(OnReject);
         }
-        
+
 
         /// <summary>
         /// Starts the pawn process by setting up the bid UI and displaying it
         /// </summary>
-        /// <param name="barValue">The min and max range for the bid slider</param>
-        /// <param name="baseValue">The initial bid value</param>
-        private void OnStartPawn(MinMax<int> barValue, int baseValue)
+        /// <param name="barValues">The min and max range for the bid slider</param>
+        /// <param name="barValue">The initial bid value</param>
+        /// <param name="itemBaseValue"></param>
+        /// <param name="customer"></param>
+        private void OnStartPawn(MinMax<int> barValues, int barValue, int itemBaseValue,CustomerBehaviour customer)
         {
-            SetBidSlider(barValue, baseValue);
+            baseValue.text = $"Base value: {itemBaseValue}";
+            satisfaction.text = $"Satisfaction: {Math.Round(customer.satisfaction * 100,2)}%";
+            SetBidSlider(barValues, barValue);
             uiParent.SetActive(true);
             MoveIn();
         }
