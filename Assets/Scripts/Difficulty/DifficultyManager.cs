@@ -1,8 +1,9 @@
 using UnityEngine;
+using Util;
 
 namespace Difficulty
 {
-    public class DifficultyManager : MonoBehaviour
+    public class DifficultyManager : Singleton<DifficultyManager>
     {
         [SerializeField] private GameObject 
             satisfaction,               // the customer satisfaction display
