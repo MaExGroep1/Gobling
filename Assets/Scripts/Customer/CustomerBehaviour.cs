@@ -159,7 +159,7 @@ namespace Customer
             _animator.CantJump();
             _animator.TriggerGiveTake();
             yield return new WaitUntil(() => _animator.itemCanJump);
-            // TODO: Add jump here
+            ItemManager.Instance.ItemJumpAndDisable(PawningManager.Instance.OfferItem, ItemManager.Instance.ItemCustomerJumpLocation);
             yield return new WaitUntil(() => _animator.canLeaveShop);
         }
         /// <summary>
@@ -284,7 +284,7 @@ namespace Customer
         {
             _animator.CantJump();
             yield return new WaitUntil(() => _animator.itemCanJump);
-            //TODO: add item jump
+            ItemManager.Instance.ItemEnableAndJump(PawningManager.Instance.OfferItem, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemPlayerJumpLocation);
         }
     }
 }
