@@ -47,3 +47,21 @@ MonoBehaviour:
   soundObject: {fileID: 7667432096980248824, guid: 876aec99ae8ef5547a74bb1062c7a804,
     type: 3}
   kachingSound: {fileID: 8300000, guid: 9a724a510fd44ff478aba321303b2bdb, type: 3}
+  audioClipsBye:
+  - {fileID: 8300000, guid: 463b59f138066c645a659bc15a167e44, type: 3}
+  - {fileID: 8300000, guid: 78b45192caeefd84f945ee15dc45713f, type: 3}
+  - {fileID: 8300000, guid: 1942ea291c50dc04cac2032e11854d43, type: 3}
+  - {fileID: 8300000, guid: 0d7eaa81f2b06824ab854988c5008cd8, type: 3}
+  audioClipsHello:
+  - {fileID: 8300000, guid: cde73b4023cf16141bd5f636e8356c98, type: 3}
+  - {fileID: 8300000, guid: 9b702987a77bce44ea319043dac88043, type: 3}
+  - {fileID: 8300000, guid: 500b47b086808ce4d9b24ff93db4b12b, type: 3}
+  audioClipsGrunt:
+  - {fileID: 8300000, guid: b36c48a3559ffe540ab8f276da667c45, type: 3}
+  - {fileID: 8300000, guid: 7417b17018865cd4eb12946f9207aa76, type: 3}
+  - {fileID: 8300000, guid: b17e00c8f9cd2a944ac038b9cc916297, type: 3}
+  - {fileID: 8300000, guid: 520d52aa6f038ee4aa45155391b8afc8, type: 3}
+  - {fileID: 8300000, guid: 5306b1c18123bdc4c96c02ff6c7f9b9d, type: 3}
+  - {fileID: 8300000, guid: 52b2404f51cfecb4090312b224a7edbe, type: 3}
+  doorSoundClip: {fileID: 8300000, guid: e940a509b9badf1438d632116ece55f2, type: 3}
+  doorBellClip: {fileID: 8300000, guid: fd22af8dd4e9a554eb5880150785e1b0, type: 3}
