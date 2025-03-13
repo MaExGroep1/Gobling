@@ -76,6 +76,7 @@ namespace Customer
             _animator.TriggerLeaveCounter();
             transform.position = path[0].position;
             MoveCustomer(path,onComplete);
+            netWorth += _income;
         }
 
         /// <summary>
