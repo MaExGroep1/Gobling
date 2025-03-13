@@ -76,6 +76,7 @@ namespace Customer
             _animator.TriggerLeaveCounter();
             transform.position = path[0].position;
             MoveCustomer(path,onComplete);
+            netWorth += _income;
         }
 
         /// <summary>
@@ -162,7 +163,7 @@ namespace Customer
             _animator.CantJump();
             _animator.TriggerGiveTake();
             yield return new WaitUntil(() => _animator.itemCanJump);
-            // TODO: Add jump here
+            ItemManager.Instance.ItemJumpAndDisable(PawningManager.Instance.OfferItem, ItemManager.Instance.ItemCustomerJumpLocation);
             yield return new WaitUntil(() => _animator.canLeaveShop);
         }
         /// <summary>
@@ -187,6 +188,8 @@ namespace Customer
         /// </summary>
         private void OnOfferItem()
         {
+            Debug.Log("Customer wants to sell an item");
+
             var item = _inventory[Random.Range(0, _inventory.Count - 1)];
             
             _animator.TriggerGiveTake();
@@ -201,6 +204,7 @@ namespace Customer
         /// </summary>
         private void OnTryBuyItem()
         {
+            Debug.Log("Customer wants to buy an item");
             PawningManager.Instance.RequestUserItem(this);
         }
 
@@ -288,7 +292,7 @@ namespace Customer
         {
             _animator.CantJump();
             yield return new WaitUntil(() => _animator.itemCanJump);
-            //TODO: add item jump
+            ItemManager.Instance.ItemEnableAndJump(PawningManager.Instance.OfferItem, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemCustomerJumpLocation);
         }
     }
 }

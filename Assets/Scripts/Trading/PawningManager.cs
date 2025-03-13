@@ -14,7 +14,10 @@ namespace Trading
 {
     public class PawningManager : Singleton<PawningManager>
     {
+        public Items OfferItem { get; private set; }
+        
         public Action<MinMax<int>, int, int,CustomerBehaviour> OnStartPawn;        // event triggered when a pawn transaction starts
+        
         public Action<int> OnNewBidRound;                   // event when the customer gives a counteroffer
         public Action<int> OnCheckBid;                      // event triggered when a bid is made
         public Action<bool,int> OnFinished;            // event to trigger when the customer is done pawing
@@ -22,9 +25,9 @@ namespace Trading
         private CustomerBehaviour _currentCustomer;         // the customer that is being served
         private int _previousOffer;                         // the previous bid of the customer
         private int _latestOffer;                           // the latest bid of the customer
-        private Items _offerItem;                           // the item that is up for pawing
         private bool _isGoblinOffering;                     // if the goblin is offering a item or requesting the item
         
+
         /// <summary>
         /// The customer offers the user an item for a price
         /// </summary>
@@ -33,20 +36,17 @@ namespace Trading
         /// <param name="customer">The new customer to serve</param>
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
         {
-            var itemManager = ItemManager.Instance;
-        
-            var value = UserData.Instance.netWorth < item.barValue.max
+            var maxValue = UserData.Instance.netWorth < item.barValue.max
                 ? UserData.Instance.netWorth
                 : item.barValue.max;
+            var minValue = maxValue < item.barValue.min ? 0 : item.barValue.min;
             _latestOffer = 0;
             _previousOffer = offerAmount;
-            _offerItem = item;
+            OfferItem = item;
             _isGoblinOffering = true;
             _currentCustomer = customer;
-            OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value), offerAmount, item.value, customer);
-            
-            itemManager.ItemEnableAndJump(_offerItem, itemManager.ItemCounterJumpLocation, itemManager.ItemCustomerJumpLocation);
 
+            OnStartPawn?.Invoke(new MinMax<int>(minValue,maxValue), offerAmount, item.value, customer);
         }
         /// <summary>
         /// The customer tries to buy an item from the user
@@ -55,22 +55,19 @@ namespace Trading
         /// <returns>The Item to buy</returns>
         public void RequestUserItem(CustomerBehaviour customer)
         {
-            var itemManager = ItemManager.Instance;
-            
-            _offerItem = UserData.Instance.randomItem;
+            OfferItem = UserData.Instance.randomItem;
             _currentCustomer = customer;
             
-            var offerOffset = customer.GetOfferOffset(_offerItem.value);
-            var value = _currentCustomer.netWorth < _offerItem.barValue.max
+            var offerOffset = customer.GetOfferOffset(OfferItem.value);
+            var value = _currentCustomer.netWorth < OfferItem.barValue.max
                 ? _currentCustomer.netWorth
-                : _offerItem.barValue.max;
+                : OfferItem.barValue.max;
             _latestOffer = value;
-            _previousOffer = _offerItem.value - offerOffset;
+            _previousOffer = OfferItem.value - offerOffset;
             _isGoblinOffering = false;
-            Debug.LogWarning($"min max{(_offerItem.barValue.min,value)} value{_offerItem.value}");
-            OnStartPawn?.Invoke(new MinMax<int>(_offerItem.barValue.min,value), _previousOffer, _offerItem.value, customer);
+            OnStartPawn?.Invoke(new MinMax<int>(OfferItem.barValue.min,value), _previousOffer, OfferItem.value, customer);
             
-            itemManager.ItemEnableAndJump(_offerItem, itemManager.ItemCounterJumpLocation, itemManager.ItemPlayerJumpLocation);
+            ItemManager.Instance.ItemEnableAndJump(OfferItem, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemPlayerJumpLocation);
         }
         
         /// <summary>
@@ -92,18 +89,15 @@ namespace Trading
             var ple = IsBidOutOfRange(bid);
             if (ple)
             {
-                Debug.LogError("Customer left the shop");
-                LostInterest(_isGoblinOffering);
+                LostInterest();
                 return;
             }
             if (_isGoblinOffering ? bid < _latestOffer : bid > _latestOffer)
             {
-                Debug.LogError("Customer left the shop");
-                LostInterest(_isGoblinOffering);
+                LostInterest();
                 return;
             }
             _latestOffer = bid;
-            Debug.LogError("Making new bid");
             MakeNewOffer(bid);
         }
         
@@ -114,6 +108,12 @@ namespace Trading
         {
             OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
+            
+            if (!_isGoblinOffering)
+            {
+                ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
+                return;
+            }
         }
         
         /// <summary>
@@ -141,40 +141,33 @@ namespace Trading
         /// <param name="bid"></param>
         private void AcceptBid(int bid)
         {
-            var itemManager = ItemManager.Instance;
-
             OnFinished?.Invoke(true, bid);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(!_isGoblinOffering);
 
             _currentCustomer.UpdateSatisfaction(true, 3);
             if (_isGoblinOffering)
             {
-                UserData.Instance.BuyItem(_offerItem, bid, _currentCustomer);
-                
-                itemManager.ItemJumpAndDisable(_offerItem, itemManager.ItemPlayerJumpLocation);
+                UserData.Instance.BuyItem(OfferItem, bid, _currentCustomer);
+                ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
                 return;
             }
-            UserData.Instance.SellItem(_offerItem, bid, _currentCustomer);
-            
-            itemManager.ItemJumpAndDisable(_offerItem, itemManager.ItemCustomerJumpLocation);
+            UserData.Instance.SellItem(OfferItem, bid, _currentCustomer);
         }
         
         /// <summary>
         /// Makes the customer leave the shop
         /// </summary>
-        private void LostInterest(bool isGoblinOffering)
+        private void LostInterest()
         {
-            var itemManager = ItemManager.Instance;
 
             OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
 
-            if (isGoblinOffering)
+            if (!_isGoblinOffering)
             {
-                itemManager.ItemJumpAndDisable(_offerItem, itemManager.ItemCustomerJumpLocation);
+                ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
                 return;
             }
-            itemManager.ItemJumpAndDisable(_offerItem, itemManager.ItemPlayerJumpLocation);
         }
         
         /// <summary>
