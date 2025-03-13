@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7706884056382807885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.226734, y: -32.612675, z: 29.691505}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -52,37 +52,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b986b1d158805994e83ed71e02ed7d65,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.7364006
+      value: 0.227
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b986b1d158805994e83ed71e02ed7d65,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.6726723
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b986b1d158805994e83ed71e02ed7d65,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.5095615
+      value: -0.29
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b986b1d158805994e83ed71e02ed7d65,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9637098
+      value: 0.584179
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b986b1d158805994e83ed71e02ed7d65,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.26548776
+      value: 0.1838367
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b986b1d158805994e83ed71e02ed7d65,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00741662
+      value: -0.76650244
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b986b1d158805994e83ed71e02ed7d65,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.026922032
+      value: 0.19342472
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b986b1d158805994e83ed71e02ed7d65,
         type: 3}
