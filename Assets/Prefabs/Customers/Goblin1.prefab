@@ -147,7 +147,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 46ac79e292d8c0c43a84ebea60027564, type: 3}
   - {fileID: 8300000, guid: 1a307e59ac508d74a82f3971a27678ca, type: 3}
   - {fileID: 8300000, guid: e4a43ffb33f05314a911c5bcad3e9e7a, type: 3}
-  volume: 0.4
+  volume: 0.6
   soundObjectSpawn: {fileID: 2058726057684615001}
   isRadio: 0
   radioCallClip: {fileID: 0}
