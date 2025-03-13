@@ -185,6 +185,8 @@ namespace Customer
         /// </summary>
         private void OnOfferItem()
         {
+            Debug.Log("Customer wants to sell an item");
+
             var item = _inventory[Random.Range(0, _inventory.Count - 1)];
             
             _animator.TriggerGiveTake();
@@ -199,6 +201,7 @@ namespace Customer
         /// </summary>
         private void OnTryBuyItem()
         {
+            Debug.Log("Customer wants to buy an item");
             PawningManager.Instance.RequestUserItem(this);
         }
 
@@ -286,7 +289,7 @@ namespace Customer
         {
             _animator.CantJump();
             yield return new WaitUntil(() => _animator.itemCanJump);
-            ItemManager.Instance.ItemEnableAndJump(PawningManager.Instance.OfferItem, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemPlayerJumpLocation);
+            ItemManager.Instance.ItemEnableAndJump(PawningManager.Instance.OfferItem, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemCustomerJumpLocation);
         }
     }
 }

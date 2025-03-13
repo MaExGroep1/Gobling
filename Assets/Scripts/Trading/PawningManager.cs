@@ -109,6 +109,12 @@ namespace Trading
         {
             OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
+            
+            if (!_isGoblinOffering)
+            {
+                ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
+                return;
+            }
         }
         
         /// <summary>
@@ -136,8 +142,6 @@ namespace Trading
         /// <param name="bid"></param>
         private void AcceptBid(int bid)
         {
-            var itemManager = ItemManager.Instance;
-
             OnFinished?.Invoke(true, bid);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(!_isGoblinOffering);
 
@@ -145,6 +149,7 @@ namespace Trading
             if (_isGoblinOffering)
             {
                 UserData.Instance.BuyItem(OfferItem, bid, _currentCustomer);
+                ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
                 return;
             }
             UserData.Instance.SellItem(OfferItem, bid, _currentCustomer);
@@ -158,6 +163,12 @@ namespace Trading
 
             OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
+
+            if (!_isGoblinOffering)
+            {
+                ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
+                return;
+            }
         }
         
         /// <summary>
