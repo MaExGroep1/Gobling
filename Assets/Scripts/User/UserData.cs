@@ -36,7 +36,7 @@ namespace User
         /// Changes the current net worth by adding "change" to it
         /// </summary>
         /// <param name="change"> Amount to add to netWorth</param>
-        private void ChangeNetWorth(int change)
+        public void ChangeNetWorth(int change)
         {
             netWorth += change;
             SoundManager.PlayKachingSound();
