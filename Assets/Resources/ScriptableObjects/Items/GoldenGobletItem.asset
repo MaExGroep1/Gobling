@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GoldenGobletItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 8558745874971100343, guid: 71bfe85bb10ecb042bb6ccd4a8430f3e, type: 3}
-  value: 1500
+  value: 1000
   itemType: 0
   barValues:
-    min: 300
-    max: 3000
+    min: 200
+    max: 2000

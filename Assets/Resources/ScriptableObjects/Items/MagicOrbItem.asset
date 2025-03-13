@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MagicOrbItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 3540092715829637287, guid: 67e5ca7fd43855341bae25b98a20144e, type: 3}
-  value: 1200
+  value: 750
   itemType: 0
   barValues:
-    min: 250
-    max: 2000
+    min: 150
+    max: 1500

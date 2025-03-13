@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ShoeItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 1355976251848327871, guid: 400ac95afbebaea4b82433ddb3722b13, type: 3}
-  value: 400
+  value: 35
   itemType: 0
   barValues:
-    min: 150
-    max: 750
+    min: 7
+    max: 70
