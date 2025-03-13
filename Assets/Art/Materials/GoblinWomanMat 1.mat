@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoblinMat
+  m_Name: GoblinWomanMat 1
   m_Shader: {fileID: -6465566751694194690, guid: 1d0f776cbcea4f8419a31cc94d777adb,
     type: 3}
   m_ValidKeywords: []
@@ -59,7 +59,7 @@ Material:
     - _Pixelation: 300
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 0.92
+    - _darknes: 2.18
     - _shine: 0.52
     m_Colors:
     - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
