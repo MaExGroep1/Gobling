@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be841096285695d4cb3be822e5049e95, type: 3}
   m_Name: Customer Woman 1
   m_EditorClassIdentifier: 
-  customerAnimations: {fileID: 3347102470228483154, guid: 6730515e17b205847a4310d41a509190,
+  customerAnimations: {fileID: 469261505259842080, guid: 2360a1e1d67ecc445b288f1dd6adc5a2,
     type: 3}
   lootTable: {fileID: 11400000, guid: 2f6ae9f4f3d37c446a89d1a75c80639a, type: 2}
   greediness: 0.5
