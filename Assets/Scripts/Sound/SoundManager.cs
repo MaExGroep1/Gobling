@@ -16,8 +16,8 @@ namespace Sound
         [SerializeField] private AudioClip[] audioClipsGrunt; // Array of grunt audio clips
         
         [Header("Customer Clips")]
-        [SerializeField] private AudioClip doorSoundClip; 
-        [SerializeField] private AudioClip doorBellClip; 
+        [SerializeField] private AudioClip doorSoundClip; // The sound that plays when the door opens
+        [SerializeField] private AudioClip doorBellClip; // The sound that plays when the door opens
         
         private static AudioClip[] byeClips; // Static reference for goodbye clips
         private static AudioClip[] helloClips; // Static reference for hello clips
