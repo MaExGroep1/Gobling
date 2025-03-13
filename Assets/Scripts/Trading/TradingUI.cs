@@ -1,24 +1,35 @@
 using System;
 using System.Globalization;
+using Customer;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using User;
 using Util;
 
 namespace Trading
 {
     public class TradingUI : MonoBehaviour
     {
-        [SerializeField] private GameObject uiParent;       // parent UI element for trading
-        [SerializeField] private TMP_Text bidAmount;        // the bid amount TextMeshPro Text
-        [SerializeField] private Slider bidSlider;          // the bid amount slider UI element
-        [SerializeField] private Button makeBidButton;      // button to confirm bid
-        [SerializeField] private Button rejectButton;      // button to confirm bid
+        [SerializeField] private GameObject uiParent;               // parent UI element for trading
+        [SerializeField] private TMP_Text bidAmount;                // the bid amount TextMeshPro Text
+        [SerializeField] private Slider bidSlider;                  // the bid amount slider UI element
+        [SerializeField] private Button makeBidButton;              // button to confirm bid
+        [SerializeField] private Button rejectButton;               // button to reject bid
         
-        [SerializeField] private Transform bottomPosition;        // the position the UI needs to start in or idle in
-        [SerializeField] private Transform topPosition;       // the position the button needs to move to
+        [SerializeField] private Transform bottomPosition;          // the position the UI needs to start in or idle in
+        [SerializeField] private Transform topPosition;             // the position the button needs to move to
         
+        [SerializeField] private TMP_Text satisfaction;             // the easy satisfaction meter
+        [SerializeField] private TMP_Text baseValue;                // the easy base value
+        
+        [SerializeField] private Button baseValueBuyButton;         // button to buy the base value
+        [SerializeField] private GameObject baseValueBuyObject;     // the text area where baseValueBuy text is displayed
+        [SerializeField] private TMP_Text baseValueBuy;             // the paid base value text
+        [SerializeField] private TMP_Text baseValueBuyButtonText;   // the text on the baseValueBuy button
+        [SerializeField] private int baseValueBuyAmount;            // the amount of currency it costs to see the base value  
+
         
         /// <summary>
         /// Initializes event listeners and registers to the PawningManager's events
@@ -32,17 +43,26 @@ namespace Trading
             bidSlider.onValueChanged.AddListener(OnBarChanged);
             makeBidButton.onClick.AddListener(OnBid);
             rejectButton.onClick.AddListener(OnReject);
+            baseValueBuyButton.onClick.AddListener(ShowValue);
         }
-        
 
         /// <summary>
         /// Starts the pawn process by setting up the bid UI and displaying it
         /// </summary>
-        /// <param name="barValue">The min and max range for the bid slider</param>
-        /// <param name="baseValue">The initial bid value</param>
-        private void OnStartPawn(MinMax<int> barValue, int baseValue)
+        /// <param name="barValues">The min and max range for the bid slider</param>
+        /// <param name="barValue">The initial bid value</param>
+        /// <param name="itemBaseValue">The base value of the item</param>
+        /// <param name="customer">The current customer</param>
+        private void OnStartPawn(MinMax<int> barValues, int barValue, int itemBaseValue,CustomerBehaviour customer)
         {
-            SetBidSlider(barValue, baseValue);
+            baseValueBuyObject.SetActive(false);
+            baseValueBuyButton.interactable = true;
+            baseValueBuyButtonText.text = $"Get base value: {baseValueBuyAmount}$";
+                
+            baseValue.text = $"Base value: {itemBaseValue}";
+            baseValueBuy.text = $"Base value: {itemBaseValue}";
+            satisfaction.text = $"Satisfaction: {Math.Round(customer.satisfaction * 100,2)}%";
+            SetBidSlider(barValues, barValue);
             uiParent.SetActive(true);
             MoveIn();
         }
@@ -100,13 +120,23 @@ namespace Trading
         {
             LeanTween.move(uiParent, bottomPosition.transform.position, 3).setEase(LeanTweenType.easeInBack);
         }
-        
+
         /// <summary>
         /// Kicks the customer out
         /// </summary>
         private static void OnReject()
         {
             PawningManager.Instance.RejectOffer();
+        }
+
+        /// <summary>
+        /// Shows the base value
+        /// </summary>
+        private void ShowValue()
+        {
+            baseValueBuyObject.SetActive(true);
+            baseValueBuyButton.interactable = false;
+            UserData.Instance.ChangeNetWorth(-baseValueBuyAmount);
         }
     }
 }
