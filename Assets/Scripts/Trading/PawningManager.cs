@@ -16,7 +16,7 @@ namespace Trading
         public Action<MinMax<int>, int> OnStartPawn;        // event triggered when a pawn transaction starts
         public Action<int> OnNewBidRound;                   // event when the customer gives a counteroffer
         public Action<int> OnCheckBid;                      // event triggered when a bid is made
-        public Action<bool,bool,int> OnFinished;                 // event to trigger when the customer is done pawing
+        public Action<bool,int> OnFinished;            // event to trigger when the customer is done pawing
         
         private CustomerBehaviour _currentCustomer;         // the customer that is being served
         private int _previousOffer;                         // the previous bid of the customer
@@ -112,7 +112,7 @@ namespace Trading
         public void RejectOffer()
         {
             OnFinished?.Invoke(false, 0);
-            DayLoopEvents.Instance.CustomerLeave?.Invoke();
+            DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
         }
         
         /// <summary>
@@ -142,7 +142,7 @@ namespace Trading
         {
             var itemManager = ItemManager.Instance;
 
-            OnFinished?.Invoke(true, _isGoblinOffering, bid);
+            OnFinished?.Invoke(true, bid);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(!_isGoblinOffering);
 
             _currentCustomer.UpdateSatisfaction(true, 3);
@@ -165,7 +165,7 @@ namespace Trading
         {
             var itemManager = ItemManager.Instance;
 
-            OnFinished?.Invoke(false, _isGoblinOffering, 0);
+            OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
 
             if (isGoblinOffering)
