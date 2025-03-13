@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 522f703c7f679da40b1bf64bfc4cb036, type: 3}
-  m_Name: PotItem
+  m_Name: SwordMidItem
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3596895462716128429, guid: ffb8f1cc90d3b484bbd2e7b2f8da333d, type: 3}
-  value: 20
+  prefab: {fileID: 2952897473988762248, guid: c3f1868bb2103ec4f8cb5ab9078aaf36, type: 3}
+  value: 200
   itemType: 0
   barValues:
-    min: 0
-    max: 50
+    min: 40
+    max: 400
