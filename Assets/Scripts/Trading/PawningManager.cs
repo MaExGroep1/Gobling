@@ -36,16 +36,17 @@ namespace Trading
         /// <param name="customer">The new customer to serve</param>
         public void OfferUserItem(Items item,int offerAmount,CustomerBehaviour customer)
         {
-            var value = UserData.Instance.netWorth < item.barValue.max
+            var maxValue = UserData.Instance.netWorth < item.barValue.max
                 ? UserData.Instance.netWorth
                 : item.barValue.max;
+            var minValue = maxValue < item.barValue.min ? 0 : item.barValue.min;
             _latestOffer = 0;
             _previousOffer = offerAmount;
             OfferItem = item;
             _isGoblinOffering = true;
             _currentCustomer = customer;
 
-            OnStartPawn?.Invoke(new MinMax<int>(OfferItem.barValue.min,value), offerAmount, item.value, customer);
+            OnStartPawn?.Invoke(new MinMax<int>(minValue,maxValue), offerAmount, item.value, customer);
         }
         /// <summary>
         /// The customer tries to buy an item from the user
@@ -64,8 +65,6 @@ namespace Trading
             _latestOffer = value;
             _previousOffer = OfferItem.value - offerOffset;
             _isGoblinOffering = false;
-
-            Debug.LogWarning($"min max{(OfferItem.barValue.min,value)} value{OfferItem.value}");
             OnStartPawn?.Invoke(new MinMax<int>(OfferItem.barValue.min,value), _previousOffer, OfferItem.value, customer);
             
             ItemManager.Instance.ItemEnableAndJump(OfferItem, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemPlayerJumpLocation);
@@ -90,18 +89,15 @@ namespace Trading
             var ple = IsBidOutOfRange(bid);
             if (ple)
             {
-                Debug.LogError("Customer left the shop");
                 LostInterest();
                 return;
             }
             if (_isGoblinOffering ? bid < _latestOffer : bid > _latestOffer)
             {
-                Debug.LogError("Customer left the shop");
                 LostInterest();
                 return;
             }
             _latestOffer = bid;
-            Debug.LogError("Making new bid");
             MakeNewOffer(bid);
         }
         
