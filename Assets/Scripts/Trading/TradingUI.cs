@@ -33,7 +33,7 @@ namespace Trading
         [SerializeField] private GameObject baseValueBuyObject;     // the text area where baseValueBuy text is displayed
         [SerializeField] private TMP_Text baseValueBuy;             // the paid base value text
         [SerializeField] private TMP_Text baseValueBuyButtonText;   // the text on the baseValueBuy button
-        [SerializeField] private int baseValueBuyAmount;            // the amount of currency it costs to see the base value
+        [SerializeField] private int baseValueBuyAmount;            // the amount of currency it costs to see the base value 
         
         [Header("Buying or selling")]
         [SerializeField] private GameObject buyingOrSellingParent;  // the parent object of the top UI element
