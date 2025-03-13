@@ -9,41 +9,21 @@ namespace Sound
         [Header("Main Settings")]
         [SerializeField] private AudioSource soundObject; // The AudioSource used for sound playback
         [SerializeField] private AudioClip kachingSound; // The "kaching" sound for successful transactions
+        [SerializeField] private float kachingSoundVolume;
         
         [Header("Customer Clips")]
         [SerializeField] private AudioClip[] audioClipsBye; // Array of goodbye audio clips
+        [SerializeField] private float byeSoundVolume;
         [SerializeField] private AudioClip[] audioClipsHello; // Array of hello audio clips
+        [SerializeField] private float helloSoundVolume;
         [SerializeField] private AudioClip[] audioClipsGrunt; // Array of grunt audio clips
+        [SerializeField] private float gruntSoundVolume;
         
         [Header("Customer Clips")]
         [SerializeField] private AudioClip doorSoundClip; // The sound that plays when the door opens
-        [SerializeField] private AudioClip doorBellClip; // The sound that plays when the door opens
-        
-        private static AudioClip[] byeClips; // Static reference for goodbye clips
-        private static AudioClip[] helloClips; // Static reference for hello clips
-        private static AudioClip[] gruntClips; // Static reference for grunt clips
-        private static AudioClip doorClip; // Static reference for grunt clips
-        private static AudioClip bellClip; // Static reference for grunt clips
-        private static AudioSource staticSoundObject; // Static reference to the AudioSource
-        private static Transform staticSoundObjectSpawn; // Static reference to spawn location of the sound object
-        private static AudioClip staticKachingSound; // Static reference for the "kaching" sound
-
-
-        /// <summary>
-        /// Initializes static references for sound objects and clips.
-        /// </summary>
-        protected override void Awake()
-        {
-            staticSoundObject = soundObject;
-            staticKachingSound = kachingSound;
-
-            byeClips = audioClipsBye;
-            gruntClips = audioClipsGrunt;
-            helloClips = audioClipsHello;
-
-            doorClip = doorSoundClip;
-            doorClip = doorBellClip;
-        }
+        [SerializeField] private float doorSoundVolume;
+        [FormerlySerializedAs("doorBellClip")] [SerializeField] private AudioClip doorBellSoundClip; // The sound that plays when the door opens
+        [SerializeField] private float doorBellSoundVolume;
 
         /// <summary>
         /// Plays a specific sound clip at the given spawn point.
@@ -53,11 +33,12 @@ namespace Sound
         /// <param name="volume">The volume level for the sound</param>
         public void PlaySoundClip(AudioClip audioClip, Transform soundObjectSpawn, float volume)
         {
-            AudioSource audioSource = Instantiate(staticSoundObject, soundObjectSpawn.position, Quaternion.identity);
+            var clipLength = audioClip.length;
+            var audioSource = Instantiate(soundObject, soundObjectSpawn);
+            
             audioSource.clip = audioClip;
             audioSource.volume = volume;
             audioSource.Play();
-            float clipLength = audioSource.clip.length;
             Destroy(audioSource.gameObject, clipLength);
         }
         
@@ -79,30 +60,30 @@ namespace Sound
         /// Plays the "kaching" sound to signify a successful transaction.
         /// </summary>
         public void PlayKachingSound() =>
-            PlaySoundClip(staticKachingSound, Camera.main?.transform, 0.4f);
+            PlaySoundClip(kachingSound, Camera.main?.transform, kachingSoundVolume);
 
         /// <summary>
         /// Plays a random hello sound when a customer is at the counter.
         /// </summary>
         public void IsAtCounter() =>
-            PlayRandomClip(helloClips, Camera.main?.transform, 1f);
+            PlayRandomClip(audioClipsHello, Camera.main?.transform, helloSoundVolume);
 
         /// <summary>
         /// Plays a random goodbye sound when a customer leaves.
         /// </summary>
         public void CustomerLeave() =>
-            PlayRandomClip(byeClips, Camera.main?.transform, 1f);
+            PlayRandomClip(audioClipsBye, Camera.main?.transform, byeSoundVolume);
 
         /// <summary>
         /// Plays a random grunt sound when a customer grunts.
         /// </summary>
         public void OnCustomerGrunt() =>
-            PlayRandomClip(gruntClips, Camera.main?.transform, 1f);
+            PlayRandomClip(audioClipsGrunt, Camera.main?.transform, gruntSoundVolume);
 
         public void OnDoorSound()
         {
-            PlaySoundClip(doorClip, Camera.main?.transform, 0.8f);
-            PlaySoundClip(bellClip, Camera.main?.transform, 1f);
+            PlaySoundClip(doorSoundClip, Camera.main?.transform, doorSoundVolume);
+            PlaySoundClip(doorBellSoundClip, Camera.main?.transform, doorBellSoundVolume);
         }
     }
 }

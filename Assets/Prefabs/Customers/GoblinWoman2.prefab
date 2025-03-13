@@ -123,3 +123,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4906ffed6241e4c4a9ca8c954e347fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2329177432149333018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29017595185297462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5effccf4edac404ab6dd977b4befcf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: d35458239535b2c4ca6fb05ec17184ba, type: 3}
+  - {fileID: 8300000, guid: c01f6df9e2bef9b479dac5b6172ac16c, type: 3}
+  - {fileID: 8300000, guid: 46ac79e292d8c0c43a84ebea60027564, type: 3}
+  - {fileID: 8300000, guid: 1a307e59ac508d74a82f3971a27678ca, type: 3}
+  - {fileID: 8300000, guid: e4a43ffb33f05314a911c5bcad3e9e7a, type: 3}
+  volume: 1
+  soundObjectSpawn: {fileID: 805238291827860108}
+  isRadio: 0
+  radioCallClip: {fileID: 0}
+--- !u!4 &805238291827860108 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 88c13c35014632a468557f6cb42bdd9a,
+    type: 3}
+  m_PrefabInstance: {fileID: 911555100278539623}
+  m_PrefabAsset: {fileID: 0}

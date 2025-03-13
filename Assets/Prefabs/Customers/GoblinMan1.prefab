@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a95bd0e2d1e607d43a98b5d1445a4dd4,
         type: 3}
       propertyPath: m_Name
-      value: Goblin1
+      value: GoblinMan1
       objectReference: {fileID: 0}
     - target: {fileID: 6860641434701783778, guid: a95bd0e2d1e607d43a98b5d1445a4dd4,
         type: 3}
@@ -84,9 +84,9 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0e8a03fffe6f78b4a9d9e1d7f521ed69, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a95bd0e2d1e607d43a98b5d1445a4dd4, type: 3}
---- !u!4 &2058726057684615001 stripped
+--- !u!4 &5896335937253832070 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5389497341952568628, guid: a95bd0e2d1e607d43a98b5d1445a4dd4,
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a95bd0e2d1e607d43a98b5d1445a4dd4,
     type: 3}
   m_PrefabInstance: {fileID: 6222082657558139501}
   m_PrefabAsset: {fileID: 0}
@@ -117,6 +117,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1520197956188200971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6528019233351282492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5effccf4edac404ab6dd977b4befcf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: d35458239535b2c4ca6fb05ec17184ba, type: 3}
+  - {fileID: 8300000, guid: c01f6df9e2bef9b479dac5b6172ac16c, type: 3}
+  - {fileID: 8300000, guid: 46ac79e292d8c0c43a84ebea60027564, type: 3}
+  - {fileID: 8300000, guid: 1a307e59ac508d74a82f3971a27678ca, type: 3}
+  - {fileID: 8300000, guid: e4a43ffb33f05314a911c5bcad3e9e7a, type: 3}
+  volume: 1
+  soundObjectSpawn: {fileID: 0}
+  isRadio: 0
+  radioCallClip: {fileID: 0}
 --- !u!114 &3347102470228483154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +170,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1a307e59ac508d74a82f3971a27678ca, type: 3}
   - {fileID: 8300000, guid: e4a43ffb33f05314a911c5bcad3e9e7a, type: 3}
   volume: 0.6
-  soundObjectSpawn: {fileID: 2058726057684615001}
+  soundObjectSpawn: {fileID: 5896335937253832070}
   isRadio: 0
   radioCallClip: {fileID: 0}
