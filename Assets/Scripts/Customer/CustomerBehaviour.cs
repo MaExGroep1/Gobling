@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Item;
+using Sound;
 using Trading;
 using Unity.Mathematics;
 using UnityEngine;
@@ -209,6 +210,7 @@ namespace Customer
         private IEnumerator OnAtCounter(Action recall)
         {
             _animator.TriggerAtCounter();
+            SoundManager.IsAtCounter();
             
             yield return new WaitUntil(() => !_isRotating);
             

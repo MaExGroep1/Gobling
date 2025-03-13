@@ -2,6 +2,7 @@ using System;
 using Customer;
 using DayLoop;
 using Item;
+using Sound;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -156,6 +157,7 @@ namespace Trading
         /// <param name="bid">The bid of the user</param>
         private void MakeNewOffer(int bid)
         {
+            SoundManager.OnCustomerGrunt();
             var newBid = _currentCustomer.MakeNewOffer(bid,_previousOffer);
             OnNewBidRound?.Invoke(newBid);
             NewBidRound(newBid);
