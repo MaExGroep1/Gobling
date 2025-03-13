@@ -56,11 +56,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Pixelation: 300
+    - _Pixelation: 280
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 0.92
-    - _shine: 0.52
+    - _darknes: 0.25
+    - _shine: 1.86
     m_Colors:
     - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
   m_BuildTextureStacks: []
