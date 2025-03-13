@@ -514,6 +514,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TradingManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6811182876065291805, guid: c7fff2d3ccef30a4f8f622a9ec908529,
+        type: 3}
+      propertyPath: topPosition
+      value: 
+      objectReference: {fileID: 3980736040619283244, guid: 0e6020f7c8ee17a4983f789fb413b476,
+        type: 3}
+    - target: {fileID: 6811182876065291805, guid: c7fff2d3ccef30a4f8f622a9ec908529,
+        type: 3}
+      propertyPath: bottomPosition
+      value: 
+      objectReference: {fileID: 4808532297795060572, guid: fffdc0f3325e350489fa13f189fb99b9,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7fff2d3ccef30a4f8f622a9ec908529, type: 3}
 --- !u!4 &3846038467826951496 stripped
