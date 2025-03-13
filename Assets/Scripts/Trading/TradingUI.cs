@@ -88,7 +88,7 @@ namespace Trading
         /// <summary>
         /// Sends the final bid amount to the PawningManager for processing
         /// </summary>
-        private void OnBid() => PawningManager.Instance.CheckBid((int)bidSlider.value);
+        private void OnBid() => PawningManager.Instance.CheckBid(Mathf.RoundToInt(bidSlider.value));
 
         /// <summary>
         /// Hides the trading UI after the bid process finishes
