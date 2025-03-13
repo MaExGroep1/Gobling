@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AxeItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 5725466551590536268, guid: 3e714901cdbf32d4099c5fdb64638781, type: 3}
-  value: 200
+  value: 350
   itemType: 0
   barValues:
-    min: 50
-    max: 500
+    min: 70
+    max: 700

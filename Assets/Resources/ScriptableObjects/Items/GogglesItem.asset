@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522f703c7f679da40b1bf64bfc4cb036, type: 3}
   m_Name: GogglesItem
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2609378011802076399, guid: ec8e1454ccd13f742aa2ee43a2b4ec42, type: 3}
-  value: 30
+  prefab: {fileID: 5476607402161106756, guid: ec8e1454ccd13f742aa2ee43a2b4ec42, type: 3}
+  value: 60
   itemType: 0
   barValues:
-    min: 4
-    max: 60
+    min: 20
+    max: 100
