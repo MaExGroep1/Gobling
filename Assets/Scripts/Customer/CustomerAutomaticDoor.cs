@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sound;
 using UnityEngine;
 
 namespace Customer
@@ -20,6 +21,7 @@ namespace Customer
         {
             if (!other.CompareTag("Customer")) return;
             LeanTween.rotateAround(door, Vector3.up,doorOpen, doorTime).setEase(LeanTweenType.easeInOutQuad);
+            SoundManager.OnDoorSound();
             StartCoroutine(DoorWait());
         }
         
@@ -31,6 +33,7 @@ namespace Customer
         {
             yield return new WaitForSeconds(doorWaitTime);
             LeanTween.rotateAround(door, Vector3.up,-doorOpen, doorTime).setEase(LeanTweenType.easeInOutQuad);
+            SoundManager.OnDoorSound();
         }
     }
 }
