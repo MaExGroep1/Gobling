@@ -28,7 +28,7 @@ namespace Trading
         [SerializeField] private GameObject baseValueBuyObject;     // the text area where baseValueBuy text is displayed
         [SerializeField] private TMP_Text baseValueBuy;             // the paid base value text
         [SerializeField] private TMP_Text baseValueBuyButtonText;   // the text on the baseValueBuy button
-        [SerializeField] private int baseValueBuyAmount;            // the amount of currency it costs to see the base value  
+        [SerializeField] private int baseValueBuyAmount;            // the amount of currency it costs to see the base value 
 
         
         /// <summary>
@@ -58,7 +58,7 @@ namespace Trading
             baseValueBuyObject.SetActive(false);
             baseValueBuyButton.interactable = true;
             baseValueBuyButtonText.text = $"Get base value: {baseValueBuyAmount}$";
-                
+            
             baseValue.text = $"Base value: {itemBaseValue}";
             baseValueBuy.text = $"Base value: {itemBaseValue}";
             satisfaction.text = $"Satisfaction: {Math.Round(customer.satisfaction * 100,2)}%";
