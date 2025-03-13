@@ -19,6 +19,7 @@ namespace Trading
         [SerializeField] private Transform bottomPosition;        // the position the UI needs to start in or idle in
         [SerializeField] private Transform topPosition;       // the position the button needs to move to
         
+        [SerializeField] private float scaleTime;
         
         /// <summary>
         /// Initializes event listeners and registers to the PawningManager's events
@@ -43,7 +44,6 @@ namespace Trading
         private void OnStartPawn(MinMax<int> barValue, int baseValue)
         {
             SetBidSlider(barValue, baseValue);
-            uiParent.SetActive(true);
             MoveIn();
         }
         
@@ -75,7 +75,6 @@ namespace Trading
         /// </summary>
         private void OnBidFinish(bool isSuccess, int amount)
         {
-            uiParent.SetActive(false);
             MoveAway();
         }
 
@@ -90,7 +89,7 @@ namespace Trading
         /// </summary>
         private void MoveIn()
         {
-            LeanTween.move(uiParent, topPosition.transform.position, 3).setEase(LeanTweenType.easeOutBack);
+            LeanTween.scale(uiParent, Vector3.one, 1).setEaseOutBack();
         }
         
         /// <summary>
@@ -98,7 +97,7 @@ namespace Trading
         /// </summary>
         private void MoveAway()
         {
-            LeanTween.move(uiParent, bottomPosition.transform.position, 3).setEase(LeanTweenType.easeInBack);
+            LeanTween.scale(uiParent, Vector3.zero, 1).setEaseInBack();
         }
         
         /// <summary>
