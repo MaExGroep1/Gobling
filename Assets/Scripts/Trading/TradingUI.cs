@@ -101,7 +101,10 @@ namespace Trading
             LeanTween.move(uiParent, bottomPosition.transform.position, 3).setEase(LeanTweenType.easeInBack);
         }
         
-        private void OnReject()
+        /// <summary>
+        /// Kicks the customer out
+        /// </summary>
+        private static void OnReject()
         {
             PawningManager.Instance.RejectOffer();
         }
