@@ -112,11 +112,6 @@ namespace Customer
 
         protected override void GameOver()
         {
-            foreach (var customer in _customers.ToList())
-            {
-                _customers.Remove(customer);
-                Destroy(customer.gameObject);
-            }
             SceneManager.LoadScene("Dead");
         }
 
