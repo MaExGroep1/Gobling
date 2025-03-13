@@ -59,7 +59,7 @@ Material:
     - _Pixelation: 300
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 2.18
-    - _shine: 0.29
+    - _darknes: 1.36
+    - _shine: 1.04
     m_Colors: []
   m_BuildTextureStacks: []

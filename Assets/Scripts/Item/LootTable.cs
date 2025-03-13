@@ -29,5 +29,6 @@ namespace Item
             return 1 - badItemCount / itemCount;
         }
 
+        public ItemData GetItem(int index) => index > items.Length ? null : items[index];
     }
 }

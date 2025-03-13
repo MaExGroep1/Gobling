@@ -97,12 +97,10 @@ namespace Customer
         /// </summary>
         protected override void CustomerLeave(bool itemToGoblin)
         {
-            if (itemToGoblin)
-            {
-                StartCoroutine(WaitForCustomerToTakeItem());
-                return;
-            }
             SoundManager.Instance.CustomerLeave();
+            
+            if (!itemToGoblin) RemoveCustomer();
+            else StartCoroutine(WaitForCustomerToTakeItem());
         }
 
         /// <summary>

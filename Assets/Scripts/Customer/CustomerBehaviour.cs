@@ -28,6 +28,7 @@ namespace Customer
         public int netWorth { get; private set; }           // how much currency the customer has in total
         
         public float satisfaction => _satisfaction;
+        public float speed => _speed;
 
 
         /// <summary>

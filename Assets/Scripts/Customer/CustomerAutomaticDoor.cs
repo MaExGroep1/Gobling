@@ -20,8 +20,9 @@ namespace Customer
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Customer")) return;
-            LeanTween.rotateAround(door, Vector3.up,doorOpen, doorTime).setEase(LeanTweenType.easeInOutQuad);
-            StartCoroutine(DoorWait());
+            var speedMod = other.GetComponent<CustomerBehaviour>().speed;
+            LeanTween.rotateAround(door, Vector3.up,doorOpen, doorTime / speedMod).setEase(LeanTweenType.easeInOutQuad);
+            StartCoroutine(DoorWait(speedMod));
             SoundManager.Instance.OnDoorSound();
         }
         
@@ -29,10 +30,10 @@ namespace Customer
         /// Waits doorWaitTime amount of seconds then closes the door
         /// </summary>
         /// <returns></returns>
-        private IEnumerator DoorWait()
+        private IEnumerator DoorWait(float speedMod)
         {
-            yield return new WaitForSeconds(doorWaitTime);
-            LeanTween.rotateAround(door, Vector3.up,-doorOpen, doorTime).setEase(LeanTweenType.easeInOutQuad);
+            yield return new WaitForSeconds(doorWaitTime / speedMod);
+            LeanTween.rotateAround(door, Vector3.up,-doorOpen, doorTime / speedMod).setEase(LeanTweenType.easeInOutQuad);
             SoundManager.Instance.OnDoorSound();
         }
     }

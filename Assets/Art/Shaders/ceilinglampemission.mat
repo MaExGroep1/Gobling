@@ -67,5 +67,5 @@ Material:
     - _shine: 0.99
     m_Colors:
     - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}
-    - _Emision_Color: {r: 63.25359, g: 63.25359, b: 63.25359, a: 0}
+    - _Emision_Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 0}
   m_BuildTextureStacks: []
