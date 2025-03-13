@@ -109,12 +109,9 @@ namespace Trading
         {
             OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
-            
-            if (!_isGoblinOffering)
-            {
-                ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
-                return;
-            }
+
+            if (_isGoblinOffering) return;
+            ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
         }
         
         /// <summary>
@@ -164,11 +161,8 @@ namespace Trading
             OnFinished?.Invoke(false, 0);
             DayLoopEvents.Instance.CustomerLeave?.Invoke(_isGoblinOffering);
 
-            if (!_isGoblinOffering)
-            {
-                ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
-                return;
-            }
+            if (_isGoblinOffering) return;
+            ItemManager.Instance.ItemJumpAndDisable(OfferItem, ItemManager.Instance.ItemPlayerJumpLocation);
         }
         
         /// <summary>
@@ -177,7 +171,7 @@ namespace Trading
         /// <param name="bid">The bid of the user</param>
         private void MakeNewOffer(int bid)
         {
-            SoundManager.OnCustomerGrunt();
+            SoundManager.Instance.OnCustomerGrunt();
             var newBid = _currentCustomer.MakeNewOffer(bid,_previousOffer);
             OnNewBidRound?.Invoke(newBid);
             NewBidRound(newBid);

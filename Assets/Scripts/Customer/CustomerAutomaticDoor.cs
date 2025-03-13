@@ -21,8 +21,8 @@ namespace Customer
         {
             if (!other.CompareTag("Customer")) return;
             LeanTween.rotateAround(door, Vector3.up,doorOpen, doorTime).setEase(LeanTweenType.easeInOutQuad);
-            SoundManager.OnDoorSound();
             StartCoroutine(DoorWait());
+            SoundManager.Instance.OnDoorSound();
         }
         
         /// <summary>
@@ -33,7 +33,7 @@ namespace Customer
         {
             yield return new WaitForSeconds(doorWaitTime);
             LeanTween.rotateAround(door, Vector3.up,-doorOpen, doorTime).setEase(LeanTweenType.easeInOutQuad);
-            SoundManager.OnDoorSound();
+            SoundManager.Instance.OnDoorSound();
         }
     }
 }
