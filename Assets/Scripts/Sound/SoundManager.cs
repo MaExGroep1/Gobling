@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using Util;
 
 namespace Sound
@@ -14,9 +15,15 @@ namespace Sound
         [SerializeField] private AudioClip[] audioClipsHello; // Array of hello audio clips
         [SerializeField] private AudioClip[] audioClipsGrunt; // Array of grunt audio clips
         
+        [Header("Customer Clips")]
+        [SerializeField] private AudioClip doorSoundClip; 
+        [SerializeField] private AudioClip doorBellClip; 
+        
         private static AudioClip[] byeClips; // Static reference for goodbye clips
         private static AudioClip[] helloClips; // Static reference for hello clips
         private static AudioClip[] gruntClips; // Static reference for grunt clips
+        private static AudioClip doorClip; // Static reference for grunt clips
+        private static AudioClip bellClip; // Static reference for grunt clips
         private static AudioSource staticSoundObject; // Static reference to the AudioSource
         private static Transform staticSoundObjectSpawn; // Static reference to spawn location of the sound object
         private static AudioClip staticKachingSound; // Static reference for the "kaching" sound
@@ -33,6 +40,9 @@ namespace Sound
             byeClips = audioClipsBye;
             gruntClips = audioClipsGrunt;
             helloClips = audioClipsHello;
+
+            doorClip = doorSoundClip;
+            doorClip = doorBellClip;
         }
 
         /// <summary>
@@ -68,33 +78,31 @@ namespace Sound
         /// <summary>
         /// Plays the "kaching" sound to signify a successful transaction.
         /// </summary>
-        public static void PlayKachingSound()
-        {
+        public static void PlayKachingSound() =>
             PlaySoundClip(staticKachingSound, Camera.main?.transform, 0.4f);
-        }
 
         /// <summary>
         /// Plays a random hello sound when a customer is at the counter.
         /// </summary>
-        public static void IsAtCounter()
-        {
+        public static void IsAtCounter() =>
             PlayRandomClip(helloClips, Camera.main?.transform, 1f);
-        }
 
         /// <summary>
         /// Plays a random goodbye sound when a customer leaves.
         /// </summary>
-        public static void CustomerLeave()
-        {
+        public static void CustomerLeave() =>
             PlayRandomClip(byeClips, Camera.main?.transform, 1f);
-        }
 
         /// <summary>
         /// Plays a random grunt sound when a customer grunts.
         /// </summary>
-        public static void OnCustomerGrunt()
-        {
+        public static void OnCustomerGrunt() =>
             PlayRandomClip(gruntClips, Camera.main?.transform, 1f);
+
+        public static void OnDoorSound()
+        {
+            PlaySoundClip(doorClip, Camera.main?.transform, 1f);
+            PlaySoundClip(bellClip, Camera.main?.transform, 1f );
         }
     }
 }
