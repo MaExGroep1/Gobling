@@ -65,6 +65,7 @@ namespace Trading
             _latestOffer = value;
             _previousOffer = OfferItem.value - offerOffset;
             _isGoblinOffering = false;
+            
             OnStartPawn?.Invoke(new MinMax<int>(OfferItem.barValue.min,value), _previousOffer, OfferItem.value, customer, "Selling");
             
             ItemManager.Instance.ItemEnableAndJump(OfferItem, ItemManager.Instance.ItemCounterJumpLocation, ItemManager.Instance.ItemPlayerJumpLocation);
