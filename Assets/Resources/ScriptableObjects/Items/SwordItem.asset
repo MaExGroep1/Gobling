@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SwordItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 6985610285542950504, guid: 0d67e36b01500c24d864fcce1b68e194, type: 3}
-  value: 60
+  value: 240
   itemType: 0
   barValues:
-    min: 12
-    max: 120
+    min: 70
+    max: 450
