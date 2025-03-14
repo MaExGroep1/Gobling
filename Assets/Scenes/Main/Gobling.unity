@@ -153,7 +153,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6451e49adaa9752458213c66558e6634, type: 3}
   - {fileID: 8300000, guid: 916019e07e7eaa8489faeaaf50668e74, type: 3}
   - {fileID: 8300000, guid: a40c563ab723f984cbd58b456a2139a4, type: 3}
-  volume: 0.01
+  volume: 0.09
   startUpClip: {fileID: 8300000, guid: 9b9b356ec8b19c44eb270fbd7c8a8939, type: 3}
 --- !u!4 &152499739 stripped
 Transform:
