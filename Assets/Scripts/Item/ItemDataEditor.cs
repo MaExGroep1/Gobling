@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(ItemData))]
 public class ItemDataEditor : Editor
 {
@@ -16,3 +17,4 @@ public class ItemDataEditor : Editor
         }
     }
 }
+#endif
