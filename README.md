@@ -127,3 +127,36 @@ Het pawning systeem bestaat uit drie hoofdcomponenten:
 - **Bod geweigerd:**
   - De klant vertrekt met zijn item of de speler krijgt het item terug, afhankelijk van wie de koper is.
 - Na elke biedronde daalt de satisfaction van de klant licht, tenzij de onderhandeling succesvol is afgerond.
+```mermaid
+flowchart TD
+    A["Customer"] -- Give bid --> C["Customer Buy"] & D["Customer Sell"]
+    B["Starting Pawn"] --> C & D
+    C --> E["Give Bid"]
+    D --> E
+    L["New Bid Round"] --> E
+    F["User Input"] --> E
+    E --> G["Customer Think"]
+    G --> H["Accept Bid"] & I["Reject Bid"] & L
+    M["Customer"] -- Give new bid --> L
+
+    C@{ shape: hex}
+    D@{ shape: hex}
+    B@{ shape: hex}
+    E@{ shape: hex}
+    F@{ shape: rect}
+    G@{ shape: diam}
+    H@{ shape: trap-b}
+    I@{ shape: trap-b}
+    M@{ shape: rect}
+    style A stroke:#000000,fill:#C8E6C9
+    style C stroke:#000000,fill:#E1BEE7
+    style D stroke:#000000,fill:#BBDEFB
+    style B stroke:#000000,fill:#FFE0B2
+    style E stroke:#000000,fill:#FFF9C4
+    style L stroke:#000000,fill:#FFF9C4
+    style F stroke:#000000,fill:#FFE0B2
+    style G stroke:#000000,fill:#757575
+    style H stroke:#000000,fill:#C8E6C9
+    style I stroke:#000000,fill:#FFCDD2
+    style M stroke:#000000,fill:#C8E6C9
+```
