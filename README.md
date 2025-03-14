@@ -119,6 +119,7 @@ Het pawning systeem bestaat uit drie hoofdcomponenten:
   - De onderhandeling beëindigen.
 - De beslissing van de klant wordt beïnvloed door zijn greediness en satisfaction.
 - Als de onderhandeling doorgaat, doet de klant een tegenbod en herhaalt het proces zich.
+- Na elke biedronde daalt de satisfaction van de klant licht, tenzij de onderhandeling succesvol is afgerond.
 
 ### 3. Einde van de Onderhandeling
 - **Bod geaccepteerd:**
@@ -126,7 +127,6 @@ Het pawning systeem bestaat uit drie hoofdcomponenten:
   - De satisfaction van de klant stijgt.
 - **Bod geweigerd:**
   - De klant vertrekt met zijn item of de speler krijgt het item terug, afhankelijk van wie de koper is.
-- Na elke biedronde daalt de satisfaction van de klant licht, tenzij de onderhandeling succesvol is afgerond.
 ```mermaid
 flowchart TD
     A["Customer"] -- Give bid --> C["Customer Buy"] & D["Customer Sell"]
