@@ -95,3 +95,35 @@ Tijdens het maken van het Sound System wou Tom iets hebben om variables te verbe
 
 ### Day Loop System
 
+
+## Pawning system van Brayden Bos
+
+Het pawning systeem bestaat uit drie hoofdcomponenten:
+
+1. **PawningManager** – Bevat het pawning-algoritme en regelt het proces.
+2. **Klantlogica** – Bepaalt het gedrag en de beslissingen van de klant.
+3. **User Input** – De speler beïnvloedt het onderhandelingsproces.
+
+## Het Proces van Pawning
+
+### 1. Start van de Onderhandeling
+- Een klant wil een item kopen of verkopen.
+- De prijs wordt gebaseerd op het aantal items dat de klant en de speler bezitten.
+- De klant bepaalt een offset op basis van zijn **greediness** (hebzucht) en **satisfaction** (tevredenheid).
+- Deze offset wordt opgeteld of afgetrokken van de basiswaarde, afhankelijk van of de klant koopt of verkoopt.
+
+### 2. Interactief Onderhandelen
+- De PawningManager wacht op de input van de speler:
+  - Doorgaan met onderhandelen.
+  - Het bod accepteren.
+  - De onderhandeling beëindigen.
+- De beslissing van de klant wordt beïnvloed door zijn greediness en satisfaction.
+- Als de onderhandeling doorgaat, doet de klant een tegenbod en herhaalt het proces zich.
+
+### 3. Einde van de Onderhandeling
+- **Bod geaccepteerd:**
+  - De PawningManager wisselt het item en het geld uit tussen koper en verkoper.
+  - De satisfaction van de klant stijgt.
+- **Bod geweigerd:**
+  - De klant vertrekt met zijn item of de speler krijgt het item terug, afhankelijk van wie de koper is.
+- Na elke biedronde daalt de satisfaction van de klant licht, tenzij de onderhandeling succesvol is afgerond.
