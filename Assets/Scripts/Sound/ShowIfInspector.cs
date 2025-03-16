@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Sound
 {
+#if UNITY_EDITOR
     /// <summary>
     /// Custom property drawer that conditionally shows a property in the Unity Inspector
     /// based on a boolean field defined in the <see cref="ShowIfAttribute"/>.
@@ -43,4 +44,5 @@ namespace Sound
             return (condition != null && condition.boolValue) ? EditorGUI.GetPropertyHeight(property, label) : 0;
         }
     }
+#endif
 }

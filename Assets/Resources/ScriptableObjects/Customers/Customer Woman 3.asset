@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be841096285695d4cb3be822e5049e95, type: 3}
+  m_Name: Customer Woman 3
+  m_EditorClassIdentifier: 
+  customerAnimations: {fileID: 1248041189860178958, guid: 816e0e73d752c6942af63bd438f91595,
+    type: 3}
+  lootTable: {fileID: 11400000, guid: 74af6373bc3abdd489f224c01e385015, type: 2}
+  greediness: 0.5
+  speed: 0.75
+  turnSpeed: 0.5
+  netWorth: 10000
+  income: 10
+  startInventorySize: 5

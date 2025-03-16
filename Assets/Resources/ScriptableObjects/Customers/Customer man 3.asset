@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be841096285695d4cb3be822e5049e95, type: 3}
+  m_Name: Customer man 3
+  m_EditorClassIdentifier: 
+  customerAnimations: {fileID: 8669458323896252514, guid: d8ab9987ee2cd6740be3e66e3f909bab,
+    type: 3}
+  lootTable: {fileID: 11400000, guid: c63625afa0776324790cd50c2ad3008a, type: 2}
+  greediness: 0.5
+  speed: 0.75
+  turnSpeed: 0.5
+  netWorth: 10000
+  income: 10
+  startInventorySize: 5

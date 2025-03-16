@@ -28,6 +28,7 @@ namespace Customer
         public int netWorth { get; private set; }           // how much currency the customer has in total
         
         public float satisfaction => _satisfaction;
+        public float speed => _speed;
 
 
         /// <summary>
@@ -76,6 +77,7 @@ namespace Customer
             _animator.TriggerLeaveCounter();
             transform.position = path[0].position;
             MoveCustomer(path,onComplete);
+            netWorth += _income;
         }
 
         /// <summary>
@@ -215,7 +217,7 @@ namespace Customer
         private IEnumerator OnAtCounter(Action recall)
         {
             _animator.TriggerAtCounter();
-            SoundManager.IsAtCounter();
+            SoundManager.Instance.IsAtCounter();
             
             yield return new WaitUntil(() => !_isRotating);
             

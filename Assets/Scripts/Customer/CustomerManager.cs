@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DayLoop;
+using Item;
 using Sound;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Util;
 using Random = UnityEngine.Random;
@@ -50,18 +52,8 @@ namespace Customer
         private void Awake()
         {
             SaveAllCustomers();
-            StartCoroutine(TemporaryWait());
         }
         
-        /// <summary>
-        /// TODO: Remove this function to animation
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator TemporaryWait()
-        {
-            yield return new WaitForSeconds(1);
-            DayLoopEvents.Instance.StartDay?.Invoke();
-        }
         /// <summary>
         /// Makes the current customer leave the store
         /// </summary>
@@ -69,6 +61,7 @@ namespace Customer
         {
             _lastCustomer.ExitShop(exitPath,ServeNewCustomer);
         }
+        
         /// <summary>
         /// Instantiates all customers and saves them on a list
         /// </summary>
@@ -104,13 +97,10 @@ namespace Customer
         /// </summary>
         protected override void CustomerLeave(bool itemToGoblin)
         {
-            if (itemToGoblin)
-            {
-                StartCoroutine(WaitForCustomerToTakeItem());
-                return;
-            }
-            SoundManager.CustomerLeave();
-            RemoveCustomer();
+            SoundManager.Instance.CustomerLeave();
+            
+            if (!itemToGoblin) RemoveCustomer();
+            else StartCoroutine(WaitForCustomerToTakeItem());
         }
 
         /// <summary>
@@ -119,11 +109,7 @@ namespace Customer
 
         protected override void GameOver()
         {
-            foreach (var customer in _customers.ToList())
-            {
-                _customers.Remove(customer);
-                Destroy(customer.gameObject);
-            }
+            SceneManager.LoadScene("Dead");
         }
 
         /// <summary>

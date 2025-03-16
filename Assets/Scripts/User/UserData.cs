@@ -39,7 +39,7 @@ namespace User
         public void ChangeNetWorth(int change)
         {
             netWorth += change;
-            SoundManager.PlayKachingSound();
+            SoundManager.Instance.PlayKachingSound();
             if (netWorth > 0)
             {
                 OnCurrencyChanged?.Invoke(netWorth);

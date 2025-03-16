@@ -46,7 +46,7 @@ Material:
     - _Pixelation: 147
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _darknes: 0.92
+    - _darknes: 0.73
     - _shine: 2
     m_Colors:
     - _Color: {r: 0, g: 0.24704355, b: 1, a: 0}

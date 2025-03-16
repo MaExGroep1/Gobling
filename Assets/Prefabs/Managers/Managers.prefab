@@ -59,6 +59,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1722731984577561431}
     m_Modifications:
+    - target: {fileID: -3072678449181502828, guid: 38699c739f2c59f43a5585a0d522f6ca,
+        type: 3}
+      propertyPath: itemParent
+      value: 
+      objectReference: {fileID: 1722731983912259508}
+    - target: {fileID: -3072678449181502828, guid: 38699c739f2c59f43a5585a0d522f6ca,
+        type: 3}
+      propertyPath: itemPrefab
+      value: 
+      objectReference: {fileID: 4337967492222288760, guid: e404b991b6ef06e4e98d9ad3786365a2,
+        type: 3}
     - target: {fileID: 2208336592935585806, guid: 38699c739f2c59f43a5585a0d522f6ca,
         type: 3}
       propertyPath: m_Name
@@ -194,6 +205,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 344827012899085640, guid: db44b3f4a34724043834286913ea1054,
+        type: 3}
+      propertyPath: startMoney
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db44b3f4a34724043834286913ea1054, type: 3}
 --- !u!4 &1722731985279798372 stripped
@@ -271,6 +287,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 169105261203530013, guid: c777b6613c6d2c04b9e6e6d8ae5d8eed,
         type: 3}
+      propertyPath: customerTemplate
+      value: 
+      objectReference: {fileID: 8560947404393280461, guid: 793fc37b78949464890bb6ab057b5bd4,
+        type: 3}
+    - target: {fileID: 169105261203530013, guid: c777b6613c6d2c04b9e6e6d8ae5d8eed,
+        type: 3}
       propertyPath: customerExitPoint
       value: 
       objectReference: {fileID: 0}
@@ -288,6 +310,16 @@ PrefabInstance:
         type: 3}
       propertyPath: customerTradePoint
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 169105261203530013, guid: c777b6613c6d2c04b9e6e6d8ae5d8eed,
+        type: 3}
+      propertyPath: exitPath.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 169105261203530013, guid: c777b6613c6d2c04b9e6e6d8ae5d8eed,
+        type: 3}
+      propertyPath: counterPath.Array.size
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c777b6613c6d2c04b9e6e6d8ae5d8eed, type: 3}
@@ -512,20 +544,23 @@ PrefabInstance:
     - target: {fileID: 6811182876065291804, guid: c7fff2d3ccef30a4f8f622a9ec908529,
         type: 3}
       propertyPath: m_Name
-      value: TradingManager
+      value: PawningUIManager
       objectReference: {fileID: 0}
     - target: {fileID: 6811182876065291805, guid: c7fff2d3ccef30a4f8f622a9ec908529,
         type: 3}
       propertyPath: topPosition
       value: 
-      objectReference: {fileID: 3980736040619283244, guid: 0e6020f7c8ee17a4983f789fb413b476,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 6811182876065291805, guid: c7fff2d3ccef30a4f8f622a9ec908529,
         type: 3}
       propertyPath: bottomPosition
       value: 
-      objectReference: {fileID: 4808532297795060572, guid: fffdc0f3325e350489fa13f189fb99b9,
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811182876065291805, guid: c7fff2d3ccef30a4f8f622a9ec908529,
         type: 3}
+      propertyPath: baseValueBuyAmount
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7fff2d3ccef30a4f8f622a9ec908529, type: 3}
 --- !u!4 &3846038467826951496 stripped

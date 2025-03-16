@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be841096285695d4cb3be822e5049e95, type: 3}
-  m_Name: Customer 1
+  m_Name: Customer Man 1
   m_EditorClassIdentifier: 
   customerAnimations: {fileID: 3347102470228483154, guid: 6730515e17b205847a4310d41a509190,
     type: 3}
-  lootTable: {fileID: 11400000, guid: 2f6ae9f4f3d37c446a89d1a75c80639a, type: 2}
+  lootTable: {fileID: 11400000, guid: 07953b7016b643c4eb0b35c05358e0f2, type: 2}
   greediness: 0.5
-  speed: 0.5
+  speed: 0.75
   turnSpeed: 0.5
   netWorth: 10000
   income: 10
