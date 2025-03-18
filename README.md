@@ -158,5 +158,30 @@ flowchart TD
     style G stroke:#000000,fill:#757575
     style H stroke:#000000,fill:#C8E6C9
     style I stroke:#000000,fill:#FFCDD2
+
     style M stroke:#000000,fill:#C8E6C9
 ```
+
+## Item Movement system van Sten Kristel
+Als er een item verkocht of gekocht wordt, dan moet de item verschijnen en naar de kassa gaan. 
+Ik heb hier een generiek systeem voor geschreven waar je alleen de item en twee locaties nodig hebt en je dan de item naar de kassa kan laten springen.
+
+
+https://github.com/user-attachments/assets/05b71338-c4fc-48ef-b981-a5888e3fa11f
+
+Elke Item heeft een script genaamd ItemMovement, hierin staat de logica om te verschijnen en verdwijnen, de logica dat items van de ene locatie naar de andere springen, de logica die het verschijen/verdwijnen en springen combineerd en natuurlijk de logica dat het op de juiste momenten wordt geactiveerd.
+
+### item vershijning
+Voor het verschijnen en verdwijnen gebruik ik een leantween; dit zorgt ervoor dat de items op een natuurlijke manier groter of kleiner wordt. De soort leantween die ik gebruik is EaseInElastic/EaseOutElastic. Dit zorgt ervoor dat het een meer cartoony gevoel geeft
+![ItemVerschijningCodeSnippet](https://github.com/user-attachments/assets/bb791d74-7b80-4338-b9af-100c86fe04e9)
+
+### item jump
+De spring functie heeft twee paramaters; de eindPositite en de startPositie. Als de startpositie (0, 0, 0) is, dan word de startpositie de positite waar de item al is.
+De duur van het springen moet altijd hetzelfde zijn, hier zorg ik voor door de afstand te delen door een locale snelheid variable.
+Het springen zelf wordt gedaan door twee LeanTween tegelijkertijd aan te roepen. Eentje word gedaan op het item zelf en over de x-as, deze beweegt dus het item horizontaal naar de locatie toe. De andere word gedaan op de parent van de item; over de y-as en deze word gereversed. Deze beweegt dus eerst omhoog en dan weer naar beneden. 
+
+![ItemJumpCodeSnippit](https://github.com/user-attachments/assets/00337b0e-f7ce-498f-911b-2dbf91d53a82)
+
+### verschijnen en springen
+Om het springen en verschijnen ook nog te combineren gebruik ik een Coroutine. Eerst begint de item met verschijnen, dan wordt er heel erg kort gewacht en dan begint de sprong, tijdens de sprong groeit de item dus nog. Dit zorgt eroor dat het echt lijkt dat de item springt. En voor het springen en dan verdwijnen wordt precies het tegenovergestelde gebruikt
+![ItemJumpCodeSnippit](https://github.com/user-attachments/assets/7282fdb9-4362-44c3-b818-685000441904)
