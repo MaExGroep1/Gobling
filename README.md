@@ -160,3 +160,9 @@ flowchart TD
     style I stroke:#000000,fill:#FFCDD2
     style M stroke:#000000,fill:#C8E6C9
 ```
+
+## Item Movement system van Sten Kristel
+Als er een item verkocht of gekocht wordt, dan moet de item naar de kassa gaan. 
+Ik heb hier een generiek systeem voor geschreven waar je alleen de item en twee locaties nodig hebt en je dan de item naar de kassa kan laten springen.
+
+
